@@ -2,17 +2,22 @@ name: Release Denverr
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: denverr-release-main
+  cancel-in-progress: false
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out release tag
+      - name: Check out main
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
@@ -29,7 +34,41 @@ jobs:
           node-version: 22.11.0
           cache: npm
 
-      - name: Build archives and publish the tag release
+      - name: Verify the release source
+        run: |
+          npm ci --ignore-scripts
+          make check
+          npm run build
+
+      - name: Create the next patch release tag
+        id: release
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          latest=""
+          while IFS= read -r candidate; do
+            if [[ "$candidate" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              latest="$candidate"
+              break
+            fi
+          done < <(git tag --list "v*" --sort=-v:refname)
+
+          if [[ -z "$latest" ]]; then
+            next="v0.1.0"
+          else
+            version="${latest#v}"
+            IFS=. read -r major minor patch <<< "$version"
+            next="v${major}.${minor}.$((patch + 1))"
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag --annotate "$next" --message "Denverr $next" "$GITHUB_SHA"
+          git push origin "$next"
+          echo "tag=$next" >> "$GITHUB_OUTPUT"
+
+      - name: Build archives and publish ${{ steps.release.outputs.tag }}
         uses: goreleaser/goreleaser-action@e435ccd777264be153ace6237001ef4d979d3a7a # v6
         with:
           distribution: goreleaser

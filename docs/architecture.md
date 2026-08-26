@@ -200,7 +200,7 @@ REST clients / MCP agents / optional explorer
      Approved source → immutable staging
 ```
 
-Denverr ships first as one native binary. `denverr serve` owns the API, embedded UI, repository watchers and leased analysis worker for small trusted deployments; PostgreSQL and Ollama remain operator-managed services. GoReleaser produces platform archives from release tags. A future separate worker command can create a stronger isolation boundary for untrusted repositories without changing the application services or API.
+Denverr ships first as one native binary. `denverr serve` owns the API, embedded UI, repository watchers and leased analysis worker for small trusted deployments; PostgreSQL and Ollama remain operator-managed services. On every push to `main`, CI creates the next patch tag and GoReleaser produces the platform archives. A future separate worker command can create a stronger isolation boundary for untrusted repositories without changing the application services or API.
 
 Define PostgreSQL retention, backup, restore, migrations, health checks, and graceful job shutdown. Denverr reads local source without modifying it. Operators should run the process as an unprivileged account with access limited to approved workspace roots.
 
