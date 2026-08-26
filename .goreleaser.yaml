@@ -61,4 +61,6 @@ release:
   github:
     owner: Usefused
     name: developa
+  extra_files:
+    - glob: ./install.sh
   prerelease: auto

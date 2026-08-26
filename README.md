@@ -8,7 +8,15 @@ The browser application is compiled into the executable. Running Denverr does no
 
 ## Install
 
-Tagged releases are published as macOS, Linux, and Windows archives from [Usefused/developa](https://github.com/Usefused/developa/releases). Extract the archive for your platform and put `denverr` on `PATH`.
+Install the latest macOS or Linux release with:
+
+```sh
+curl -fsSL https://github.com/Usefused/developa/releases/latest/download/install.sh | sh
+```
+
+The installer detects AMD64 or ARM64, verifies the archive against the published SHA-256 checksum, and puts `denverr` in `~/.local/bin`. Override the destination with `DENVERR_INSTALL_DIR`, or install a specific release with `DENVERR_VERSION=v0.3.2`.
+
+Windows archives and manual downloads remain available from [Usefused/developa releases](https://github.com/Usefused/developa/releases).
 
 To build from source, install Go 1.26+, Node.js 22.11+, npm, and Git:
 
@@ -156,7 +164,7 @@ Publication, latest-pointer updates, audit events, and outbox records commit ato
 
 ## Release and checks
 
-`.goreleaser.yaml` builds the embedded UI and creates Denverr archives for macOS, Linux, and Windows on AMD64 and ARM64. Pushing a `v*` tag runs `.github/workflows/release.yml`, verifies the source, builds the matrix, creates checksums, and publishes the GitHub release for that tag.
+`.goreleaser.yaml` builds the embedded UI and creates Denverr archives for macOS, Linux, and Windows on AMD64 and ARM64. Every push to `main` runs `.github/workflows/release.yml`, verifies the source, creates the next patch `v*` tag, builds the matrix, creates checksums, and publishes the GitHub release with the installer.
 
 ```sh
 npm ci --ignore-scripts

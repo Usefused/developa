@@ -1,4 +1,4 @@
-.PHONY: build test race vet complexity fmt-check check integration ui-check ui-build api-generate api-check release-check release-snapshot
+.PHONY: build test race vet complexity fmt-check check integration ui-check ui-build installer-check api-generate api-check release-check release-snapshot
 
 # npm packages can contain Go examples; do not execute third-party test fixtures.
 GO_PACKAGES := ./api/... ./cmd/... ./internal/...
@@ -25,7 +25,7 @@ complexity:
 fmt-check:
 	@test -z "$$(gofmt -l ./api ./cmd ./internal)" || (gofmt -l ./api ./cmd ./internal; exit 1)
 
-check: fmt-check vet complexity test api-check ui-check
+check: fmt-check vet complexity test api-check ui-check installer-check
 
 api-generate:
 	go run ./cmd/openapi
@@ -41,6 +41,9 @@ ui-check:
 
 ui-build:
 	npm run build
+
+installer-check:
+	sh scripts/install_test.sh
 
 integration:
 	@test -n "$$DENVERR_TEST_DATABASE_URL" || (echo "Set DENVERR_TEST_DATABASE_URL to an isolated test database"; exit 1)
