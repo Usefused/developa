@@ -15,7 +15,7 @@ var ErrInvalidInput = errors.New("invalid catalog input")
 
 func operation(ctx context.Context, name string) (context.Context, func(error)) {
 	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
-	ctx, span := otel.Tracer("developa/postgres").Start(ctx, name, databaseAttributes())
+	ctx, span := otel.Tracer("denverr/postgres").Start(ctx, name, databaseAttributes())
 	span.AddEvent("execution.started")
 	return ctx, func(err error) {
 		defer cancel()

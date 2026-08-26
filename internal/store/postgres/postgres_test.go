@@ -99,9 +99,9 @@ func TestIntegrationDatabaseTraceParentAndRedaction(t *testing.T) {
 
 func integrationConfig(t *testing.T) Config {
 	t.Helper()
-	connectionURL, present := os.LookupEnv("DEVELOPA_TEST_DATABASE_URL")
+	connectionURL, present := os.LookupEnv("DENVERR_TEST_DATABASE_URL")
 	if !present {
-		t.Skip("set DEVELOPA_TEST_DATABASE_URL to run real PostgreSQL integration tests")
+		t.Skip("set DENVERR_TEST_DATABASE_URL to run real PostgreSQL integration tests")
 	}
 	return Config{URL: connectionURL, MaxConns: 2, MinConns: 0, ConnectTimeout: 5 * time.Second}
 }

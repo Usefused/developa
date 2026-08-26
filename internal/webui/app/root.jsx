@@ -7,9 +7,9 @@ export const links = ()=>[{rel:'stylesheet',href:stylesheet},{rel:'icon',href:ic
 export function Layout({children}) {
   // The embedded document receives a fresh nonce from Go. Hydration must reuse
   // it, so framework bootstrap scripts never require an unsafe-inline policy.
-  const nonce = typeof document === 'undefined' ? '__DEVELOPA_CSP_NONCE__' : document.querySelector('meta[name="csp-nonce"]').content;
+  const nonce = typeof document === 'undefined' ? '__DENVERR_CSP_NONCE__' : document.querySelector('meta[name="csp-nonce"]').content;
   return <html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="csp-nonce" content={nonce}/><title>Developa · Code explorer</title><Meta/><Links/></head>
+    <meta name="csp-nonce" content={nonce}/><title>Denverr · Code explorer</title><Meta/><Links/></head>
     <body>{children}<ScrollRestoration nonce={nonce}/><Scripts nonce={nonce}/></body></html>;
 }
 

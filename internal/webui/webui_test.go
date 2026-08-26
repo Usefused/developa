@@ -61,7 +61,7 @@ func assertFrameworkDocument(t *testing.T, response *httptest.ResponseRecorder) 
 		t.Fatal("deep link did not return the framework shell")
 	}
 	page := response.Body.String()
-	if strings.Contains(page, "__DEVELOPA_CSP_NONCE__") || !strings.Contains(page, "streamController.enqueue") {
+	if strings.Contains(page, "__DENVERR_CSP_NONCE__") || !strings.Contains(page, "streamController.enqueue") {
 		t.Fatal("incomplete framework hydration document")
 	}
 	match := regexp.MustCompile(`'nonce-([a-zA-Z0-9]+)'`).FindStringSubmatch(response.Header().Get("Content-Security-Policy"))

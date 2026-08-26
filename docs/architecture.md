@@ -77,7 +77,7 @@ Project metadata keeps these concepts separate:
 - **Module identity:** module path and root directory; a multi-module repository may contain several independently versioned components.
 - **Go versions:** manifest `go` and `toolchain` directives and the actual analysis toolchain; these are not the product's release version.
 
-Do not guess “latest project version.” When there is no release evidence, show the abbreviated commit plus a dirty indicator, or “unversioned working tree” if there is no commit. Conflicting release declarations remain separate candidates with provenance. Repository metadata and Developa's own server build version are different resources.
+Do not guess “latest project version.” When there is no release evidence, show the abbreviated commit plus a dirty indicator, or “unversioned working tree” if there is no commit. Conflicting release declarations remain separate candidates with provenance. Repository metadata and Denverr's own server build version are different resources.
 
 Diffing `go.mod`, `go.sum`, `go.work`, replacement sources, vendor metadata, and supported version files triggers metadata refresh and the appropriate analysis invalidation. Tag/ref observation can require a new metadata snapshot even when the source tree is unchanged; pin the observed ref metadata with that snapshot. An upstream dependency release alone does not change this repository's selected version. Available-updates, vulnerability, and license feeds are separate future capabilities with explicit network policy, not part of this inventory claim.
 
@@ -200,9 +200,9 @@ REST clients / MCP agents / optional explorer
      Approved source → immutable staging
 ```
 
-Proposed Docker Compose services: `api`, `worker`, `postgres`, and `ollama`, with an OTEL collector/export destination for debugging and audit delivery. Allow an external operator-managed Ollama endpoint instead of the bundled service, and an index-only profile without inference. Provision a persistent model volume and explicit CPU/GPU profiles. For local macOS development, allow native Ollama on the host while the application remains containerized; hardware acceleration inside containers depends on the platform. See [Ollama Docker guidance](https://docs.ollama.com/docker) and [platform limitations](https://docs.ollama.com/faq). API and worker may share one image with different subcommands. The optional UI is a static bundle served by the API. A single server command may run both roles for small, trusted deployments, but untrusted code analysis needs a separate worker boundary.
+Denverr ships first as one native binary. `denverr serve` owns the API, embedded UI, repository watchers and leased analysis worker for small trusted deployments; PostgreSQL and Ollama remain operator-managed services. GoReleaser produces platform archives from release tags. A future separate worker command can create a stronger isolation boundary for untrusted repositories without changing the application services or API.
 
-Use persistent volumes for PostgreSQL, staged snapshots, and dependency caches; define retention, backup, restore, migrations, health checks, and graceful job shutdown. Local mounted source is read-only. Do not mount the Docker socket.
+Define PostgreSQL retention, backup, restore, migrations, health checks, and graceful job shutdown. Denverr reads local source without modifying it. Operators should run the process as an unprivileged account with access limited to approved workspace roots.
 
 ## 8. The visual explorer
 
@@ -218,7 +218,7 @@ Keyboard access, a plain list alternative, readable labels, stable selection, re
 
 The server returns a source locator, not a command to execute. A user-controlled client mapping translates repository-relative paths to a local checkout root. VS Code supports file URIs and `code --goto`; see its [CLI documentation](https://code.visualstudio.com/docs/configure/command-line).
 
-A container cannot open an editor on the visitor's computer. Use explicit user-clicked deep links for supported editors, or an optional local companion for editors without a usable URI handler. Provide a copy-path-and-line fallback. “Any editor” is an adapter interface, not an initial guarantee. URI generation percent-encodes paths, permits only known schemes, and never accepts an arbitrary shell template from a repository.
+A remote server cannot open an editor on the visitor's computer. Use explicit user-clicked deep links for supported editors, or an optional local companion for editors without a usable URI handler. Provide a copy-path-and-line fallback. “Any editor” is an adapter interface, not an initial guarantee. URI generation percent-encodes paths, permits only known schemes, and never accepts an arbitrary shell template from a repository.
 
 ## 9. Security and correctness requirements
 
@@ -237,7 +237,7 @@ All implementation milestones must meet [engineering requirements](engineering-r
 
 ### A. Structural Go slice
 
-Implement source capture, Git-diff reconciliation, build-profile loading, project/dependency metadata, inventory, symbols, direct calls/references, PostgreSQL migrations, jobs, and read API. Deliver an OpenAPI-compatible server and Compose deployment. Verify watcher recovery, incremental invalidation, and publication ordering alongside extraction accuracy.
+Implement source capture, Git-diff reconciliation, build-profile loading, project/dependency metadata, inventory, symbols, direct calls/references, PostgreSQL migrations, jobs, and read API. Deliver an OpenAPI-compatible native server and GoReleaser distribution. Verify watcher recovery, incremental invalidation, and publication ordering alongside extraction accuracy.
 
 Fixture checks cover packages with duplicate names, receiver methods, generics, aliases, grouped parameters, multiple/named returns, embedded structs, interfaces, closures, function values, recursion, `go`, `defer`, build tags, test variants, unresolved imports, and Unicode positions. Classify missed indirect targets explicitly. Never treat a partial load as a complete index.
 
@@ -257,4 +257,4 @@ No timeline or performance promise is implied by this sequence. Test representat
 
 ## Decisions still open
 
-Final product name/license, first distribution target, supported Go version range, initial framework adapters, Ollama model/hardware sizing, source retention defaults, and initial customer repository size. The AI runtime is settled: Ollama. Model selection should follow a representative codebase evaluation and deployment memory budget.
+License, supported Go version range, initial framework adapters, Ollama model/hardware sizing, source retention defaults, and initial customer repository size. The product name is Denverr and the first distribution is a native GoReleaser archive. The AI runtime is Ollama. Model selection should follow a representative codebase evaluation and deployment memory budget.

@@ -1,11 +1,14 @@
-.PHONY: build test race vet complexity fmt-check check integration ui-check ui-build api-generate api-check
+.PHONY: build test race vet complexity fmt-check check integration ui-check ui-build api-generate api-check release-check release-snapshot
 
 # npm packages can contain Go examples; do not execute third-party test fixtures.
 GO_PACKAGES := ./api/... ./cmd/... ./internal/...
+VERSION ?= dev
+COMMIT ?= $(shell git rev-parse --short=12 HEAD 2>/dev/null || echo unknown)
+BUILD_DATE ?= $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
+LDFLAGS := -s -w -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.buildDate=$(BUILD_DATE)
 
 build: api-check ui-build
-	go build -o bin/server ./cmd/server
-	go build -o bin/developa ./cmd/developa
+	go build -trimpath -ldflags "$(LDFLAGS)" -o bin/denverr ./cmd/denverr
 
 test:
 	go test $(GO_PACKAGES)
@@ -40,5 +43,11 @@ ui-build:
 	npm run build
 
 integration:
-	@test -n "$$DEVELOPA_TEST_DATABASE_URL" || (echo "Set DEVELOPA_TEST_DATABASE_URL to an isolated test database"; exit 1)
+	@test -n "$$DENVERR_TEST_DATABASE_URL" || (echo "Set DENVERR_TEST_DATABASE_URL to an isolated test database"; exit 1)
 	go test -count=1 ./internal/store/postgres ./internal/transport/http
+
+release-check:
+	goreleaser check
+
+release-snapshot:
+	goreleaser release --snapshot --clean

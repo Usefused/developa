@@ -7,7 +7,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-var tracer = otel.Tracer("developa/internal/source/git")
+var tracer = otel.Tracer("denverr/internal/source/git")
 
 func finishSpan(span trace.Span, err error) {
 	defer span.End()

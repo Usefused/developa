@@ -71,3 +71,11 @@ test('changing the server default does not reassign a legacy editor path',()=>{
   const persisted = normalizePreferences(JSON.parse(JSON.stringify(reordered)));
   assert.equal(preferencesFor(persisted,'second','second').root,'');
 });
+
+test('legacy Developa preferences migrate once to Denverr storage',()=>{
+  const records = new Map([['developa.preferences',JSON.stringify({theme:'dark'})]]);
+  const storage = {getItem:key=>records.get(key) ?? null,setItem:(key,value)=>records.set(key,value),removeItem:key=>records.delete(key)};
+  assert.equal(readPreferences(undefined,storage).theme,'dark');
+  assert.ok(records.has(preferencesKey));
+  assert.equal(records.has('developa.preferences'),false);
+});

@@ -1,4 +1,4 @@
-# Reading code through the Developa API
+# Reading code through the Denverr API
 
 Use the API to collect source evidence before explaining behavior. Static relationships, possible implementations, and inferred descriptions have different strengths; keep those distinctions in your answer.
 
@@ -6,7 +6,7 @@ Use the API to collect source evidence before explaining behavior. Static relati
 
 Reuse the supplied or cached API contract. Only fetch `GET /api/openapi.json` if the contract has not already been provided, and cache it once per server version. Authenticate data requests with the operator-provided bearer token in the `Authorization` header; do not put credentials in URLs or reports. Keep any supplied repository and snapshot IDs. When the agent knows the absolute engine-visible repository root, resolve it with `POST /api/repositories/resolve` and `{"path":"/absolute/repository/root"}`. Otherwise list `GET /api/repositories`, select the intended repository, then read `GET /api/repositories/{repository}/project`. Do not guess between multiple workspaces with similar names.
 
-Path resolution matches an exact repository root after symlink canonicalization; it does not accept a nested working directory. Docker callers must supply the mounted container path because the engine cannot infer a host-to-container path mapping. The response contains repository identity and the latest snapshot but never echoes the checkout path.
+Path resolution matches an exact repository root after symlink canonicalization; it does not accept a nested working directory. The path must be visible to the Denverr process. The response contains repository identity and the latest snapshot but never echoes the checkout path.
 
 Retain that `snapshot.id`. Use the repository-qualified prefix below for source reads:
 

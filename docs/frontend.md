@@ -12,7 +12,7 @@ Route modules compose small components under `app/components/`. Shared hooks man
 
 - The browser calls the existing Go API. Route rendering never starts inference.
 - Reads are snapshot-pinned, cached in memory for two minutes and bounded to 64 cache entries. Explicit refresh bypasses the cache. Routine project polling remains two minutes; initial/manual scans use temporary faster status polling.
-- A successfully verified API token is saved under `developa.api-token` in this origin's browser localStorage and restored on refresh. Locking or a 401 deletes it, clears caches and unmounts views, aborting outstanding requests and streams. Tokens never enter URLs. Disabled browser storage falls back to the current in-memory session. This is plaintext browser storage: use a trusted browser/profile and keep this origin free of untrusted scripts.
+- A successfully verified API token is saved under `denverr.api-token` (legacy `developa.api-token` values migrate once) in this origin's browser localStorage and restored on refresh. Locking or a 401 deletes it, clears caches and unmounts views, aborting outstanding requests and streams. Tokens never enter URLs. Disabled browser storage falls back to the current in-memory session. This is plaintext browser storage: use a trusted browser/profile and keep this origin free of untrusted scripts.
 - Add workspace browses authenticated, operator-allowed engine folders. The API validates Git before persisting registration and starting its watcher. Browser-local uploads are not used, because the engine needs a stable filesystem checkout to monitor.
 - Navigation aborts obsolete reads, and already-decoded late responses cannot replace newer data.
 - Feature progress subscribes to read-only SSE in its own component. It never refreshes or remounts the saved feature cards. Users load new saved results with **Refresh saved features**.
@@ -28,7 +28,7 @@ Route modules compose small components under `app/components/`. Shared hooks man
 
 Run the Go API on `127.0.0.1:18089`, then `npm run dev`. Vite proxies `/api` to that server; no secrets belong in Vite config or client environment variables. The dev server uses framework development tooling; production uses the Go server's stricter security headers.
 
-`npm run build` produces `internal/webui/dist/`, an embedded generated artifact. Do not edit it by hand. `npm run build:check` rebuilds and checks the embedded assets. `make build` builds the frontend before compiling the Go binaries. Docker's Node build stage performs the same frontend build; the final container still runs only Go.
+`npm run build` produces `internal/webui/dist/`, an embedded generated artifact. Do not edit it by hand. `npm run build:check` rebuilds and checks the embedded assets. `make build` builds the frontend before compiling the Go binaries. GoReleaser performs the same frontend build before assembling native archives; the released binary has no Node runtime.
 
 The static shell contains nonce placeholders. Go generates a fresh CSP nonce for each HTML response and injects it into framework hydration and scroll-restoration scripts. Inline handlers, arbitrary inline scripts, remote scripts and embedding remain blocked. Only known UI routes receive the shell; missing API routes and assets stay 404.
 

@@ -1,4 +1,4 @@
-const sequence = Symbol.for('developa.search-select.sequence');
+const sequence = Symbol.for('denverr.search-select.sequence');
 
 // All instances of the shared React control use this counter. IDs do
 // not need randomness, and must work on self-hosted HTTP without secure-context APIs.

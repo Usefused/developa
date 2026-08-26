@@ -2,7 +2,7 @@
 
 [`openapi.json`](openapi.json) is the generated OpenAPI 3.1 specification. It includes the running `/api` endpoints, health checks, shared bearer authentication, request limits, nullable responses, pagination and SSE. It replaces the unimplemented `/v1` draft. UI routes are not part of this API contract.
 
-The Go binary embeds this file and serves it publicly at **`GET /api/openapi.json`**. Discovery performs no database reads or model calls. API data still requires `Authorization: Bearer <DEVELOPA_API_TOKEN>`.
+The Go binary embeds this file and serves it publicly at **`GET /api/openapi.json`**. Discovery performs no database reads or model calls. API data still requires `Authorization: Bearer <DENVERR_API_TOKEN>`.
 
 ## Agent workflow
 
@@ -25,7 +25,7 @@ make api-check
 go test ./internal/openapi ./internal/transport/http -run 'TestOpenAPI|TestSchema'
 ```
 
-Response schemas come from the actual Go JSON types. Route descriptions, query bounds and decoded request constraints live in `internal/transport/http/openapi*.go` beside their handlers. Update those when request validation changes, then regenerate; do not edit JSON by hand. Route inventory and embedded-spec freshness tests prevent missing routes or stale checked-in output. `make check` and the Docker build include contract checks.
+Response schemas come from the actual Go JSON types. Route descriptions, query bounds and decoded request constraints live in `internal/transport/http/openapi*.go` beside their handlers. Update those when request validation changes, then regenerate; do not edit JSON by hand. Route inventory and embedded-spec freshness tests prevent missing routes or stale checked-in output. `make check` and the tagged release workflow include contract checks.
 
 Lengths marked `x-max-utf8-bytes` are enforced by the server in UTF-8 bytes; JSON Schema's `maxLength` counts characters. Request bodies also have an independent encoded-byte cap. Bodies reject unknown fields and trailing JSON. The spec documents canonical typed requests; the Go JSON decoder may additionally accept `null` as an omitted scalar. File/folder paths are validated against the repository or allowed root at runtime.
 

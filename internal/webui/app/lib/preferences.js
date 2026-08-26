@@ -1,4 +1,5 @@
-export const preferencesKey = 'developa.preferences';
+export const preferencesKey = 'denverr.preferences';
+const legacyPreferencesKey = 'developa.preferences';
 const defaults = {root:'',editor:'vscode',theme:'light'};
 
 function record(value) { return value !== null && typeof value === 'object' && !Array.isArray(value) ? value : {}; }
@@ -20,9 +21,19 @@ export function normalizePreferences(value) {
 
 export function readPreferences(fallback = normalizePreferences({}), storage) {
   try {
-    const value = (storage || localStorage).getItem(preferencesKey);
+    const target = storage || localStorage;
+    let value = target.getItem(preferencesKey);
+    if (value === null) value = migratePreferences(target);
     return value === null ? fallback : normalizePreferences(JSON.parse(value));
   } catch { return fallback; }
+}
+
+function migratePreferences(storage) {
+  const value = storage.getItem(legacyPreferencesKey);
+  if (value === null) return null;
+  storage.setItem(preferencesKey,value);
+  storage.removeItem(legacyPreferencesKey);
+  return value;
 }
 
 export function writePreferences(value, storage) {

@@ -59,10 +59,10 @@ func installUnsafeHelper(t *testing.T) (string, string) {
 	t.Helper()
 	dir := t.TempDir()
 	helper, marker := filepath.Join(dir, "helper"), filepath.Join(dir, "called")
-	if err := os.WriteFile(helper, []byte("#!/bin/sh\n: > \"$DEVELOPA_TEST_MARKER\"\nexit 99\n"), 0700); err != nil {
+	if err := os.WriteFile(helper, []byte("#!/bin/sh\n: > \"$DENVERR_TEST_MARKER\"\nexit 99\n"), 0700); err != nil {
 		t.Fatal(err)
 	}
-	t.Setenv("DEVELOPA_TEST_MARKER", marker)
+	t.Setenv("DENVERR_TEST_MARKER", marker)
 	return helper, marker
 }
 

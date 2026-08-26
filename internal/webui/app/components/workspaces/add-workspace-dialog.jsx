@@ -23,7 +23,7 @@ export function AddWorkspaceDialog({close,added}) {
   }
   return <dialog ref={dialog} className="add-workspace-dialog" onCancel={close} aria-labelledby="add-workspace-title"><form onSubmit={submit}>
     <div className="dialog-heading"><h2 id="add-workspace-title">Add workspace</h2><Button className="quiet-button" onClick={close} aria-label="Close add workspace">×</Button></div>
-    <p>Select a Git repository on the engine’s filesystem. Docker folders must be mounted into the server.</p>
+    <p>Select a Git repository from the folders allowed when Denverr started.</p>
     <fieldset disabled={action.pending} className="workspace-fields">
       <FolderPicker api={client} onSelect={setSelection}/>
       <label htmlFor="workspace-name">Workspace name <span className="muted">(optional)</span></label>

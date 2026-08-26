@@ -1,83 +1,80 @@
 # Multiple repositories
 
-One engine can watch up to 32 operator-configured Git checkouts. Each has an independent tracker, published snapshots, source index, feature jobs, AI cache and audit scope in the same PostgreSQL database. Adding repositories does not enable automatic inference.
+One Denverr process can watch up to 32 operator-approved Git checkouts. Each repository has an independent tracker, immutable snapshots, source index, feature jobs, AI cache and audit scope in the same PostgreSQL database. Adding a repository does not enable automatic inference.
 
-## Configuration
+## Native startup
 
-For a native server, replace `REPOSITORY_PATH` with a JSON array:
+The simplest setup starts Denverr from the common parent of the repositories:
+
+```sh
+export DATABASE_URL='postgres://denverr:password@127.0.0.1:5432/denverr?sslmode=disable'
+cd /absolute/checkouts
+denverr serve
+```
+
+When no repository environment is configured, the current directory becomes the allowed workspace root. Use repeatable flags for several separate parents:
+
+```sh
+denverr serve \
+  --workspace-root /absolute/checkouts \
+  --workspace-root /absolute/work
+```
+
+The UI's **Add workspace** dialog browses only those roots. Select a Git working-tree root and optionally enter a display name. Non-Git folders return a clear error; Denverr never runs `git init`. Registration, audit and outbox records commit before monitoring begins.
+
+## Persisted registration
+
+Workspace registrations and canonical checkout roots are stored in PostgreSQL and restored at startup. A missing saved checkout does not erase its snapshots; tracker status explains why new indexing cannot continue.
+
+Register a checkout before starting the process:
+
+```sh
+export DATABASE_URL='postgres://denverr:password@127.0.0.1:5432/denverr?sslmode=disable'
+denverr workspace add --name API /absolute/checkouts/api
+denverr serve --workspace-root /absolute/checkouts
+```
+
+`workspace add` is idempotent and reports `already_added`. Because it writes directly to PostgreSQL, restart an already running Denverr process so it creates the new in-memory tracker. Registrations made through the HTTP API or UI start their tracker immediately.
+
+Repository IDs derive from canonical checkout roots. Renaming a display name does not change identity; moving a checkout creates a different identity. There is currently no workspace deletion endpoint.
+
+## Environment seeding
+
+Scripted deployments can seed registrations at startup:
 
 ```sh
 unset REPOSITORY_PATH REPOSITORY_NAME
 export REPOSITORIES='[{"name":"API","path":"/absolute/checkouts/api"},{"name":"Worker","path":"/absolute/checkouts/worker"}]'
-# Keep DATABASE_URL and a random DEVELOPA_API_TOKEN (at least 24 bytes) configured.
-./bin/server
-```
-
-`REPOSITORY_PATH`/`REPOSITORY_NAME` remain a single-repository shorthand. Do not combine them with `REPOSITORIES`. Names are optional; they default to the checkout directory name. Multi-repository paths must be absolute. These settings seed PostgreSQL registrations at startup. Invalid or duplicate seed checkouts fail startup. Already saved workspaces restore without repeating environment entries; if a saved folder becomes unavailable, its snapshots remain readable and tracker status explains the failure.
-
-Repository IDs derive from canonical server checkout roots. Renaming a display name does not change identity; moving a checkout to a new root creates a different identity. Keep container mount paths stable across restarts. Removing an environment entry does **not** unregister a saved workspace. There is currently no workspace deletion endpoint. Re-adding the same root is idempotent and does not create another tracker.
-
-The API does not clone URLs or accept arbitrary absolute filesystem paths. Operators grant access by configuring and mounting folders. All repositories share the server’s operator token and model configuration; this is not a multi-tenant permission system.
-
-## Add from the filesystem
-
-```sh
 export WORKSPACE_ROOTS='["/absolute/checkouts"]'
-# REPOSITORIES may be empty: unlock the UI, then choose Add workspace.
+denverr serve
 ```
 
-`WORKSPACE_ROOTS` is a JSON array of up to 16 absolute engine directories. If omitted, the picker is limited to the explicitly configured checkout roots, never their parents. It does not constrain existing saved registrations. Use a narrow directory containing only repositories you intend this operator token to access. In Docker mount the parent folder read-only and set the container path, such as `["/repositories"]`.
+`REPOSITORY_PATH` and `REPOSITORY_NAME` remain a single-repository shorthand and cannot be combined with `REPOSITORIES`. Names default to the checkout directory name. Seed paths and workspace roots must be absolute. Invalid or duplicate seeds fail startup; removing an environment seed does not unregister an already persisted workspace.
 
-The dialog browses folders without uploading files. Select the Git working-tree root and optionally enter a display name. Non-Git folders produce a clear error; the server never runs `git init`. Registration, audit and outbox records commit before monitoring begins. Up to 32 workspaces are supported. Watchers resume on startup; directory browsing does not invoke Ollama.
+Use narrow roots containing only repositories intended for anyone who has the shared operator token. The API does not clone URLs or accept a repository-defined model configuration. All workspaces share the process token and model policy; this is not multi-tenant authorization.
 
-For agents, use these authenticated, small calls:
+## Filesystem browsing API
 
-1. `GET /api/workspace-roots` → `[{id,name,path}]`. Paths are visible only to the authenticated operator.
-2. `GET /api/workspace-folders?root_id=ID&path=.&offset=0` → `{root_id,path,items:[{name,path}],next_offset}`. Paths are relative to the selected root; browse using returned paths. Each page reads at most 100 directory entries, skips files, `.git` and symlink entries, and follows native directory order. Continue even if a page has no folders but has `next_offset`; changing directories may change page ordering. Offsets are bounded to 100,000.
-3. `POST /api/repositories` with `{"root_id":"ID","path":"project","name":"Project"}` → HTTP 201 `{id,name,already_added:false}`, or HTTP 200 with `already_added:true` for an existing registration. JSON is limited to 8 KiB, names to 200 bytes. Unknown fields, traversal paths, and cross-origin browser writes are rejected. A folder outside the allowlist returns 403 `folder_forbidden`; a non-Git/non-root folder returns 422 `not_git_repository`; capacity returns 409 `workspace_limit`.
-4. Poll `/api/repositories/{id}/project` for the first published snapshot. Registration does not wait for parsing or inference.
+Agents and the browser can register a folder with these bounded calls:
 
-## Docker mounts
+1. `GET /api/workspace-roots` returns authenticated operator paths as `[{id,name,path}]`.
+2. `GET /api/workspace-folders?root_id=ID&path=.&offset=0` returns folders relative to that root. Each page reads at most 100 entries, skips files, `.git` and symlinks, and caps offsets at 100,000.
+3. `POST /api/repositories` with `{"root_id":"ID","path":"project","name":"Project"}` returns HTTP 201 for a new registration or HTTP 200 with `already_added:true`.
+4. Poll `GET /api/repositories/{id}/project` for the first published snapshot. Registration does not wait for parsing or inference.
 
-Set `REPOSITORIES` in `.env` using **container paths**, leave `REPOSITORY_PATH` empty, and supply a custom Compose override such as:
+Unknown fields, traversal paths, cross-origin browser writes, and folders outside the allowlist are rejected. A folder that is not a Git root returns `422 not_git_repository`; capacity returns `409 workspace_limit`.
 
-```yaml
-services:
-  server:
-    volumes:
-      - type: bind
-        source: /absolute/checkouts/api
-        target: /repositories/api
-        read_only: true
-        bind:
-          create_host_path: false
-      - type: bind
-        source: /absolute/checkouts/worker
-        target: /repositories/worker
-        read_only: true
-        bind:
-          create_host_path: false
-```
+## Repository discovery and scope
 
-```dotenv
-REPOSITORIES='[{"name":"API","path":"/repositories/api"},{"name":"Worker","path":"/repositories/worker"}]'
-REPOSITORY_PATH=
-```
+1. `GET /api/repositories?limit=24&offset=0` returns configured repositories with the default repository ID. Optional `q` searches names in PostgreSQL.
+2. `POST /api/repositories/resolve` with `{"path":"/absolute/checkouts/api"}` resolves an exact path visible to the Denverr process. Matching happens after symlink canonicalization. Nested folders and unregistered roots return 404. The path is never echoed and the request invokes no Git, indexing, or inference work.
+3. `GET /api/repositories/{id}/project` returns that tracker's state and latest snapshot.
+4. Use the returned repository and snapshot IDs for every subsequent read, such as `GET /api/repositories/{id}/snapshots/{snapshot}/symbols?q=Handle`.
 
-Run `docker compose -f compose.yaml -f your-repositories.yaml up --build`. Do not combine this with `compose.repository.yaml`, which sets the single-checkout path.
-
-## API discovery and scope
-
-1. `GET /api/repositories?limit=24&offset=0` returns configured repositories as `{items:[{id,name,snapshot?}],total,limit,offset,default_repository_id}`. Optional `q` searches names with a literal case-insensitive substring. Filtering, ordering, pagination and totals use one SQL statement. The endpoint never returns server checkout paths.
-2. When the caller already knows an absolute repository root visible to the engine, `POST /api/repositories/resolve` with `{"path":"/repositories/api"}` returns that repository identity and latest snapshot. Matching is exact after symlink canonicalization; nested folders and unregistered roots return `404`. The response never echoes the path and the request invokes no Git command, indexing, or inference. A Docker engine sees mounted container paths, not the caller’s host path.
-3. `GET /api/repositories/{id}/project` returns that tracker’s status and latest snapshot.
-4. Use that ID and snapshot for source reads, for example `GET /api/repositories/{id}/snapshots/{snapshot}/symbols?q=Handle`.
-5. The same prefix supports every existing API: files, details, calls, chains, flow, context, features, jobs/events, answers and function reviews. `POST /api/repositories/{id}/scan` affects only that repository.
-
-All requests require the operator Bearer token. Unknown/unconfigured IDs and records outside the selected repository return 404. A snapshot ID from another repository cannot widen the scope. Short legacy `/api/project` and `/api/snapshots/...` routes select the first configured repository; agents should use explicit IDs so configuration ordering cannot change their target.
+Every source, calls, flow, context, feature, job, answer and review endpoint has the same repository prefix. Unknown repositories and snapshots from a different repository return 404. Short `/api/project` and `/api/snapshots/...` paths remain first-workspace compatibility aliases; agents should use explicit repository IDs.
 
 ## Browser and background work
 
-Use the searchable **Workspace** dropdown in the header. Navigation URLs carry `repo` alongside the snapshot. Switching retains the sidebar page but removes function, feature, filter and old snapshot selections. Read caches are isolated, obsolete UI requests/streams are canceled, and editor mappings are saved per repository. Already accepted background jobs continue on the server. The verified API key is saved in localStorage for refreshes; Lock workspace or any authentication rejection removes it.
+The searchable workspace selector keeps `repo` in the URL. Switching repository retains the sidebar page while clearing stale source selections, aborting obsolete requests and streams, and isolating read caches. Editor mappings are stored per repository. Accepted background jobs continue after browser navigation.
 
-Structural watchers run independently without AI. Feature workers keep separate durable queues but share one background execution slot per server, acquired before the lease. Interactive explanations are still explicit and separately gated. A failure in one running tracker preserves its last snapshot and does not stop the other watchers. There is no combined cross-repository call graph or dependency resolution in this version.
+Structural watchers run independently without AI. Feature workers keep separate durable PostgreSQL queues and share one background execution slot per process. Interactive explanations remain explicit and separately gated. A tracker failure preserves that repository's last snapshot and does not stop other watchers. Cross-repository call graphs and dependency resolution are not implemented.

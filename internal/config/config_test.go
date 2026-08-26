@@ -72,6 +72,23 @@ func TestLoadUsesProcessEnvironment(t *testing.T) {
 	}
 }
 
+func TestLoadWithOverridesPrecedesAndCanNeutralizeProcessEnvironment(t *testing.T) {
+	t.Setenv("DATABASE_URL", "https://invalid.example/database")
+	t.Setenv("HTTP_ADDR", ":9000")
+	t.Setenv("REPOSITORY_PATH", "/environment/repository")
+	t.Setenv("DENVERR_API_TOKEN", strings.Repeat("x", 24))
+	cfg, err := LoadWithOverrides(map[string]string{
+		"DATABASE_URL": "postgres://localhost/overridden", "HTTP_ADDR": ":9100",
+		"REPOSITORY_PATH": "", "DENVERR_API_TOKEN": "",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.DatabaseURL != "postgres://localhost/overridden" || cfg.HTTPAddr != ":9100" || cfg.RepositoryPath != "" || cfg.APIKey != "" {
+		t.Fatal("explicit command configuration did not take precedence")
+	}
+}
+
 func environment(values map[string]string) lookupEnv {
 	return func(key string) (string, bool) {
 		value, ok := values[key]

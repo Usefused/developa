@@ -27,7 +27,8 @@ Tests use an in-memory OTEL exporter and a real outbox/DB path to verify parent-
 Proposed package boundaries:
 
 ```text
-cmd/server/                process lifecycle and dependency wiring
+cmd/denverr/               native command, flags, signals and version metadata
+internal/server/            process lifecycle and dependency wiring
 internal/transport/http/   HTTP decoding, response encoding
 internal/transport/mcp/    MCP protocol adapter
 internal/application/      use cases, authorization, transactions
@@ -59,7 +60,7 @@ Explain reasons where the code alone cannot: retaining a snapshot after a failed
 
 Each behavior change includes tests or a documented explanation of why existing coverage is sufficient. Bug fixes add regression coverage at the nearest existing test seam. Do not add tests that only restate constants or configuration.
 
-Unit tests cover small domain decisions, typed extraction, diff parsing, invalidation rules, chain limits, evidence validation, and model failure handling. Integration tests exercise real PostgreSQL migrations/constraints/queries, Git state transitions, job leases and crash recovery, OTEL/audit propagation, HTTP/MCP authorization, and Docker lifecycle when deployment is introduced.
+Unit tests cover small domain decisions, typed extraction, diff parsing, invalidation rules, chain limits, evidence validation, and model failure handling. Integration tests exercise real PostgreSQL migrations/constraints/queries, Git state transitions, job leases and crash recovery, OTEL/audit propagation, HTTP/MCP authorization, native startup, and release-archive creation.
 
 Dependency/version fixtures cover selected versus declared versions, direct/indirect scope, pseudo-versions, multiple modules, `go.work`, local and versioned replacements, vendor mode, missing module caches with network disabled, exact/multiple tags, dirty tagged trees, absent/conflicting version declarations, and tag changes without a file diff. Assert SQL-side pagination and bounded usage-query counts.
 

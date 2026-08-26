@@ -38,9 +38,9 @@ func OpenAPIDocument() ([]byte, error) {
 		endpoint.Path = "/api" + endpoint.Path
 		addOpenAPIEndpoint(paths, registry, requests, endpoint, true)
 	}
-	document := apiSchema{"openapi": "3.1.0", "info": apiSchema{"title": "Developa API", "version": "0.3.0", "description": apiDescription},
-		"servers": []apiSchema{{"url": "/", "description": "This Developa engine"}}, "security": []apiSchema{{"bearerAuth": []string{}}},
-		"paths": paths, "components": apiSchema{"schemas": registry.Schemas, "securitySchemes": apiSchema{"bearerAuth": apiSchema{"type": "http", "scheme": "bearer", "description": "Shared operator token (DEVELOPA_API_TOKEN), not individual user or per-repository authorization."}}},
+	document := apiSchema{"openapi": "3.1.0", "info": apiSchema{"title": "Denverr API", "version": "0.3.0", "description": apiDescription},
+		"servers": []apiSchema{{"url": "/", "description": "This Denverr engine"}}, "security": []apiSchema{{"bearerAuth": []string{}}},
+		"paths": paths, "components": apiSchema{"schemas": registry.Schemas, "securitySchemes": apiSchema{"bearerAuth": apiSchema{"type": "http", "scheme": "bearer", "description": "Shared operator token (DENVERR_API_TOKEN), not individual user or per-repository authorization."}}},
 		"x-generated-by": "go run ./cmd/openapi; do not edit api/openapi.json by hand"}
 	data, err := json.MarshalIndent(document, "", "  ")
 	return append(data, '\n'), err

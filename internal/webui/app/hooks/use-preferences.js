@@ -1,7 +1,7 @@
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {bindLegacyRepository,normalizePreferences,preferencesFor,preferencesKey,readPreferences,updatePreferences,writePreferences} from '../lib/preferences.js';
 
-const changedEvent = 'developa:preferences';
+const changedEvent = 'denverr:preferences';
 
 export function usePreferences(repositoryID = '', defaultRepositoryID = '') {
   const [stored,setStored] = useState(readPreferences);

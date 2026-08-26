@@ -1807,7 +1807,7 @@
         "additionalProperties": false,
         "properties": {
           "path": {
-            "description": "Absolute repository-root path in the engine filesystem. Docker callers use the mounted container path.",
+            "description": "Absolute repository-root path in the Denverr process filesystem.",
             "maxLength": 4096,
             "minLength": 1,
             "pattern": "^[^\\u0000]*$",
@@ -2561,7 +2561,7 @@
     },
     "securitySchemes": {
       "bearerAuth": {
-        "description": "Shared operator token (DEVELOPA_API_TOKEN), not individual user or per-repository authorization.",
+        "description": "Shared operator token (DENVERR_API_TOKEN), not individual user or per-repository authorization.",
         "scheme": "bearer",
         "type": "http"
       }
@@ -2569,7 +2569,7 @@
   },
   "info": {
     "description": "Implemented API only. Workspace registration persists in PostgreSQL. Source reads are repository-scoped and pinned to immutable publication snapshots. Positions use one-based lines and UTF-8 byte columns; span ends are exclusive. Static call flows are not runtime execution order. AI claims are inferred and cite bounded source evidence. GET and saved-answer lookup do not invoke inference. Explicit AI requests use operator-configured Ollama; cloud requires opt-in. No MCP, clone/fetch, dependency-version, multi-tenant, or general reference endpoints are implemented. Browser mutations reject foreign Origin/Sec-Fetch-Site; no CORS is enabled.",
-    "title": "Developa API",
+    "title": "Denverr API",
     "version": "0.3.0"
   },
   "openapi": "3.1.0",
@@ -3445,7 +3445,7 @@
     },
     "/api/repositories/resolve": {
       "post": {
-        "description": "Read-only exact lookup by an absolute path visible to the engine. Symlinks are canonicalized when available. Returns repository identity and latest snapshot without echoing the path or invoking Git, indexing, or Ollama. In Docker, use the mounted container path rather than a host-only path.",
+        "description": "Read-only exact lookup by an absolute path visible to the engine. Symlinks are canonicalized when available. Returns repository identity and latest snapshot without echoing the path or invoking Git, indexing, or Ollama.",
         "operationId": "resolveRepository",
         "requestBody": {
           "content": {
@@ -15066,7 +15066,7 @@
     },
     "/api/workspace-roots": {
       "get": {
-        "description": "Authenticated operator-only server paths. Docker paths must be mounted. This does not browse the caller's filesystem.",
+        "description": "Authenticated operator-only server paths. This does not browse a remote caller's filesystem.",
         "operationId": "workspaceRoots",
         "responses": {
           "200": {
@@ -15351,7 +15351,7 @@
   ],
   "servers": [
     {
-      "description": "This Developa engine",
+      "description": "This Denverr engine",
       "url": "/"
     }
   ],

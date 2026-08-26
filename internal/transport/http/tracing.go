@@ -16,7 +16,7 @@ import (
 func traceRequest(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := otel.GetTextMapPropagator().Extract(r.Context(), propagation.HeaderCarrier(r.Header))
-		ctx, span := otel.Tracer("developa/http").Start(ctx, "HTTP request", trace.WithSpanKind(trace.SpanKindServer))
+		ctx, span := otel.Tracer("denverr/http").Start(ctx, "HTTP request", trace.WithSpanKind(trace.SpanKindServer))
 		defer span.End()
 		span.AddEvent("execution.started")
 		if span.SpanContext().IsValid() {

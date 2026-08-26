@@ -49,15 +49,25 @@ func Load() (Config, error) {
 	return load(os.LookupEnv)
 }
 
+// LoadWithOverrides applies explicit command values before falling back to the process environment.
+func LoadWithOverrides(overrides map[string]string) (Config, error) {
+	return load(func(name string) (string, bool) {
+		if value, ok := overrides[name]; ok {
+			return value, true
+		}
+		return os.LookupEnv(name)
+	})
+}
+
 func load(lookup lookupEnv) (Config, error) {
 	cfg := Config{
 		HTTPAddr:          value(lookup, "HTTP_ADDR", "127.0.0.1:8080"),
 		DatabaseURL:       value(lookup, "DATABASE_URL", ""),
-		ServiceName:       value(lookup, "OTEL_SERVICE_NAME", "developa"),
+		ServiceName:       value(lookup, "OTEL_SERVICE_NAME", "denverr"),
 		TelemetryEndpoint: value(lookup, "OTEL_EXPORTER_OTLP_ENDPOINT", ""),
 		RepositoryPath:    value(lookup, "REPOSITORY_PATH", ""),
 		RepositoryName:    value(lookup, "REPOSITORY_NAME", ""),
-		APIKey:            value(lookup, "DEVELOPA_API_TOKEN", ""),
+		APIKey:            value(lookup, "DENVERR_API_TOKEN", ""),
 	}
 	if err := loadTimeouts(lookup, &cfg); err != nil {
 		return Config{}, err

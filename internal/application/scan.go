@@ -132,7 +132,7 @@ func snapshotInfo(snapshot *source.Snapshot) SnapshotInfo {
 }
 
 func scanTracer() trace.Tracer {
-	return otel.Tracer("developa/application")
+	return otel.Tracer("denverr/application")
 }
 
 func newExecutionID() string {

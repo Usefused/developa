@@ -30,7 +30,7 @@ func Handler() http.Handler {
 		nonce := rand.Text()
 		secureHeaders(w, nonce)
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		_, _ = w.Write([]byte(strings.ReplaceAll(string(page), "__DEVELOPA_CSP_NONCE__", nonce)))
+		_, _ = w.Write([]byte(strings.ReplaceAll(string(page), "__DENVERR_CSP_NONCE__", nonce)))
 	})
 }
 

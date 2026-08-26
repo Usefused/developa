@@ -58,7 +58,7 @@ type callTarget struct {
 // source expression binds to the recorded local declaration; it is not evidence
 // that the repository builds or that the call will execute at runtime.
 func AnalyzeCalls(ctx context.Context, files []SourceFile, result *Result) error {
-	ctx, span := otel.Tracer("developa/internal/indexer/golang").Start(ctx, "golang.analyze_calls")
+	ctx, span := otel.Tracer("denverr/internal/indexer/golang").Start(ctx, "golang.analyze_calls")
 	defer span.End()
 	span.AddEvent("execution.started")
 	if result == nil {

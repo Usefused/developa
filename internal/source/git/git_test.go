@@ -11,7 +11,7 @@ func testRepository(t *testing.T) (string, *Repository) {
 	t.Helper()
 	dir := t.TempDir()
 	gitTest(t, dir, "-c", "init.defaultBranch=main", "init", "--quiet")
-	gitTest(t, dir, "config", "user.name", "Developa Test")
+	gitTest(t, dir, "config", "user.name", "Denverr Test")
 	gitTest(t, dir, "config", "user.email", "developa@example.invalid")
 	repo, err := Open(context.Background(), dir, Options{})
 	if err != nil {

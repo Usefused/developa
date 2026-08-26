@@ -8,17 +8,17 @@ The declarative `unified_operations.bindings` graph in fused-cli 0.17.1 remains 
 
 ## MCP configuration
 
-`developa` and `v1` are placeholders for the imported service key and immutable service version.
+`denverr` and `v1` are placeholders for the imported service key and immutable service version.
 
 ```yaml
 apiVersion: fused/v1
 kind: mcp
-name: developa-code-intelligence
+name: denverr-code-intelligence
 version: "1.0.0"
 bucket: default
 
 services:
-  developa:
+  denverr:
     version: "v1"
     operations:
       - resolveRepository
@@ -48,7 +48,7 @@ unified_operations:
           maxLength: 4096
     bindings:
       repository:
-        service: developa
+        service: denverr
         operation: resolveRepository
         input:
           path: "${input.project_path}"
@@ -82,19 +82,19 @@ unified_operations:
           maxLength: 200
     bindings:
       project:
-        service: developa
+        service: denverr
         operation: project
         input:
           repository: "${input.repository_id}"
 
       capabilities:
-        service: developa
+        service: denverr
         operation: capabilities
         input:
           repository: "${input.repository_id}"
 
       feature_hint:
-        service: developa
+        service: denverr
         operation: features
         depends_on: [project]
         input:
@@ -105,7 +105,7 @@ unified_operations:
           offset: 0
 
       feature_match:
-        service: developa
+        service: denverr
         operation: features
         depends_on: [project, feature_hint]
         input:
@@ -176,14 +176,14 @@ unified_operations:
           default: 80
     bindings:
       feature:
-        service: developa
+        service: denverr
         operation: feature
         input:
           repository: "${input.repository_id}"
           snapshot: "${input.snapshot_id}"
           feature: "${input.feature_id}"
       flow:
-        service: developa
+        service: denverr
         operation: codeFlow
         input:
           repository: "${input.repository_id}"
@@ -235,7 +235,7 @@ unified_operations:
           default: 10
     bindings:
       symbol:
-        service: developa
+        service: denverr
         operation: symbol
         input:
           repository: "${input.repository_id}"
@@ -243,7 +243,7 @@ unified_operations:
           symbol: "${input.symbol_id}"
 
       source:
-        service: developa
+        service: denverr
         operation: symbolSource
         input:
           repository: "${input.repository_id}"
@@ -253,7 +253,7 @@ unified_operations:
           limit: "${input.source_limit?}"
 
       incoming:
-        service: developa
+        service: denverr
         operation: calls
         input:
           repository: "${input.repository_id}"
@@ -264,7 +264,7 @@ unified_operations:
           offset: 0
 
       outgoing:
-        service: developa
+        service: denverr
         operation: calls
         input:
           repository: "${input.repository_id}"
@@ -275,7 +275,7 @@ unified_operations:
           offset: 0
 
       implementations:
-        service: developa
+        service: denverr
         operation: implementations
         input:
           repository: "${input.repository_id}"
@@ -404,4 +404,4 @@ This is one agent-facing MCP tool invocation, but it deliberately produces sever
 
 Dynamic looping does not remove the MCP 1 MiB execution-result limit. Cap symbols, call pages and source chunks; return explicit omitted IDs and truncation state. A typical feature should fit in one invocation. The agent can make a deliberate continuation call for a very large feature rather than receiving silently incomplete context.
 
-If the desired interface is instead one literal `call("code.feature_context")` with no TypeScript orchestration, then a server-side Developa `featureContext` physical endpoint is still required because the declarative Unified binding graph itself has no loop field in fused-cli 0.17.1.
+If the desired interface is instead one literal `call("code.feature_context")` with no TypeScript orchestration, then a server-side Denverr `featureContext` physical endpoint is still required because the declarative Unified binding graph itself has no loop field in fused-cli 0.17.1.

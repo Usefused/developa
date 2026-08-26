@@ -8,7 +8,7 @@ import (
 
 func repositoryEnvironment(raw string) map[string]string {
 	return map[string]string{"DATABASE_URL": "postgres://localhost/db", "REPOSITORIES": raw,
-		"DEVELOPA_API_TOKEN": strings.Repeat("x", 24)}
+		"DENVERR_API_TOKEN": strings.Repeat("x", 24)}
 }
 
 func TestRepositoriesConfigurationPreservesOrderAndLegacyShorthand(t *testing.T) {
@@ -70,9 +70,9 @@ func assertRepositoriesRejected(t *testing.T, raw string) {
 
 func TestRepositoriesConfigurationRequiresAuthenticationAndExclusiveSource(t *testing.T) {
 	values := repositoryEnvironment(`[{"path":"/private/operator-path"}]`)
-	values["DEVELOPA_API_TOKEN"] = "PRIVATE-TOKEN"
+	values["DENVERR_API_TOKEN"] = "PRIVATE-TOKEN"
 	assertSafeRepositoryError(t, values)
-	values["DEVELOPA_API_TOKEN"] = strings.Repeat("x", 24)
+	values["DENVERR_API_TOKEN"] = strings.Repeat("x", 24)
 	values["REPOSITORY_PATH"] = "/private/legacy"
 	assertSafeRepositoryError(t, values)
 	delete(values, "REPOSITORY_PATH")
@@ -103,7 +103,7 @@ func assertSafeRepositoryError(t *testing.T, values map[string]string) {
 
 func TestEmptyRepositoriesRemainUnconfiguredWithoutToken(t *testing.T) {
 	values := repositoryEnvironment("[]")
-	delete(values, "DEVELOPA_API_TOKEN")
+	delete(values, "DENVERR_API_TOKEN")
 	cfg, err := load(environment(values))
 	if err != nil || len(cfg.Repositories) != 0 {
 		t.Fatal("empty repository selection no longer supports unconfigured mode")
@@ -124,7 +124,7 @@ func TestWorkspaceRootsRequireBoundedAbsolutePathsAndAuthentication(t *testing.T
 		}
 	}
 	values["WORKSPACE_ROOTS"] = `["/repos"]`
-	delete(values, "DEVELOPA_API_TOKEN")
+	delete(values, "DENVERR_API_TOKEN")
 	if _, err := load(environment(values)); err == nil {
 		t.Fatal("filesystem access permitted without authentication")
 	}

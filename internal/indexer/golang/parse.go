@@ -24,7 +24,7 @@ var incompleteSyntax = errors.New("Go syntax extraction is partial")
 // Parse extracts declarations from captured source bytes. Repository build flags
 // are intentionally not applied: this slice inventories syntax, not a build graph.
 func Parse(ctx context.Context, files []SourceFile) (Result, error) {
-	ctx, span := otel.Tracer("developa/internal/indexer/golang").Start(ctx, "golang.parse")
+	ctx, span := otel.Tracer("denverr/internal/indexer/golang").Start(ctx, "golang.parse")
 	defer span.End()
 	span.SetAttributes(attribute.Int("source.file_count", len(files)))
 	span.AddEvent("execution.started")

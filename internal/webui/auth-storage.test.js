@@ -21,3 +21,11 @@ test('disabled browser storage does not prevent an in-memory session',()=>{
   assert.doesNotThrow(()=>rememberAPIToken('secret',storage));
   assert.doesNotThrow(()=>rememberAPIToken('',storage));
 });
+
+test('a legacy Developa credential migrates once to Denverr storage',()=>{
+  const storage = new Map([['developa.api-token','legacy-secret']]);
+  const adapter = {getItem:key=>storage.get(key) ?? null,setItem:(key,value)=>storage.set(key,value),removeItem:key=>storage.delete(key)};
+  assert.equal(savedAPIToken(adapter),'legacy-secret');
+  assert.equal(storage.get(apiTokenKey),'legacy-secret');
+  assert.equal(storage.has('developa.api-token'),false);
+});

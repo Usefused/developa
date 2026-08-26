@@ -71,7 +71,7 @@ func (c *Client) Model() string {
 func (c *Client) Generate(ctx context.Context, system, prompt string, schema json.RawMessage) (result json.RawMessage, err error) {
 	ctx, cancel := context.WithTimeout(ctx, c.cfg.Timeout)
 	defer cancel()
-	ctx, span := otel.Tracer("developa/model/ollama").Start(ctx, "ollama.generate")
+	ctx, span := otel.Tracer("denverr/model/ollama").Start(ctx, "ollama.generate")
 	defer func() {
 		if err != nil {
 			span.SetStatus(codes.Error, "model request failed")

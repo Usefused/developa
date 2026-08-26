@@ -75,16 +75,16 @@ func newIntegrationExplorer(t *testing.T) *integrationExplorer {
 
 func integrationStore(t *testing.T) (*postgres.Store, *pgx.Conn, string) {
 	t.Helper()
-	raw, present := os.LookupEnv("DEVELOPA_TEST_DATABASE_URL")
+	raw, present := os.LookupEnv("DENVERR_TEST_DATABASE_URL")
 	if !present {
-		t.Skip("set DEVELOPA_TEST_DATABASE_URL to run the real PostgreSQL/Git/HTTP workflow")
+		t.Skip("set DENVERR_TEST_DATABASE_URL to run the real PostgreSQL/Git/HTTP workflow")
 	}
 	connection := integrationDatabaseURL(t, raw)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	admin, err := pgx.Connect(ctx, connection.String())
 	if err != nil {
-		t.Fatal("DEVELOPA_TEST_DATABASE_URL could not connect to PostgreSQL")
+		t.Fatal("DENVERR_TEST_DATABASE_URL could not connect to PostgreSQL")
 	}
 	t.Cleanup(func() { _ = admin.Close(context.Background()) })
 	schema := createIntegrationSchema(t, admin)
@@ -106,10 +106,10 @@ func integrationDatabaseURL(t *testing.T, raw string) *url.URL {
 	t.Helper()
 	parsed, err := url.Parse(raw)
 	if err != nil {
-		t.Fatal("DEVELOPA_TEST_DATABASE_URL must be a valid PostgreSQL URL")
+		t.Fatal("DENVERR_TEST_DATABASE_URL must be a valid PostgreSQL URL")
 	}
 	if (parsed.Scheme != "postgres" && parsed.Scheme != "postgresql") || parsed.Hostname() == "" {
-		t.Fatal("DEVELOPA_TEST_DATABASE_URL must specify a PostgreSQL host")
+		t.Fatal("DENVERR_TEST_DATABASE_URL must specify a PostgreSQL host")
 	}
 	return parsed
 }

@@ -14,7 +14,7 @@ import (
 func (c *Client) ResolveModel(ctx context.Context) (identity string, err error) {
 	ctx, cancel := context.WithTimeout(ctx, min(c.cfg.Timeout, 10*time.Second))
 	defer cancel()
-	ctx, span := otel.Tracer("developa/model/ollama").Start(ctx, "ollama.resolve_model")
+	ctx, span := otel.Tracer("denverr/model/ollama").Start(ctx, "ollama.resolve_model")
 	defer func() {
 		if err != nil {
 			span.SetStatus(codes.Error, "model metadata unavailable")

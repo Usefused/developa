@@ -31,7 +31,7 @@ type Store struct {
 }
 
 func Open(ctx context.Context, cfg Config) (*Store, error) {
-	ctx, span := otel.Tracer("developa/postgres").Start(ctx, "postgres.connect", databaseAttributes())
+	ctx, span := otel.Tracer("denverr/postgres").Start(ctx, "postgres.connect", databaseAttributes())
 	defer span.End()
 	span.AddEvent("execution.started")
 	poolCfg, err := poolConfig(cfg)
@@ -84,7 +84,7 @@ func openPool(ctx context.Context, cfg *pgxpool.Config) (*Store, error) {
 }
 
 func (s *Store) Ping(ctx context.Context) error {
-	ctx, span := otel.Tracer("developa/postgres").Start(ctx, "postgres.ping", databaseAttributes())
+	ctx, span := otel.Tracer("denverr/postgres").Start(ctx, "postgres.ping", databaseAttributes())
 	defer span.End()
 	span.AddEvent("execution.started")
 	if err := s.pool.Ping(ctx); err != nil {

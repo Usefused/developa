@@ -92,7 +92,7 @@ func repositoryPathRequestSchema(registry *openapi.Registry) apiSchema {
 	schema["required"] = []string{"path"}
 	path := limitedTextSchema(4096)
 	path["minLength"] = 1
-	path["description"] = "Absolute repository-root path in the engine filesystem. Docker callers use the mounted container path."
+	path["description"] = "Absolute repository-root path in the Denverr process filesystem."
 	properties["path"] = path
 	return ref
 }
