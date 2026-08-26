@@ -15,7 +15,7 @@ Verified on 26 August 2026. This record covers the server, Git tracker, persiste
 | Model adapter | `internal/model/ollama` | Local inference by default; explicit authenticated Ollama Cloud mode; model revision verification, bounded JSON validation, concurrency/deadline limits and trace propagation |
 | Browser UI | `internal/webui` | Embedded file blocks, source details/code viewer, Calls/Used by chains, React Flow application/feature views, saved cited Features, explicit function/callee reviews and parameter notes, background job status, snapshot notices and responsive themes |
 | Standalone scan | `cmd/denverr` | One-shot JSON scan and newline-delimited watch reports; no database requirement |
-| Telemetry | `internal/telemetry` | stderr or explicit OTLP HTTP export, W3C trace propagation and sanitized errors |
+| Telemetry | `internal/telemetry` | stderr or explicit OTLP HTTP export, a standard SDK disable switch, W3C trace propagation and sanitized errors |
 | Packaging | `.goreleaser.yaml`, `.github/workflows/release.yml`, `install.sh` | Native macOS, Linux and Windows archives with embedded UI, checksums, an installer and main-driven GitHub releases |
 
 The parser/source packages do not depend on HTTP or persistence. Both CLI and server use the application scan pipeline. One server manages up to 32 workspaces, with PostgreSQL registrations restored after restart. Clients can select relative folders within operator-allowed roots, but cannot submit arbitrary roots, commands or actor identities. A shared token identifies an operator, not an individual user.

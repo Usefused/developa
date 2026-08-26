@@ -160,6 +160,8 @@ One-shot mode emits one JSON report. Watch mode emits the initial report and the
 
 Server startup, user and agent executions, PostgreSQL operations, Git capture, parser work, background jobs, and Ollama requests emit OpenTelemetry spans. HTTP responses include `X-Trace-ID`; source, prompts, queries, credentials, and panic payloads are not span attributes. Set `OTEL_EXPORTER_OTLP_ENDPOINT` to export to an operator-controlled OTLP HTTP collector. Otherwise safe spans go to stderr.
 
+Set `OTEL_SDK_DISABLED=true` to install a no-op provider that creates no spans and exports nothing. This switch applies to `serve`, `scan`, and workspace commands; it takes precedence over an OTLP endpoint.
+
 Publication, latest-pointer updates, audit events, and outbox records commit atomically in PostgreSQL. Outbox delivery and retention are not implemented yet.
 
 ## Release and checks

@@ -58,7 +58,15 @@ func runScan(ctx context.Context, args []string, output, diagnostics io.Writer) 
 }
 
 func withTelemetry(ctx context.Context, diagnostics io.Writer, action func() error) error {
-	shutdown, err := telemetry.Setup(ctx, telemetry.Config{ServiceName: "denverr-cli", Endpoint: os.Getenv("OTEL_EXPORTER_OTLP_ENDPOINT")})
+	disabled, err := telemetry.ParseSDKDisabled(os.Getenv("OTEL_SDK_DISABLED"))
+	if err != nil {
+		return fmt.Errorf("initialize telemetry: %w", err)
+	}
+	shutdown, err := telemetry.Setup(ctx, telemetry.Config{
+		ServiceName: "denverr-cli",
+		Endpoint:    os.Getenv("OTEL_EXPORTER_OTLP_ENDPOINT"),
+		Disabled:    disabled,
+	})
 	if err != nil {
 		return fmt.Errorf("initialize telemetry: %w", err)
 	}

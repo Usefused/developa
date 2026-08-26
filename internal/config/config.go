@@ -9,6 +9,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"developa/internal/telemetry"
 )
 
 // Config contains operator-owned settings, never repository-provided options.
@@ -23,6 +25,7 @@ type Config struct {
 	ShutdownTimeout        time.Duration
 	ServiceName            string
 	TelemetryEndpoint      string
+	TelemetryDisabled      bool
 	RepositoryPath         string
 	RepositoryName         string
 	Repositories           []Repository
@@ -60,11 +63,16 @@ func LoadWithOverrides(overrides map[string]string) (Config, error) {
 }
 
 func load(lookup lookupEnv) (Config, error) {
+	telemetryDisabled, err := telemetry.ParseSDKDisabled(value(lookup, "OTEL_SDK_DISABLED", "false"))
+	if err != nil {
+		return Config{}, err
+	}
 	cfg := Config{
 		HTTPAddr:          value(lookup, "HTTP_ADDR", "127.0.0.1:8080"),
 		DatabaseURL:       value(lookup, "DATABASE_URL", ""),
 		ServiceName:       value(lookup, "OTEL_SERVICE_NAME", "denverr"),
 		TelemetryEndpoint: value(lookup, "OTEL_EXPORTER_OTLP_ENDPOINT", ""),
+		TelemetryDisabled: telemetryDisabled,
 		RepositoryPath:    value(lookup, "REPOSITORY_PATH", ""),
 		RepositoryName:    value(lookup, "REPOSITORY_NAME", ""),
 		APIKey:            value(lookup, "DENVERR_API_TOKEN", ""),

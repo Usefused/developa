@@ -18,7 +18,11 @@ import (
 
 // Run owns the long-lived server dependencies while the command owns signals and user-facing setup.
 func Run(ctx context.Context, cfg config.Config) error {
-	shutdownTelemetry, err := telemetry.Setup(ctx, telemetry.Config{ServiceName: cfg.ServiceName, Endpoint: cfg.TelemetryEndpoint})
+	shutdownTelemetry, err := telemetry.Setup(ctx, telemetry.Config{
+		ServiceName: cfg.ServiceName,
+		Endpoint:    cfg.TelemetryEndpoint,
+		Disabled:    cfg.TelemetryDisabled,
+	})
 	if err != nil {
 		return err
 	}

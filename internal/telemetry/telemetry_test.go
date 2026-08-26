@@ -95,6 +95,51 @@ func TestSetupWithoutEndpointUsesStderrExporter(t *testing.T) {
 	}
 }
 
+func TestSetupDisabledUsesNoopProvider(t *testing.T) {
+	restoreGlobals(t)
+	output, err := os.CreateTemp(t.TempDir(), "disabled-spans")
+	if err != nil {
+		t.Fatal(err)
+	}
+	previous := os.Stderr
+	os.Stderr = output
+	t.Cleanup(func() {
+		os.Stderr = previous
+		_ = output.Close()
+	})
+	shutdown, err := Setup(context.Background(), Config{ServiceName: "test", Endpoint: "%invalid", Disabled: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, span := otel.Tracer("test").Start(context.Background(), "disabled.execution")
+	if span.IsRecording() {
+		t.Fatal("disabled telemetry created a recording span")
+	}
+	span.End()
+	if err := shutdown(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	content, err := os.ReadFile(output.Name())
+	if err != nil || len(content) != 0 {
+		t.Fatal("disabled telemetry wrote output")
+	}
+}
+
+func TestParseSDKDisabled(t *testing.T) {
+	for _, tc := range []struct {
+		value    string
+		disabled bool
+		valid    bool
+	}{
+		{"", false, true}, {"false", false, true}, {" TRUE ", true, true}, {"1", false, false},
+	} {
+		disabled, err := ParseSDKDisabled(tc.value)
+		if (err == nil) != tc.valid || disabled != tc.disabled {
+			t.Fatalf("ParseSDKDisabled(%q) = %v, %v", tc.value, disabled, err)
+		}
+	}
+}
+
 func TestFailCreatesSafeFailureEvent(t *testing.T) {
 	exporter := tracetest.NewInMemoryExporter()
 	provider := sdktrace.NewTracerProvider(sdktrace.WithSyncer(exporter))

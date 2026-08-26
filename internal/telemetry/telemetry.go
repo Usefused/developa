@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"go.opentelemetry.io/otel"
@@ -25,11 +26,19 @@ type Config struct {
 	ServiceName string
 	// Endpoint is the OTLP HTTP base URL; traces are sent to its /v1/traces path.
 	Endpoint string
+	Disabled bool
 }
 
 func Setup(ctx context.Context, cfg Config) (func(context.Context) error, error) {
 	if cfg.ServiceName == "" {
 		return nil, errors.New("telemetry service name is required")
+	}
+	if cfg.Disabled {
+		// A true no-op provider avoids generating span data while retaining W3C
+		// context propagation for callers that forward an incoming trace.
+		otel.SetTracerProvider(trace.NewNoopTracerProvider())
+		otel.SetTextMapPropagator(propagation.TraceContext{})
+		return func(context.Context) error { return nil }, nil
 	}
 	exporter, err := newExporter(ctx, cfg.Endpoint)
 	if err != nil {
@@ -47,6 +56,17 @@ func Setup(ctx context.Context, cfg Config) (func(context.Context) error, error)
 		slog.Error("OpenTelemetry export failed")
 	}))
 	return provider.Shutdown, nil
+}
+
+func ParseSDKDisabled(value string) (bool, error) {
+	switch strings.ToLower(strings.TrimSpace(value)) {
+	case "", "false":
+		return false, nil
+	case "true":
+		return true, nil
+	default:
+		return false, errors.New("OTEL_SDK_DISABLED must be true or false")
+	}
 }
 
 func newExporter(ctx context.Context, endpoint string) (sdktrace.SpanExporter, error) {

@@ -11,6 +11,7 @@ func TestLoadDefaultsAndOverrides(t *testing.T) {
 		"DATABASE_URL": "postgres://user:secret@localhost/developa",
 		"HTTP_ADDR":    "127.0.0.1:9090", "DATABASE_MAX_CONNS": "24",
 		"DATABASE_MIN_CONNS": "2", "REQUEST_TIMEOUT": "30s",
+		"OTEL_SDK_DISABLED": "true",
 	}))
 	if err != nil {
 		t.Fatal(err)
@@ -20,6 +21,9 @@ func TestLoadDefaultsAndOverrides(t *testing.T) {
 	}
 	if cfg.ReadinessTimeout != 2*time.Second || cfg.RequestTimeout != 30*time.Second {
 		t.Fatalf("unexpected timeouts")
+	}
+	if !cfg.TelemetryDisabled {
+		t.Fatal("OTEL_SDK_DISABLED was not applied")
 	}
 }
 
@@ -38,6 +42,7 @@ func TestLoadRejectsInvalidSettings(t *testing.T) {
 		{"zero duration", "SHUTDOWN_TIMEOUT", "0s"},
 		{"long duration", "REQUEST_TIMEOUT", "6m"},
 		{"inverted timeout", "READINESS_TIMEOUT", "11s"},
+		{"invalid telemetry switch", "OTEL_SDK_DISABLED", "sometimes"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
