@@ -57,27 +57,60 @@ func (r *Repository) readSnapshot(ctx context.Context, root *os.Root) (*Snapshot
 		return nil, err
 	}
 	snapshot := state.snapshot
-	var total int64
+	budget := captureBudget{}
 	for _, entry := range state.candidates {
-		file, exclusion, complete, err := r.readCandidate(ctx, root, entry)
-		if err != nil {
+		if err := r.captureCandidate(ctx, root, &snapshot, entry, &budget); err != nil {
 			return nil, err
 		}
-		if exclusion != "" {
-			snapshot.Exclusions = append(snapshot.Exclusions, Exclusion{Path: entry.path, Reason: exclusion})
-			snapshot.Complete = snapshot.Complete && complete
-		}
-		if file == nil {
-			continue
-		}
-		total += int64(len(file.Content))
-		if total > r.options.MaxTotalBytes {
-			return nil, ErrLimitExceeded
-		}
-		snapshot.Files = append(snapshot.Files, *file)
 	}
 	snapshot.Fingerprint = snapshotFingerprint(&snapshot)
 	return &snapshot, nil
+}
+
+type captureBudget struct {
+	used      int64
+	exhausted bool
+}
+
+func (r *Repository) captureCandidate(ctx context.Context, root *os.Root, snapshot *Snapshot, entry candidate, budget *captureBudget) error {
+	exclusion, complete := candidateExclusion(entry)
+	if exclusion != "" {
+		appendExclusion(snapshot, entry.path, exclusion, complete)
+		return nil
+	}
+	// The Go indexer only consumes Go source and module boundaries. Ignoring
+	// unrelated tracked assets keeps a monorepo's images and build artifacts
+	// from exhausting the source budget before useful code is reached.
+	if !captureSourcePath(entry.path) {
+		return nil
+	}
+	if budget.exhausted {
+		appendExclusion(snapshot, entry.path, "total_size_limit", false)
+		return nil
+	}
+	file, exclusion, complete, err := r.readCandidate(ctx, root, entry)
+	if err != nil {
+		return err
+	}
+	if exclusion != "" {
+		appendExclusion(snapshot, entry.path, exclusion, complete)
+	}
+	if file == nil {
+		return nil
+	}
+	if budget.used+int64(len(file.Content)) > r.options.MaxTotalBytes {
+		appendExclusion(snapshot, entry.path, "total_size_limit", false)
+		budget.exhausted = true
+		return nil
+	}
+	budget.used += int64(len(file.Content))
+	snapshot.Files = append(snapshot.Files, *file)
+	return nil
+}
+
+func appendExclusion(snapshot *Snapshot, path, reason string, complete bool) {
+	snapshot.Exclusions = append(snapshot.Exclusions, Exclusion{Path: path, Reason: reason})
+	snapshot.Complete = snapshot.Complete && complete
 }
 
 func snapshotFingerprint(snapshot *Snapshot) string {
@@ -95,10 +128,6 @@ func (r *Repository) readCandidate(ctx context.Context, root *os.Root, entry can
 	if err := ctx.Err(); err != nil {
 		return nil, "", false, err
 	}
-	reason, complete := candidateExclusion(entry)
-	if reason != "" {
-		return nil, reason, complete, nil
-	}
 	symlink, err := hasSymlink(root, entry.path)
 	if errors.Is(err, os.ErrNotExist) {
 		return nil, "", true, nil
@@ -112,6 +141,9 @@ func (r *Repository) readCandidate(ctx context.Context, root *os.Root, entry can
 	file, err := r.readFile(ctx, root, entry.path)
 	if errors.Is(err, os.ErrNotExist) {
 		return nil, "", false, ErrUnstable
+	}
+	if errors.Is(err, ErrLimitExceeded) {
+		return nil, "file_size_limit", false, nil
 	}
 	return file, "", true, err
 }

@@ -52,7 +52,9 @@ func restoredManager(ctx context.Context, store CatalogStore, record domain.Work
 	manager, _ := NewManager(ctx, store, defaults)
 	manager.cfg.RepositoryPath, manager.cfg.RepositoryName = record.Root, record.Name
 	manager.repository, manager.latest = record.Repository, record.Snapshot
-	repository, err := source.Open(ctx, record.Root, source.Options{})
+	repository, err := source.Open(ctx, record.Root, source.Options{
+		MaxFileBytes: defaults.MaxFileBytes, MaxTotalBytes: defaults.MaxTotalBytes,
+	})
 	if err != nil || repository.Root() != record.Root {
 		manager.status, manager.lastError = "error", "Workspace folder is unavailable or is no longer a Git repository. Saved snapshots remain available."
 		return manager

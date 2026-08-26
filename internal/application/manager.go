@@ -25,6 +25,8 @@ type ManagerConfig struct {
 	RepositoryName string
 	PollInterval   time.Duration
 	ScanTimeout    time.Duration
+	MaxFileBytes   int64
+	MaxTotalBytes  int64
 }
 
 // Manager serializes automatic and requested scans for one operator-owned checkout.
@@ -76,7 +78,9 @@ func NewManager(ctx context.Context, store CatalogStore, cfg ManagerConfig) (*Ma
 }
 
 func (m *Manager) initialize(ctx context.Context) error {
-	repo, err := source.Open(ctx, m.cfg.RepositoryPath, source.Options{})
+	repo, err := source.Open(ctx, m.cfg.RepositoryPath, source.Options{
+		MaxFileBytes: m.cfg.MaxFileBytes, MaxTotalBytes: m.cfg.MaxTotalBytes,
+	})
 	if err != nil {
 		return errors.New("configured repository is unavailable")
 	}

@@ -33,6 +33,8 @@ type Config struct {
 	APIKey                 string `json:"-"`
 	WatchInterval          time.Duration
 	ScanTimeout            time.Duration
+	SourceMaxFileBytes     int64
+	SourceMaxTotalBytes    int64
 	OllamaURL              string
 	OllamaModel            string
 	OllamaAnalysisModel    string

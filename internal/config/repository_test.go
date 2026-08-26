@@ -11,7 +11,8 @@ func TestRepositoryConfigurationDefaults(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if cfg.HTTPAddr != "127.0.0.1:8080" || cfg.WatchInterval != 2*time.Second || cfg.ScanTimeout != 30*time.Second {
+	if cfg.HTTPAddr != "127.0.0.1:8080" || cfg.WatchInterval != 2*time.Second || cfg.ScanTimeout != 30*time.Second ||
+		cfg.SourceMaxFileBytes != 4<<20 || cfg.SourceMaxTotalBytes != 64<<20 {
 		t.Fatalf("unsafe or unexpected defaults: %+v", cfg)
 	}
 }
@@ -21,6 +22,7 @@ func TestRepositoryConfigurationOverrides(t *testing.T) {
 		"DATABASE_URL": "postgres://localhost/db", "REPOSITORY_PATH": "/workspace/repo",
 		"REPOSITORY_NAME": "Example", "DENVERR_API_TOKEN": strings.Repeat("x", 24),
 		"WATCH_INTERVAL": "250ms", "SCAN_TIMEOUT": "5m",
+		"SOURCE_MAX_FILE_BYTES": "8388608", "SOURCE_MAX_TOTAL_BYTES": "268435456",
 	}
 	cfg, err := load(environment(values))
 	if err != nil {
@@ -32,6 +34,9 @@ func TestRepositoryConfigurationOverrides(t *testing.T) {
 	if cfg.WatchInterval != 250*time.Millisecond || cfg.ScanTimeout != 5*time.Minute {
 		t.Fatal("repository timing overrides not applied")
 	}
+	if cfg.SourceMaxFileBytes != 8<<20 || cfg.SourceMaxTotalBytes != 256<<20 {
+		t.Fatal("source capture budgets not applied")
+	}
 }
 
 func TestRepositoryConfigurationRejectsUnsafeSettings(t *testing.T) {
@@ -39,6 +44,8 @@ func TestRepositoryConfigurationRejectsUnsafeSettings(t *testing.T) {
 		{"DENVERR_API_TOKEN", ""}, {"DENVERR_API_TOKEN", "short-secret"},
 		{"WATCH_INTERVAL", "249ms"}, {"WATCH_INTERVAL", "61s"}, {"WATCH_INTERVAL", "bad"},
 		{"SCAN_TIMEOUT", "0s"}, {"SCAN_TIMEOUT", "6m"}, {"REPOSITORY_PATH", "/repo\x00"},
+		{"SOURCE_MAX_FILE_BYTES", "0"}, {"SOURCE_MAX_FILE_BYTES", "invalid"},
+		{"SOURCE_MAX_TOTAL_BYTES", "1073741825"}, {"SOURCE_MAX_TOTAL_BYTES", "1024"},
 	}
 	for _, tc := range cases {
 		values := map[string]string{

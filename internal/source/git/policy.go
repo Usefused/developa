@@ -50,6 +50,18 @@ func candidateExclusion(entry candidate) (string, bool) {
 	return "", true
 }
 
+func captureSourcePath(name string) bool {
+	if strings.HasSuffix(name, ".go") {
+		return true
+	}
+	switch path.Base(name) {
+	case "go.mod", "go.work":
+		return true
+	default:
+		return false
+	}
+}
+
 func hasSymlink(root *os.Root, name string) (bool, error) {
 	parts := strings.Split(name, "/")
 	for i := range parts {

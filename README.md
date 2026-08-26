@@ -83,6 +83,7 @@ Existing environment configuration remains supported for scripted deployments:
 - `REPOSITORIES` seeds up to 32 named checkouts as JSON.
 - `WORKSPACE_ROOTS` sets up to 16 browseable roots as JSON.
 - `WATCH_INTERVAL` defaults to `2s`; `SCAN_TIMEOUT` defaults to `30s`.
+- `SOURCE_MAX_FILE_BYTES` defaults to 4 MiB and `SOURCE_MAX_TOTAL_BYTES` to 64 MiB. These bounded-memory limits apply only to Go source and module files; exceeding them publishes an explicitly partial snapshot instead of discarding the entire index.
 
 Agent clients that know a local checkout root can call `POST /api/repositories/resolve` with `{"path":"/absolute/repository/root"}`. Denverr canonicalizes symlinks, returns the repository ID and latest snapshot, and never echoes the submitted path.
 

@@ -41,6 +41,7 @@ func RegisterWorkspace(ctx context.Context, cfg config.Config, path, name string
 	manager, reused, err := group.Add(startup, application.ManagerConfig{
 		RepositoryPath: path, RepositoryName: strings.TrimSpace(name),
 		PollInterval: cfg.WatchInterval, ScanTimeout: cfg.ScanTimeout,
+		MaxFileBytes: cfg.SourceMaxFileBytes, MaxTotalBytes: cfg.SourceMaxTotalBytes,
 	})
 	if err != nil {
 		return result, err

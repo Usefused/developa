@@ -5,6 +5,7 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -68,7 +69,7 @@ func TestIgnoredSecretAndSymlinkPolicies(t *testing.T) {
 	}
 	commitTestFiles(t, dir)
 	snapshot := captureTest(t, repo)
-	if len(snapshot.Files) != 2 || !snapshot.Complete {
+	if len(snapshot.Files) != 1 || !snapshot.Complete {
 		t.Fatalf("unexpected files/completeness: %+v", snapshot)
 	}
 	assertExcluded(t, snapshot, ".env", "secret_policy")
@@ -113,9 +114,10 @@ func TestCaptureLimits(t *testing.T) {
 	cases := []struct {
 		name    string
 		options Options
+		path    string
 	}{
-		{"file", Options{MaxFileBytes: 2}},
-		{"total", Options{MaxTotalBytes: 3}},
+		{"file", Options{MaxFileBytes: 2}, "a.go"},
+		{"total", Options{MaxTotalBytes: 3}, "b.go"},
 	}
 	for _, test := range cases {
 		t.Run(test.name, func(t *testing.T) {
@@ -126,11 +128,26 @@ func TestCaptureLimits(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			_, err = repo.Capture(context.Background())
-			if !errors.Is(err, ErrLimitExceeded) {
-				t.Fatalf("expected bounded capture, got %v", err)
+			snapshot, err := repo.Capture(context.Background())
+			if err != nil || snapshot.Complete {
+				t.Fatalf("bounded capture should publish partial source: %+v, %v", snapshot, err)
 			}
+			assertExcluded(t, snapshot, test.path, test.name+"_size_limit")
 		})
+	}
+}
+
+func TestUnsupportedFilesDoNotConsumeSourceBudget(t *testing.T) {
+	dir, _ := testRepository(t)
+	writeTestFile(t, dir, "asset.bin", strings.Repeat("x", 100))
+	writeTestFile(t, dir, "main.go", "package main\n")
+	repo, err := Open(context.Background(), dir, Options{MaxFileBytes: 20, MaxTotalBytes: 20})
+	if err != nil {
+		t.Fatal(err)
+	}
+	snapshot := captureTest(t, repo)
+	if !snapshot.Complete || len(snapshot.Files) != 1 || snapshot.Files[0].Path != "main.go" {
+		t.Fatalf("unrelated assets affected source capture: %+v", snapshot)
 	}
 }
 

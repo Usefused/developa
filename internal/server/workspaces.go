@@ -13,7 +13,8 @@ func repositoryManagers(cfg config.Config) []application.ManagerConfig {
 	managers := make([]application.ManagerConfig, 0, len(repositories))
 	for _, repository := range repositories {
 		managers = append(managers, application.ManagerConfig{RepositoryName: repository.Name, RepositoryPath: repository.Path,
-			PollInterval: cfg.WatchInterval, ScanTimeout: cfg.ScanTimeout})
+			PollInterval: cfg.WatchInterval, ScanTimeout: cfg.ScanTimeout,
+			MaxFileBytes: cfg.SourceMaxFileBytes, MaxTotalBytes: cfg.SourceMaxTotalBytes})
 	}
 	return managers
 }

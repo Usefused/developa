@@ -110,5 +110,6 @@ func workspaceRootPaths(cfg config.Config) []string {
 }
 
 func managerDefaults(cfg config.Config) application.ManagerConfig {
-	return application.ManagerConfig{PollInterval: cfg.WatchInterval, ScanTimeout: cfg.ScanTimeout}
+	return application.ManagerConfig{PollInterval: cfg.WatchInterval, ScanTimeout: cfg.ScanTimeout,
+		MaxFileBytes: cfg.SourceMaxFileBytes, MaxTotalBytes: cfg.SourceMaxTotalBytes}
 }

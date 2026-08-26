@@ -15,9 +15,11 @@ import (
 )
 
 func TestRepositoryManagerConfigurationPreservesLegacyAndConfiguredOrder(t *testing.T) {
-	cfg := config.Config{RepositoryPath: "legacy", RepositoryName: "Legacy", WatchInterval: time.Second, ScanTimeout: 3 * time.Second}
+	cfg := config.Config{RepositoryPath: "legacy", RepositoryName: "Legacy", WatchInterval: time.Second, ScanTimeout: 3 * time.Second,
+		SourceMaxFileBytes: 8 << 20, SourceMaxTotalBytes: 256 << 20}
 	managers := repositoryManagers(cfg)
-	if len(managers) != 1 || managers[0].RepositoryPath != "legacy" || managers[0].PollInterval != time.Second {
+	if len(managers) != 1 || managers[0].RepositoryPath != "legacy" || managers[0].PollInterval != time.Second ||
+		managers[0].MaxFileBytes != 8<<20 || managers[0].MaxTotalBytes != 256<<20 {
 		t.Fatal("legacy tracker configuration was not retained")
 	}
 	cfg.RepositoryPath = ""
