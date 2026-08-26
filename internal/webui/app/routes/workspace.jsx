@@ -15,9 +15,9 @@ export function Workspace() {
   const {status,epoch,defaultRepositoryID} = useSession();
   const [params] = useSearchParams();
   const repositoryID = params.get('repo') || defaultRepositoryID;
-  const [preferences,setPreferences] = usePreferences(repositoryID,defaultRepositoryID);
+  const [preferences,setPreferences,setRepositoryPreferences] = usePreferences(repositoryID,defaultRepositoryID);
   const [settings,setSettings] = useState(false);
-  const shared = {repositoryID,preferences,settings:()=>setSettings(true),toggleTheme:()=>setPreferences({...preferences,theme:preferences.theme === 'light' ? 'dark' : 'light'})};
+  const shared = {repositoryID,preferences,setRepositoryPreferences,settings:()=>setSettings(true),toggleTheme:()=>setPreferences({...preferences,theme:preferences.theme === 'light' ? 'dark' : 'light'})};
   // Replacing the scope unmounts in-flight reads and streams before another
   // repository can reuse the same snapshot, function or cache key.
   return <>{status === 'ready' ? <ScopedSessionProvider key={`${epoch}:${repositoryID}`} repositoryID={repositoryID}><ConnectedWorkspace shared={shared}/></ScopedSessionProvider> : <Shell {...shared}><Access/></Shell>}

@@ -13,6 +13,10 @@ export function usePreferences(repositoryID = '', defaultRepositoryID = '') {
     const next = updatePreferences(readPreferences(current.current),repositoryID,defaultRepositoryID,update);
     publishPreferences(next,current,setStored);
   },[repositoryID,defaultRepositoryID]);
+  const setRepositoryPreferences = useCallback((id,update)=>{
+    const next = updatePreferences(readPreferences(current.current),id,defaultRepositoryID,update);
+    publishPreferences(next,current,setStored);
+  },[defaultRepositoryID]);
   useEffect(()=>{
     const latest = readPreferences(current.current);
     const next = bindLegacyRepository(latest,defaultRepositoryID);
@@ -32,7 +36,7 @@ export function usePreferences(repositoryID = '', defaultRepositoryID = '') {
     window.addEventListener(changedEvent,receive);
     return ()=>{ window.removeEventListener('storage',receive); window.removeEventListener(changedEvent,receive); };
   },[]);
-  return [preferences,setPreferences];
+  return [preferences,setPreferences,setRepositoryPreferences];
 }
 
 function publishPreferences(next, current, setStored) {

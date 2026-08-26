@@ -5,11 +5,11 @@ import {Button} from './common.jsx';
 import {useSession} from '../hooks/use-session.jsx';
 import {WorkspaceSwitcher} from './workspace-switcher.jsx';
 
-export function Shell({project,snapshot,repositoryID,preferences,settings,toggleTheme,children}) {
+export function Shell({project,snapshot,repositoryID,preferences,setRepositoryPreferences,settings,toggleTheme,children}) {
   const {status,lock} = useSession();
   return <><header className="topbar">
     <Link to={pageURL('blocks',snapshot?.id,{repo:repositoryID})} className="brand" aria-label="Denverr home"><span className="brand-mark" aria-hidden="true"><i/><i/><i/><i/></span>denverr<span className="brand-dot">.</span></Link>
-    <div className={`project-crumb${status === 'ready' ? ' workspace-crumb' : ''}`}><span className="crumb-slash">/</span>{status === 'ready' ? <WorkspaceSwitcher repositoryID={repositoryID} repository={project?.repository}/> : <span>Your code, in context</span>}</div>
+    <div className={`project-crumb${status === 'ready' ? ' workspace-crumb' : ''}`}><span className="crumb-slash">/</span>{status === 'ready' ? <WorkspaceSwitcher repositoryID={repositoryID} repository={project?.repository} setRepositoryPreferences={setRepositoryPreferences}/> : <span>Your code, in context</span>}</div>
     <div className="header-actions"><span className="language-label">Go workspace</span><Button className="quiet-button" onClick={toggleTheme} aria-label={`Switch to ${preferences.theme === 'light' ? 'dark' : 'light'} theme`}>◐</Button><Button className="quiet-button" onClick={settings}>Editor settings</Button></div>
   </header><div className="app-layout"><nav className="navigation" aria-label="Workspace navigation">
     <p className="nav-eyebrow">WORKSPACE</p>

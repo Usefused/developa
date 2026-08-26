@@ -33,9 +33,14 @@
 .detail-tags{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 19px}
 .detail-tag{padding:3px 7px;border-radius:4px;font-size:9px;color:var(--muted);background:var(--code);border:1px solid var(--line)}
 .signature{background:var(--code);border:1px solid var(--line);border-radius:7px;padding:14px;font-size:11px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink);margin:0 0 22px}
-.detail-section{margin-top:24px}
-.detail-section h3{font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;font-weight:600}
+.detail-section{margin-top:14px;padding:13px;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.detail-section h3{font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin:0 0 12px;padding-bottom:9px;border-bottom:1px solid var(--line);font-weight:600}
 .detail-section p{font-size:12px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;margin-bottom:10px}
+.detail-section p:last-child{margin-bottom:0}
+.source-summary-section{border-left:3px solid var(--accent)}
+.ai-action-section,.ai-review-section{border-left:3px solid var(--function);background:var(--soft)}
+.ai-action-section h3,.ai-review-section h3{color:var(--function)}
+.ai-action-section>.secondary-button,.ai-review-section>.secondary-button{width:100%;white-space:normal;text-align:left}
 .muted-note{font-size:11px!important;color:var(--faint)!important}
 .parameter-list{list-style:none;padding:0;margin:0}
 .parameter-list li{font:11px/1.8 "SFMono-Regular",monospace;padding:8px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
@@ -44,6 +49,8 @@
 .detail-actions a{font-size:11px;text-decoration:none;padding:8px 11px}
 .detail-actions button{font-size:11px;padding:8px 11px}
 .detail-actions:has(.editor-launch){align-items:flex-start}
+.source-location-section .detail-actions{margin:0}
+.source-location-section [role=status]{margin-top:10px}
 .editor-launch{min-width:0;max-width:100%}
 .editor-launch>a{display:inline-block}
 .editor-help{font-size:11px;margin-top:8px;max-width:100%;overflow-wrap:anywhere}
@@ -54,6 +61,7 @@
 .relationship-note{background:var(--bg);border:1px dashed var(--line);border-radius:6px;padding:13px;margin-top:25px}
 .relationship-note strong{display:block;font-size:11px;font-weight:500;margin-bottom:5px}
 .relationship-note p{font-size:11px;line-height:1.7;margin:0;color:var(--muted)}
+.relationship-note .detail-actions{margin:12px 0 0}
 .detail-foot{border-top:1px solid var(--line);padding-top:15px;margin-top:25px;color:var(--faint);font:9px/1.7 "SFMono-Regular",monospace;overflow-wrap:anywhere}
 .evidence-table{width:100%;border-collapse:collapse;font-size:12px;background:var(--surface);border:1px solid var(--line)}
 .evidence-table th{color:var(--faint);font-size:9px;text-transform:uppercase;letter-spacing:1px;text-align:left;font-weight:500;padding:12px 16px;background:var(--bg)}

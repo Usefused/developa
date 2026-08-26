@@ -4,7 +4,7 @@ import {useWorkspace} from '../../hooks/use-workspace.jsx';
 import {useCapabilities} from '../../hooks/use-capabilities.js';
 import {useAction} from '../../hooks/use-action.js';
 import {useResource} from '../../hooks/use-resource.js';
-import {Button,ErrorNotice} from '../common.jsx';
+import {Button,ErrorNotice,Section} from '../common.jsx';
 import {Citation} from './citation.jsx';
 
 export function Explanation({target}) {
@@ -33,15 +33,15 @@ function ExplanationAction({target}) {
 }
 
 function ExplanationView({flow,action,saved,capabilities,answer,explain}) {
-  return <section className="detail-section" aria-label={flow ? 'AI flow explanation' : 'AI explanation'}>
+  return <Section title={flow ? 'AI flow explanation' : 'AI explanation'} className="ai-action-section" aria-label={flow ? 'AI flow explanation' : 'AI explanation'}>
     <Button disabled={action.pending || saved.pending || !!answer || !capabilities.data?.answers} onClick={explain} aria-busy={action.pending}>{explanationLabel(action.pending,flow,answer)}</Button>
-    <ErrorNotice error={action.error || saved.error || capabilities.error}/>{answer && <Answer answer={answer}/>}</section>;
+    <ErrorNotice error={action.error}/>{answer && <Answer answer={answer}/>}</Section>;
 }
 
 function explanationLabel(pending, flow, answer) {
   if (answer) return 'Explanation saved';
   if (pending) return 'Explaining…';
-  return flow ? 'Explain flow with AI' : 'Explain with AI';
+  return flow ? 'Explain this flow' : 'Explain function behavior';
 }
 
 function Answer({answer}) {

@@ -19,6 +19,7 @@ import {SourceViewer} from './app/components/details/source-viewer.jsx';
 import {Workspace} from './app/routes/workspace.jsx';
 import './session.test.jsx';
 import {Explanation} from './app/components/intelligence/explanation.jsx';
+import {FunctionReviews} from './app/components/intelligence/function-reviews.jsx';
 import {EditorLink} from './app/components/editor-link.jsx';
 import {EditorActions} from './app/components/details/editor-actions.jsx';
 import {AddWorkspaceDialog} from './app/components/workspaces/add-workspace-dialog.jsx';
@@ -77,7 +78,7 @@ test('add workspace browses folders without mutation and keeps Git failures in t
     workspaceFolders:async({path})=>({items:path === '.' ? [{name:'Backend',path:'backend'}] : [],next_offset:null}),
     addWorkspace:async request=>{requests.push(request);if (requests.length === 1) throw new Error('Git is not enabled in this folder.');return {id:'new-workspace'};},
   };
-  await act(async()=>root.render(<SessionContext.Provider value={{api,cache:new ReadCache()}}><AddWorkspaceDialog close={()=>{}} added={id=>added.push(id)}/></SessionContext.Provider>));
+  await act(async()=>root.render(<SessionContext.Provider value={{api,cache:new ReadCache()}}><AddWorkspaceDialog close={()=>{}} added={(id,path)=>added.push([id,path])}/></SessionContext.Provider>));
   assert.equal(requests.length,0);
   await click([...document.querySelectorAll('.folder-option')][0],dom);
   assert.match(document.querySelector('.selected-folder').textContent,/backend/);
@@ -86,7 +87,7 @@ test('add workspace browses folders without mutation and keeps Git failures in t
   assert.equal(document.querySelector('dialog').open,true);
   assert.deepEqual(requests[0],{root_id:'allowed',path:'backend',name:''});
   await click(button('Add selected folder'),dom);
-  assert.deepEqual(added,['new-workspace']);
+  assert.deepEqual(added,[['new-workspace','/repos/backend']]);
 });
 
 function editorView(root='/projects/My Repo', path='main.go', settings=()=>{}) {
@@ -386,8 +387,9 @@ test('explanation starts with only a button and restores saved content without i
     answerStream:async()=>{generations++;stored={id:'answer',snapshot_id:snapshot.id,text:'Explains this function.',model:'fixture',evidence:[]};return stored;},
   };
   await act(async()=>root.render(explanationView(api,new ReadCache())));
-  assert.equal(document.querySelector('[aria-label="AI explanation"]').textContent,'Explain with AI');
-  await click(button('Explain with AI'),dom);
+  assert.equal(document.querySelector('[aria-label="AI explanation"] h3').textContent,'AI explanation');
+  assert.equal(button('Explain function behavior').disabled,false);
+  await click(button('Explain function behavior'),dom);
   assert.match(document.querySelector('.explanation-result').textContent,/Explains this function/);
   assert.equal(button('Explanation saved').disabled,true);
   await act(async()=>root.render(null));
@@ -396,6 +398,18 @@ test('explanation starts with only a button and restores saved content without i
   assert.match(document.querySelector('.explanation-result').textContent,/Explains this function/);
   assert.equal(generations,1);
   assert.doesNotMatch(document.body.textContent,/Only when requested|Matching saved explanations/);
+});
+
+test('explanation hides background lookup failures until the user requests inference',async t=>{
+  const {root} = environment(t);
+  const api = {
+    capabilities:async()=>{ throw new Error('capability lookup failed'); },
+    savedAnswer:async()=>{ throw new Error('saved answer lookup failed'); },
+  };
+  await act(async()=>root.render(explanationView(api,new ReadCache())));
+  assert.ok(button('Explain function behavior'));
+  assert.equal(document.querySelector('.error-banner'),null);
+  assert.doesNotMatch(document.body.textContent,/lookup failed/);
 });
 
 test('switching function aborts saved explanation reads and discards late previous content',async t=>{
@@ -412,5 +426,32 @@ test('switching function aborts saved explanation reads and discards late previo
   await act(async()=>pending.new.resolve({answer:null}));
   await act(async()=>pending.old.resolve({answer:{text:'Wrong function'}}));
   assert.equal(document.querySelector('.explanation-result'),null);
-  assert.equal(button('Explain with AI').disabled,false);
+  assert.equal(button('Explain function behavior').disabled,false);
+});
+
+test('function review offers one clearly scoped action without preflight policy copy or empty callee details',async t=>{
+  const {root} = environment(t);
+  const api = {
+    capabilities:async()=>({function_review_generation:true}),
+    reviews:async()=>({snapshot_id:snapshot.id,total:0,items:[],unresolved_count:1,model_calls:0,options:{offset:0,limit:4},next_offset:null}),
+  };
+  const item = {symbol:{id:'function-one',kind:'function'},review:null};
+  await act(async()=>root.render(<SessionContext.Provider value={{api,cache:new ReadCache()}}><WorkspaceContext.Provider value={{snapshot}}><FunctionReviews item={item} updated={()=>{}}/></WorkspaceContext.Provider></SessionContext.Provider>));
+  assert.equal(document.querySelector('.ai-review-section h3').textContent,'AI card metadata');
+  assert.ok(button('Generate card description + parameter notes'));
+  assert.equal(document.querySelector('.callee-reviews'),null);
+  assert.doesNotMatch(document.body.textContent,/AI runs only|Each batch sends|model calls this batch|Calls 0 local functions/);
+});
+
+test('function review hides background review lookup failures before an AI action',async t=>{
+  const {root} = environment(t);
+  const api = {
+    capabilities:async()=>({function_review_generation:true}),
+    reviews:async()=>{ throw new Error('review lookup failed'); },
+  };
+  const item = {symbol:{id:'function-one',kind:'function'},review:null};
+  await act(async()=>root.render(<SessionContext.Provider value={{api,cache:new ReadCache()}}><WorkspaceContext.Provider value={{snapshot}}><FunctionReviews item={item} updated={()=>{}}/></WorkspaceContext.Provider></SessionContext.Provider>));
+  assert.ok(button('Generate card description + parameter notes'));
+  assert.equal(document.querySelector('.error-banner'),null);
+  assert.doesNotMatch(document.body.textContent,/review lookup failed/);
 });

@@ -7,10 +7,10 @@ export function FolderPicker({api,onSelect}) {
   const roots = useResource('workspace-roots',signal=>api.workspaceRoots(signal));
   const [rootID,setRootID] = useState('');
   const [path,setPath] = useState('.');
-  const options = (roots.data || []).map(root=>({value:root.id,label:root.path}));
+  const options = (roots.data || []).map(root=>({value:root.id,label:root.path,path:root.path}));
   const selected = options.find(root=>root.value === rootID) || options[0];
   const id = selected?.value;
-  useEffect(()=>{onSelect(id ? {root_id:id,path} : null);},[id,path,onSelect]);
+  useEffect(()=>{onSelect(id ? {root_id:id,path,root_path:selected.path} : null);},[id,path,selected?.path,onSelect]);
   function selectRoot(value) { setRootID(value);setPath('.'); }
   return <div className="folder-picker"><ErrorNotice error={roots.error}/>
     <label>Filesystem location</label><SearchSelect label="Filesystem location" options={options} selected={selected} onChange={selectRoot} placeholder="Search allowed folders…"/>

@@ -143,8 +143,8 @@ test('logout aborts connection preflight and a late success cannot reopen the se
 });
 
 function PreferencesProbe({id,defaultID,receive}) {
-  const [value,update] = usePreferences(id,defaultID);
-  receive({value,update});
+  const [value,update,updateRepository] = usePreferences(id,defaultID);
+  receive({value,update,updateRepository});
   return <p>{id}:{value.root}:{value.theme}</p>;
 }
 
@@ -159,6 +159,7 @@ test('mounted preference scopes share theme while merging separate editor paths'
   assert.equal(scopes.get('default').value.root,'/legacy/default');
   assert.equal(scopes.get('other').value.root,'');
   await act(async()=>scopes.get('other').update({root:'/projects/other',editor:'vscode'}));
+  await act(async()=>scopes.get('default').updateRepository('new-repository',{root:'/projects/new',editor:'cursor'}));
   await act(async()=>scopes.get('default').update(current=>({...current,theme:'dark'})));
   assert.equal(scopes.get('default').value.root,'/legacy/default');
   assert.equal(scopes.get('other').value.root,'/projects/other');
@@ -166,5 +167,5 @@ test('mounted preference scopes share theme while merging separate editor paths'
   assert.equal(document.documentElement.dataset.theme,'dark');
   const stored = JSON.parse(dom.window.localStorage.getItem(preferencesKey));
   assert.equal(stored.legacyRepositoryID,'default');
-  assert.deepEqual(stored.repositories,{other:{root:'/projects/other',editor:'vscode'}});
+  assert.deepEqual(stored.repositories,{other:{root:'/projects/other',editor:'vscode'},'new-repository':{root:'/projects/new',editor:'cursor'}});
 });

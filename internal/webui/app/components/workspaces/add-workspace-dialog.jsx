@@ -16,8 +16,9 @@ export function AddWorkspaceDialog({close,added}) {
     event.preventDefault();
     if (!selection) return;
     await action.run(async signal=>{
-      const result = await client.addWorkspace({...selection,name:name.trim()},signal);
-      if (!signal.aborted) { cache.clear();added(result.id); }
+      const {root_path:rootPath,...request} = selection;
+      const result = await client.addWorkspace({...request,name:name.trim()},signal);
+      if (!signal.aborted) { cache.clear();added(result.id,localEngine() ? workspacePath(rootPath,selection.path) : ''); }
       return result;
     });
   }
@@ -33,4 +34,16 @@ export function AddWorkspaceDialog({close,added}) {
     <p className="form-note">Saved in PostgreSQL and monitored in the background. Git must already be initialized; adding a workspace does not modify your files.</p>
     <div className="workspace-dialog-actions"><Button onClick={close}>Cancel</Button><button className="primary-button" type="submit" disabled={!selection || action.pending}>{action.pending ? 'Adding workspace…' : 'Add selected folder'}</button></div>
   </form></dialog>;
+}
+
+function localEngine() {
+  const host = window.location.hostname.toLowerCase();
+  return host === 'localhost' || host === '::1' || host === '[::1]' || /^127(?:\.\d{1,3}){3}$/.test(host);
+}
+
+export function workspacePath(root,relative) {
+  if (!root || !relative) return '';
+  if (relative === '.') return root;
+  const separator = root.includes('\\') && !root.includes('/') ? '\\' : '/';
+  return root.replace(/[\\/]+$/,'')+separator+relative.split('/').join(separator);
 }

@@ -1,0 +1,1 @@
+import{w as r,p as t,B as s}from"./chunk-62JRHF6Z-BWL0w8Bf.js";import{a as n,E as p}from"./common-Cv8kdxUH.js";import{p as a}from"./routes-CWz8HjJa.js";const d=r(function(){const{snapshot:o,repositoryID:e}=n();return t.jsx(p,{title:"Page not found",children:t.jsx(s,{to:a("blocks",o==null?void 0:o.id,{repo:e}),children:"Return to code blocks"})})});export{d as default};

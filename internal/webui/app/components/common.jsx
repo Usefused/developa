@@ -9,7 +9,7 @@ export function ErrorNotice({error}) {
 export function Resource({state,children}) {
   return <><ErrorNotice error={state.error}/>{state.data === undefined ? <EmptyState title={state.pending ? 'Loading source records…' : 'This view is unavailable'}>Your saved index is unchanged.</EmptyState> : children(state.data)}</>;
 }
-export function Section({title,children}) { return <section className="detail-section"><h3>{title}</h3>{children}</section>; }
+export function Section({title,children,className='',...props}) { return <section className={`detail-section${className ? ` ${className}` : ''}`} {...props}><h3>{title}</h3>{children}</section>; }
 export function Pagination({page,onChange}) {
   if (!page || page.total <= page.limit) return null;
   return <div className="pagination"><span>{pageLabel(page)}</span><div className="page-actions">

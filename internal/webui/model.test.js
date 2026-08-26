@@ -6,21 +6,21 @@ import {explanationRequest} from './assets/explanation.js';
 import {editorHref,editorLocation,roomGroups,parameterText,query,pageLabel,projectRefreshInterval,snapshotPin} from './assets/model.js';
 import {goSourceLines} from './code-source/go.js';
 import {reviewRequest,reviewable,reviewRange} from './assets/reviews.js';
-import {sourceSummary,documentationNote} from './assets/documentation.js';
+import {sourceSummary,documentationWarning} from './assets/documentation.js';
 
 test('source summaries use compiled comments without consulting AI reviews',()=>{
   const symbol = {doc:'Declaration.',documentation:{summary:'Declaration.\n\nBody rationale.',origin:'indexed_source',truncated:false}};
   assert.equal(sourceSummary(symbol),'Declaration.\n\nBody rationale.');
-  assert.match(documentationNote(symbol),/No AI used/);
+  assert.equal(documentationWarning(symbol),'');
   assert.equal(sourceSummary({documentation:{summary:''},doc:'Outdated fallback'}),'');
   assert.equal(sourceSummary({doc:'Header',comment:'Trailing'}),'Header\n\nTrailing');
 });
 
-test('source summary provenance discloses historical and incomplete captures',()=>{
+test('source summary only adds provenance copy when the capture is incomplete',()=>{
   const symbol = {documentation:{summary:'Captured.',origin:'captured_excerpt',truncated:true}};
-  assert.match(documentationNote(symbol),/saved comments and the captured excerpt/);
-  assert.match(documentationNote(symbol),/Incomplete/);
-  assert.match(documentationNote({}),/inline comments are unavailable/);
+  assert.match(documentationWarning(symbol),/Incomplete/);
+  assert.equal(documentationWarning({documentation:{summary:'Complete.',origin:'captured_excerpt',truncated:false}}),'');
+  assert.equal(documentationWarning({}),'');
 });
 
 test('review requests distinguish one function from a bounded direct-callee batch',()=>{
