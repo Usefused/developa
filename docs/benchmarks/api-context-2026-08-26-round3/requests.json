@@ -1,0 +1,714 @@
+[
+  {
+    "method": "GET",
+    "route": "/file?path=internal%2Fapplication%2Fworkspace_folders.go",
+    "status": null,
+    "failure": "fetch failed",
+    "raw_body_bytes": 0,
+    "elapsed_ms": 46.024
+  },
+  {
+    "method": "GET",
+    "route": "/file?path=internal%2Fapplication%2Fworkspace_folders.go",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1485,
+    "elapsed_ms": 52.22
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?file=internal%2Fapplication%2Fworkspace_folders.go&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 23789,
+    "elapsed_ms": 20.283
+  },
+  {
+    "method": "GET",
+    "route": "/context?q=workspace%20folders&limit=20",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 38086,
+    "elapsed_ms": 56.225
+  },
+  {
+    "method": "GET",
+    "route": "/files?q=workspace&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 5548,
+    "elapsed_ms": 59.181
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=FolderRoot&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 14326,
+    "elapsed_ms": 9.406
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=AddWorkspaceRequest&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 13422,
+    "elapsed_ms": 10.126
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?file=internal%2Fdomain%2Fworkspaces.go&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 37958,
+    "elapsed_ms": 8.162
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=FolderPage&file=internal%2Fdomain%2Fworkspaces.go&limit=20&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 5069,
+    "elapsed_ms": 5.755
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=Folder&file=internal%2Fdomain%2Fworkspaces.go&kind=struct&limit=20&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 4814,
+    "elapsed_ms": 5.412
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=4759f37da65a596ae90b4d7ee9fbad884cca2883fe6390399d43132d68aa2c10&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 3506,
+    "elapsed_ms": 21.781
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=a655cf27acc9e43428f64b8ee1863f9dc3b0cf3e1cda210b326d9c3672b5cbee&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 436,
+    "elapsed_ms": 6.414
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=628e66c17df805e614df8055067747b19416d478b30ad51aaef8f2a5fd264a6f&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 46,
+    "elapsed_ms": 2.833
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=014e944000162b649d76e506b53e3a28954be0648f11999eb691d9a04d22aa3c&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1375,
+    "elapsed_ms": 1.879
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=17ca466ce0140fc95ae155623497e5c11b00de519977364c3b6ffdd675d2b215&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 4000,
+    "elapsed_ms": 2.283
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=349451725d31a5f46fa0b4e0030571e667fa305a7bee8b4512c3a95d564560d6&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 6185,
+    "elapsed_ms": 1.484
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=ae71d29d1b81583741a5a31b0ebdc41c762a635bdd6ef111cb598aaf7bac771a&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1768,
+    "elapsed_ms": 1.96
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=7d64cc3388edf101b5ec47c97afd6be0aad33ced6371de00d4f00cff67db01ca&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 6933,
+    "elapsed_ms": 2.269
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=107dfd65166cb43b5a5618204e8c600b28999cb887d80086549f584f9491c50d&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 509,
+    "elapsed_ms": 1.094
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=bf8d3055a2bade2f934c3195443d5fd5a0bcb3ac6c247bc0958a62eb23f9b05c&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 4206,
+    "elapsed_ms": 1.222
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=bba44b7a469a31bf6b538f13c85d5794ed988b2e59b81f4779cd95c5352df730&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1199,
+    "elapsed_ms": 1.361
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/bc2d241955188c69ad44ae52f26ab8eb3e8039b28f3decacd2f54500062e7fbc",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1607,
+    "elapsed_ms": 3.67
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/b953c30ba1fc2a56801fd9f74f795f6039f03369c894f1cc5c96dcc04a7fec3c",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 871,
+    "elapsed_ms": 1.622
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/0dbb93e1e0d9c098c57c2fe33a3de6f2604dc27cdb134daecac4fb2e38505474",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 3631,
+    "elapsed_ms": 1.436
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/ad0f0c7a658baf1a964c090eac9650c3022b437cd79d5c5f847ef982ff97da30",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2467,
+    "elapsed_ms": 1.543
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/d21032b09cbbb3e715c9598beade67bafc6e8380543b399068672142784303a3",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 925,
+    "elapsed_ms": 0.786
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/857c1013361eb9a469b964747084ceda3a89aaea591f64dc599648f33f5b1d39",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1516,
+    "elapsed_ms": 2.868
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=ad0f0c7a658baf1a964c090eac9650c3022b437cd79d5c5f847ef982ff97da30&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 5685,
+    "elapsed_ms": 10.862
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/aa0f9a2cd0caa90690c6e93905cf943430fddddaedec405b6783831ad82a9ee9",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1609,
+    "elapsed_ms": 5.036
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/df0e730ea8fa82a4d30cdb587df88e9677c68cc9336a4e4857570650366631a2",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2089,
+    "elapsed_ms": 1.3
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/fb8908be485d6deabd7f89abd896bbf9cd8ac8fe847695d5a14fe12599b9a01d",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2479,
+    "elapsed_ms": 1.231
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/a45e29eebeaed5f81b9c46bc82ced530244c7eafaf8b540b6ff2aab94c233d05",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1201,
+    "elapsed_ms": 0.562
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=fb8908be485d6deabd7f89abd896bbf9cd8ac8fe847695d5a14fe12599b9a01d&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 3920,
+    "elapsed_ms": 8.257
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/7ee95ea49a15200a0d5321473dc27a351a0fb971dc2af176259b926e2a39f8e2/implementations?limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2441,
+    "elapsed_ms": 5.084
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=4759f37da65a596ae90b4d7ee9fbad884cca2883fe6390399d43132d68aa2c10&direction=in&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 778,
+    "elapsed_ms": 8.476
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/4d0448f9cb4f7dd8a61b4aee6572552e41fd0df5f085631919dea9946f616e38/implementations?limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 4657,
+    "elapsed_ms": 3.502
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/d1dffacf9fa9e8433c0f4500b403bb14d127d17ebab5afc08177b45bbb01ea2f/implementations?limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2465,
+    "elapsed_ms": 1.19
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/8bf776f7b67dab1995a7c5b4678c98638bf64c10f3952fabf461c7c84c8392ca/implementations?limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2458,
+    "elapsed_ms": 0.921
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/b467ff4dfaa4fd850bcbb8858f13b9aaed1b862c67584cd98dc83e54ab8e872d/implementations?limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2470,
+    "elapsed_ms": 0.903
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/fa73dccf6c4347f85093992b0cc2ef75fa74c32605e1cbaeaaa24896943eefe5",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2955,
+    "elapsed_ms": 5.928
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=fa73dccf6c4347f85093992b0cc2ef75fa74c32605e1cbaeaaa24896943eefe5&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 6627,
+    "elapsed_ms": 3.488
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/b0850eaed94e042e6c18f0a6b5799cacfa7a5a4ad44d74404f85b64d4271ad68",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1682,
+    "elapsed_ms": 2.86
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/4c2063e0d9cd07345bf8a03e22ca9b22a3b4a3ced57d54dac99cf374a9d75c9f",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1190,
+    "elapsed_ms": 2.493
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=fa73dccf6c4347f85093992b0cc2ef75fa74c32605e1cbaeaaa24896943eefe5&direction=in&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 744,
+    "elapsed_ms": 18.446
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/69493ab1f4678061fb7601d0fd0471adbab40073705220f7ad8f295f913cb6ec",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1575,
+    "elapsed_ms": 7.555
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=69493ab1f4678061fb7601d0fd0471adbab40073705220f7ad8f295f913cb6ec&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 7739,
+    "elapsed_ms": 7.507
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/9c021806498d8c1d7c77da0159c48f303053186a7122e9978ffa0738df3178e8",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2271,
+    "elapsed_ms": 1.914
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?file=internal%2Ftransport%2Fhttp%2Fworkspaces.go&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 22000,
+    "elapsed_ms": 5.494
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/b3532bc551e470d022d679d2cd0df2fcc158a89271831850c474a180acd62f37",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1979,
+    "elapsed_ms": 3.628
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=04a3e9ebbecde5264ff8caa15d7d768682ab69a16db63480ee987e68d866cdc3&direction=in&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 783,
+    "elapsed_ms": 2.649
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/7866f086dd2a88a186f35cd182b360509764e7f0ec33012f55a601a609ca918f",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1788,
+    "elapsed_ms": 1.496
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=ErrInvalidInput&limit=20&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1548,
+    "elapsed_ms": 27.088
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=writeError&file=internal%2Ftransport%2Fhttp&limit=20&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 45,
+    "elapsed_ms": 2.059
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=writeError&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1146,
+    "elapsed_ms": 24.984
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=08ccd47b62a7cbceccce24bd1b4897a23a8949cc7723815d17800dc23b246d2d&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1464,
+    "elapsed_ms": 3.976
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/c441dce5a525ddc3aa46705fc1280887e7302d1a1aa6441ae08cb376a1de8067",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2440,
+    "elapsed_ms": 2.847
+  },
+  {
+    "method": "GET",
+    "route": "/file?path=internal%2Fapplication%2Fworkspace_folders_test.go",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1007,
+    "elapsed_ms": 4.624
+  },
+  {
+    "method": "GET",
+    "route": "/file?path=internal%2Ftransport%2Fhttp%2Fworkspaces_test.go",
+    "status": 404,
+    "failure": null,
+    "raw_body_bytes": 23,
+    "elapsed_ms": 1.147
+  },
+  {
+    "method": "GET",
+    "route": "/file?path=internal%2Ftransport%2Fhttp%2Fworkspaces_integration_test.go",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1849,
+    "elapsed_ms": 1.192
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?file=internal%2Fapplication%2Fworkspace_folders_test.go&kind=function&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 9680,
+    "elapsed_ms": 7.978
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=NewWorkspaceService&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2225,
+    "elapsed_ms": 14.976
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?file=internal%2Ftransport%2Fhttp%2Fworkspaces_integration_test.go&kind=function&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 16577,
+    "elapsed_ms": 7.471
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=9c021806498d8c1d7c77da0159c48f303053186a7122e9978ffa0738df3178e8&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 7359,
+    "elapsed_ms": 6.21
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/c9380b7c16dd2dcfd0ac0f8cb763b4e3fdb5366dc18ca5540bbc263251e53720",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2204,
+    "elapsed_ms": 2.036
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/82bab71980c1f432535f638482873880e3bdbd382ef4d09435e51aef991098b8",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2236,
+    "elapsed_ms": 3.053
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/83e159e2c149e639b79a542350a6be7305c80da5ea8feabf98c52a14df1adcbb",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2119,
+    "elapsed_ms": 1.564
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=c9380b7c16dd2dcfd0ac0f8cb763b4e3fdb5366dc18ca5540bbc263251e53720&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 7555,
+    "elapsed_ms": 2.691
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/766969512be60e492a8109e90990a98b53f2988a3d78ec27d035169c3690ae15",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1537,
+    "elapsed_ms": 15.182
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/af644ea9b16d3313e6ba36e3483edebdcd853400ec6f56dfa0f18a53145e6617",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2846,
+    "elapsed_ms": 7.445
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=af644ea9b16d3313e6ba36e3483edebdcd853400ec6f56dfa0f18a53145e6617&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 4825,
+    "elapsed_ms": 6.085
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/3c4a9c5e506eebd0a42084bdb63536801295edb0a302634574818af8368eae46",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2089,
+    "elapsed_ms": 3.466
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=df0e730ea8fa82a4d30cdb587df88e9677c68cc9336a4e4857570650366631a2&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1568,
+    "elapsed_ms": 4.686
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/b0cc7715ef7032ce3857beaf95c92ccb9d5bc16060d30d0d72900f6c8e8739b5",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1940,
+    "elapsed_ms": 2.947
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=b0cc7715ef7032ce3857beaf95c92ccb9d5bc16060d30d0d72900f6c8e8739b5&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 7808,
+    "elapsed_ms": 2.717
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/f113361637ab730ecbaf86c994be177d98462a741bee4b4411d32cfaea61a3d5/implementations?limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2441,
+    "elapsed_ms": 4.322
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/6eac7bddc538a1bfa38bd63d75fde4ae2d52060131814b7007381eb5c1ce107e",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1723,
+    "elapsed_ms": 1.32
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/925dd84ed920235bdeeac2d2fe4901a41b118847c076f9756f419f3dcdb09a61",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1817,
+    "elapsed_ms": 2.448
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=a45e29eebeaed5f81b9c46bc82ced530244c7eafaf8b540b6ff2aab94c233d05&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2502,
+    "elapsed_ms": 5.013
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/5a244cf29f8757e53c4a14be7b0930210d40528dbc9c0774429549196aaad71c",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1959,
+    "elapsed_ms": 4.762
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=a655cf27acc9e43428f64b8ee1863f9dc3b0cf3e1cda210b326d9c3672b5cbee&direction=in&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 46,
+    "elapsed_ms": 4.913
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=17ca466ce0140fc95ae155623497e5c11b00de519977364c3b6ffdd675d2b215&direction=in&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 46,
+    "elapsed_ms": 1.799
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=7d64cc3388edf101b5ec47c97afd6be0aad33ced6371de00d4f00cff67db01ca&direction=in&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 46,
+    "elapsed_ms": 0.988
+  },
+  {
+    "method": "GET",
+    "route": "/details",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 99287,
+    "elapsed_ms": 14.08
+  },
+  {
+    "method": "GET",
+    "route": "/calls?symbol_id=82bab71980c1f432535f638482873880e3bdbd382ef4d09435e51aef991098b8&direction=out&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 2697,
+    "elapsed_ms": 6.755
+  },
+  {
+    "method": "GET",
+    "route": "/symbols/3beb5b3b4ebd9874d610907afd84e8e3eae1a0f79711fc15d9e7b48c5a8d3172",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 1877,
+    "elapsed_ms": 8.738
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=ManagerConfig&kind=struct&limit=20&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 8418,
+    "elapsed_ms": 13.891
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=Repository&file=internal%2Fdomain%2Fcatalog.go&kind=struct&limit=20&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 4510,
+    "elapsed_ms": 8.932
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=authenticate&file=internal%2Ftransport%2Fhttp%2Fexplorer.go&limit=20&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 45,
+    "elapsed_ms": 119.644
+  },
+  {
+    "method": "GET",
+    "route": "/symbols?q=authenticate&limit=100&offset=0",
+    "status": 200,
+    "failure": null,
+    "raw_body_bytes": 12125,
+    "elapsed_ms": 57.604
+  }
+]

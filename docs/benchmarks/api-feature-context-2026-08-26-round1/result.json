@@ -1,0 +1,57 @@
+{
+  "benchmark": "api-feature-context-2026-08-26-round1",
+  "feature": {
+    "id": "acaf4314c4b74af2e29e39e5f581260563d0c07661ab72005e4651dbbac91ddf",
+    "title": "AI-Enabled Explorer Server",
+    "evidence_snapshot_id": "9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f",
+    "evidence_status": "inferred",
+    "analyzed_symbols": 129,
+    "total_symbols": 2612
+  },
+  "score": 25.5,
+  "maximum_score": 28,
+  "percentage": 91.1,
+  "requests": {
+    "attempts": 78,
+    "http_200": 77,
+    "local_sandbox_failures": 1,
+    "response_bytes": 1608632,
+    "summed_elapsed_ms": 853.735,
+    "openapi_attempts": 3,
+    "inference_requests": 0
+  },
+  "scores": [
+    {"criterion": 1, "score": 1},
+    {"criterion": 2, "score": 1},
+    {"criterion": 3, "score": 1},
+    {"criterion": 4, "score": 1},
+    {"criterion": 5, "score": 1},
+    {"criterion": 6, "score": 1},
+    {"criterion": 7, "score": 1},
+    {"criterion": 8, "score": 1},
+    {"criterion": 9, "score": 1},
+    {"criterion": 10, "score": 1},
+    {"criterion": 11, "score": 1},
+    {"criterion": 12, "score": 0.75, "note": "Global admission and graceful close were incomplete."},
+    {"criterion": 13, "score": 1},
+    {"criterion": 14, "score": 1},
+    {"criterion": 15, "score": 1},
+    {"criterion": 16, "score": 1},
+    {"criterion": 17, "score": 1},
+    {"criterion": 18, "score": 0.75, "note": "Target forms were identified, but conflicting-target validation was not explicit."},
+    {"criterion": 19, "score": 1},
+    {"criterion": 20, "score": 1},
+    {"criterion": 21, "score": 0.75, "note": "Exact-input inference reuse was explained; the historical source predates current saved-answer lookup."},
+    {"criterion": 22, "score": 1},
+    {"criterion": 23, "score": 0.5, "note": "Timeouts, leases and partial publication were strong; retry backoff and nonblocking boundaries were incomplete."},
+    {"criterion": 24, "score": 0.75, "note": "Authentication and same-origin checks were strong; URL credential and request-bound coverage was incomplete."},
+    {"criterion": 25, "score": 0.75, "note": "Cloud opt-in and fixed origin were recovered; redirect, proxy and key-confinement details were incomplete."},
+    {"criterion": 26, "score": 0.75, "note": "Safe audit fields and prompt/source exclusion were recovered; answer-text and lease-token exclusion was not explicit."},
+    {"criterion": 27, "score": 0.5, "note": "SSE routes and persisted answer delivery were identified; heartbeat, lifetime and polling mechanics were omitted."},
+    {"criterion": 28, "score": 1}
+  ],
+  "presentation_findings": [
+    "One discoverBatches citation contains a concatenated 96-character symbol ID; its path, name and line span remain correct.",
+    "The agent downloaded the OpenAPI contract twice after its initial sandbox failure."
+  ]
+}

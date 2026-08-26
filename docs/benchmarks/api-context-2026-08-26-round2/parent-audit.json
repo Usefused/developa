@@ -1,0 +1,23 @@
+{
+  "actor": "Parent, after receiving the first independent report",
+  "included_in_agent_metrics": false,
+  "purpose": "Verify the agent's claim that an absent Content-Type is rejected before JSON decoding",
+  "method": "GET",
+  "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/9e980fecba41df2e91da98959af23603fdc83777296f7883b6bc05c6db2ff5ec",
+  "status": 200,
+  "raw_response_body_bytes": 1175,
+  "elapsed_ms": 8.706,
+  "response_projection": {
+    "path": "internal/transport/http/scan.go",
+    "symbol_id": "9e980fecba41df2e91da98959af23603fdc83777296f7883b6bc05c6db2ff5ec",
+    "name": "jsonContentType",
+    "start_line": 47,
+    "end_line": 53,
+    "source_truncated": false,
+    "source": "func jsonContentType(header string) bool {\n\tif header == \"\" {\n\t\treturn true\n\t}\n\tmediaType, _, err := mime.ParseMediaType(header)\n\treturn err == nil && mediaType == \"application/json\"\n}"
+  },
+  "result": "The helper accepts an absent header. Both the claim that a JSON content type is required and the claimed test-quality defect based on missing Content-Type are incorrect.",
+  "source_comparison": "Captured helper matches the local implementation. workspaceBody calls this helper before decoding; its invalid-body tests omit Content-Type. No tests were run in this experiment.",
+  "agent_retrieval": "No request for this symbol or its containing file appears in the agent ledger. This is available context the agent did not retrieve, not absent index data.",
+  "report_preservation": "No corrective feedback was sent to the subagent. Original report and request ledger were copied byte-for-byte."
+}

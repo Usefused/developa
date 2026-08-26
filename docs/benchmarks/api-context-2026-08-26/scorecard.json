@@ -1,0 +1,220 @@
+{
+  "test": "Blind API-only file context, trial 1",
+  "file": "internal/application/workspace_folders.go",
+  "source_sha256": "47f90e47f09358bc9a609a93196342f9382c417926bf03e53275cce0cdfea0a3",
+  "snapshot": "70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82",
+  "scoring": "Freeze these source-based criteria before the subagent receives its task; 1 point complete, 0.5 materially correct but incomplete, 0 absent/wrong. No score for speculation. Related-file facts are separately labeled.",
+  "total": 24,
+  "maximum": 24,
+  "limitations": "24/24 is coverage of this frozen checklist, not a general accuracy percentage or complete repository understanding.",
+  "criteria": [
+    {
+      "id": "B01",
+      "area": "File role/state",
+      "expected": "Application WorkspaceService implements allowlisted filesystem browsing plus registration orchestration; state group *Workspaces, defaults ManagerConfig, roots []domain.FolderRoot.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Purpose/state plus the complete inventory."
+    },
+    {
+      "id": "B02",
+      "area": "Declaration coverage",
+      "expected": "Identify and explain all 10 named functions/methods: NewWorkspaceService, FolderRoots, root, validFolderPath, Folders, readFolderPage, skipFolderEntries, AddWorkspace, gitRegistrationError, selectedPath. Anonymous deferred closure is distinct, not a second named method.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "All 15 declarations listed, including all 10 named functions/methods; bodies explained by section."
+    },
+    {
+      "id": "B03",
+      "area": "Root construction",
+      "expected": "Canonicalize configured paths, verify os.OpenRoot access then close; IDs lowercase SHA256 of canonical root, basename display name and canonical path; errors abort constructor. canonicalWorkspacePath uses Abs/EvalSymlinks in workspaces.go.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Constructor and canonicalWorkspacePath behavior, hashing, validation and failure mapping recovered."
+    },
+    {
+      "id": "B04",
+      "area": "Root API",
+      "expected": "FolderRoots returns a defensive slice copy; root does exact ID lookup and otherwise ErrFolderForbidden.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Copied root slice, exact ID lookup, ignored context and unknown-root handling recovered."
+    },
+    {
+      "id": "B05",
+      "area": "Relative path validation",
+      "expected": "Nonempty, <=4096 bytes, no NUL, filepath.IsLocal; '.' is allowed, not a general ban on all internal '..' segments or all symlinks.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Byte bound, NUL check and IsLocal semantics recovered without overstating traversal policy."
+    },
+    {
+      "id": "B06",
+      "area": "Browse arguments",
+      "expected": "Folders accepts context, root ID, relative path, offset and returns FolderPage/error; reject offsets <0 or >100000 and invalid path before lookup.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Folders arguments, offset range and validation ordering recovered."
+    },
+    {
+      "id": "B07",
+      "area": "Filesystem confinement",
+      "expected": "Folders opens an os.Root, then root-relative file handle, closes both with defers. Open failures mapped to ErrFolderForbidden. Root confinement includes symlink components.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "os.Root confinement, both handles and error mappings recovered."
+    },
+    {
+      "id": "B08",
+      "area": "Page mechanics",
+      "expected": "Page path cleaned and slash-normalized; initializes nonnil items; skip offset raw entries and ReadDir(100) in native order, not 100 visible folders.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Raw-entry paging, normalization and initialized results recovered."
+    },
+    {
+      "id": "B09",
+      "area": "Page filtering",
+      "expected": "Returns directories except .git; regular files excluded, symlink entries not followed/listed as directories. Other dot-directories are not universally hidden.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Directory/.git/symlink filtering and other hidden-directory behavior recovered."
+    },
+    {
+      "id": "B10",
+      "area": "Next offset",
+      "expected": "Only len(raw entries)==100 sets next_offset=offset+100; an empty visible page can still have a next page, exact multiple can require an extra empty page.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Correct raw-count continuation, empty pages and exact-multiple consequences; additionally noticed maximum-offset continuation issue."
+    },
+    {
+      "id": "B11",
+      "area": "Skipping/cancellation",
+      "expected": "Skips entries with min(offset,100), checks cancellation between chunks, EOF is normal, other read errors become ErrFolderForbidden; no unbounded allocation.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Bounded skipping, cancellation, EOF and other errors recovered."
+    },
+    {
+      "id": "B12",
+      "area": "Browse final errors",
+      "expected": "ReadDir EOF tolerated, non-EOF error sanitized, final page returns ctx.Err (may include constructed items and cancellation). This is not a directory snapshot/stable cursor.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Page-plus-cancellation behavior and unstable filesystem ordering recovered."
+    },
+    {
+      "id": "B13",
+      "area": "Registration input",
+      "expected": "selectedPath checks relative folder plus name <=200 bytes/no NUL, allowed root lookup. Raw name length tested before TrimSpace.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Name byte/NUL limits and validation before trimming recovered."
+    },
+    {
+      "id": "B14",
+      "area": "Selected-path confinement",
+      "expected": "Join root and requested path, EvalSymlinks, filepath.Rel and IsLocal reject escapes; failures sanitized. This path check is distinct from os.Root used in browsing, not a proof against every filesystem race.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "EvalSymlinks/Rel/IsLocal registration boundary correctly distinguished from rooted browsing."
+    },
+    {
+      "id": "B15",
+      "area": "Git validation",
+      "expected": "AddWorkspace calls source.Open with default Options before group.Add. Dependency requires exact working-tree root; no git init/clone/fetch is performed.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Exact Git working-tree-root requirement and no initialization recovered."
+    },
+    {
+      "id": "B16",
+      "area": "Manager configuration",
+      "expected": "Copy defaults and override RepositoryPath and trimmed RepositoryName; invoke group.Add, propagate error; preserve other manager settings.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Default config copy, overridden path/name, trimming and delegation recovered."
+    },
+    {
+      "id": "B17",
+      "area": "Registration result/errors",
+      "expected": "Return manager.Repository plus AlreadyAdded=reused; gitRegistrationError preserves context cancellation/deadline, otherwise ErrNotGitRepository (doesn't expose raw git error).",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Result/reuse behavior and cancellation-preserving Git error sanitization recovered."
+    },
+    {
+      "id": "B18",
+      "area": "Telemetry",
+      "expected": "workspace.add span; execution.started; deferred completion or telemetry.Fail(workspace_registration_failed) based on named error; span.End. Direct source/name not emitted as trace attributes here.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Span, started/completed/failure events and deferred outcome ordering recovered."
+    },
+    {
+      "id": "B19",
+      "area": "Responsibility boundary",
+      "expected": "No direct SQL/LLM/index parsing in this file. Workspace persistence/tracker behavior delegated to group.Add; registration succeeds before background indexing completes.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "No direct SQL/parser/AI in target; registration and later lifecycle responsibilities correctly separated."
+    },
+    {
+      "id": "B20",
+      "area": "Add dependency ordering",
+      "expected": "Workspaces.Add locks, handles closed, duplicate path idempotently, enforces32, requires WorkspaceStore, creates manager and persists before appending/starting; first manager becomes default; failed persistence closes it.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Mutex, closed/duplicate/capacity/store checks, persist-before-append/start and cleanup recovered."
+    },
+    {
+      "id": "B21",
+      "area": "Durability boundary",
+      "expected": "persistAddedWorkspace revalidates actual Git root and delegates durable registration with operator workspace.add execution; avoid claiming target file itself owns transaction or persistence internals.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Root revalidation, operator execution and storage delegation recovered without claiming whole workflow is atomic."
+    },
+    {
+      "id": "B22",
+      "area": "Consumers/DTOs",
+      "expected": "managedExplorerServer constructs service and passes as WorkspaceManagement; HTTP roots/folders/add call it through interface (static call resolution may not prove concrete target); domain FolderRoot,FolderPage,AddWorkspaceRequest,AddedWorkspace shapes.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Constructor injection, interface DTOs and HTTP consumers recovered; graph gaps explicitly labeled."
+    },
+    {
+      "id": "B23",
+      "area": "HTTP result mapping",
+      "expected": "Related transport: authenticated root/folder/add endpoints; foreign-origin registration rejected; add 201 new/200 duplicate, folder forbidden403, nonGit422,limit409; not logic directly owned by target.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Authentication/origin policy and 200/201/403/409/422 mapping recovered."
+    },
+    {
+      "id": "B24",
+      "area": "Test evidence and limitations",
+      "expected": "Existing tests cover escapes/symlink/missing/nonGit(no initialization),105dir pagination/.git hiding,bad offset/unknown root/cancellation,unconfigured manager persistence. If unavailable from API, state unavailable rather than claim executed tests.",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "All four target-file test groups recovered; tests were read through API, not executed."
+    }
+  ],
+  "outside_rubric_observations": [
+    {
+      "kind": "avoidable uncertainty",
+      "evidence": "internal/transport/http/scan.go:47, jsonContentType, 9e980fecba41df2e91da98959af23603fdc83777296f7883b6bc05c6db2ff5ec",
+      "finding": "The report questioned whether omitted Content-Type might prevent decoder tests reaching their intended guard. The helper accepts an empty header. This complete helper is retrievable through the API; it was not looked up. The report qualified uncertainty instead of asserting a false rejection."
+    },
+    {
+      "kind": "additional correct observation",
+      "evidence": "internal/application/workspace_folders.go:58,93-95",
+      "finding": "At offset 100000 a full raw page emits next_offset 100100, which the service rejects. An actual implementation boundary identified by the agent, not a new test execution."
+    },
+    {
+      "kind": "measurement defect",
+      "finding": "Discovery attempt 2 has unknown status/bytes/time; totals are known lower bounds. The initial no-response failure lost its exception detail."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "agent-report.md": {
+    "bytes": 34766,
+    "sha256": "8d82214d7820a52d9f311955ba10b19841b8c390d2e1adc281bd7ba57b9b4806"
+  },
+  "result.json": {
+    "bytes": 6978,
+    "sha256": "83c2c8af7e6b377f753eee55634308e3de93e931924890101c1eb95ea17af39e"
+  },
+  "README.md": {
+    "bytes": 3774,
+    "sha256": "ea5c1b277d2eedb24a7990f88c0ffdd4c9c5cbfea0c96cef7d2c44acf0c33b68"
+  },
+  "requests.json": {
+    "bytes": 19983,
+    "sha256": "ec716f438fffd35e7198cf10cafc9de39127ce94c63a7c05f256d109655dcd88"
+  }
+}

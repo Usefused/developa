@@ -1,0 +1,33 @@
+{
+  "name": "developa-ui-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "api:validate": "node api/validate.mjs",
+    "build": "node internal/webui/build.mjs",
+    "build:check": "node internal/webui/build.mjs --check",
+    "dev": "react-router dev",
+    "lint": "eslint api/*.mjs internal/webui/assets internal/webui/app internal/webui/flow-source internal/webui/code-source internal/webui/*.test.js internal/webui/*.test.jsx",
+    "test": "node --test internal/webui/*.test.js && node internal/webui/test-react.mjs"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "12.1.0",
+    "@react-router/dev": "7.18.2",
+    "esbuild": "0.28.2",
+    "eslint": "9.39.1",
+    "eslint-plugin-react": "7.37.5",
+    "jsdom": "26.1.0",
+    "typescript": "5.9.3",
+    "vite": "6.4.3"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "3.1.1",
+    "@lezer/go": "1.0.1",
+    "@lezer/highlight": "1.2.3",
+    "@react-router/node": "7.18.2",
+    "@xyflow/react": "12.11.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router": "7.18.2"
+  }
+}

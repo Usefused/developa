@@ -1,0 +1,13 @@
+# Opt in with: docker compose -f compose.yaml -f compose.repository.yaml up --build
+# This is an operator-selected checkout, never a path accepted from an API request.
+services:
+  server:
+    environment:
+      REPOSITORY_PATH: /repository
+    volumes:
+      - type: bind
+        source: ${REPOSITORY_HOST_PATH:?Set REPOSITORY_HOST_PATH to an existing local Git checkout root}
+        target: /repository
+        read_only: true
+        bind:
+          create_host_path: false

@@ -1,0 +1,302 @@
+{
+  "experiment": "blind-api-context-preloaded-agent2",
+  "origin": "http://127.0.0.1:18089",
+  "repository_id": "cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732",
+  "snapshot_id": "70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82",
+  "target": "internal/application/workspace_folders.go",
+  "measurement_notes": "Entries are in completion-recording order; parallel requests may complete in a different order from submission. Each elapsed_ms is request-process duration through received body or failure, excluding tool/approval time. Every attempt is included. Raw bytes are counted before JSON projection. Wall time ends at final artifact payload preparation. No credentials are stored.",
+  "summary": {
+    "http_attempts": 31,
+    "http_successes": 30,
+    "http_failures": 1,
+    "raw_response_body_bytes": 266103,
+    "summed_http_duration_ms": 347.136,
+    "wall_elapsed_ms": 326345,
+    "approximate_inspected_projection_chars": 97772,
+    "distinct_inspected_symbols": 65,
+    "distinct_inspected_source_chars": 26638,
+    "inspected_source_line_occurrences": 752,
+    "source_truncated_count": 0
+  },
+  "requests": [
+    {
+      "completion_sequence": 1,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/file?path=internal%2Fapplication%2Fworkspace_folders.go",
+      "status": null,
+      "raw_response_body_bytes": 0,
+      "elapsed_ms": 6.545,
+      "error": "<urlopen error [Errno 1] Operation not permitted>"
+    },
+    {
+      "completion_sequence": 2,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/file?path=internal%2Fapplication%2Fworkspace_folders.go",
+      "status": 200,
+      "raw_response_body_bytes": 1485,
+      "elapsed_ms": 9.917,
+      "trace_id": "0a26d3b9aa7896442fae7fded2a8d3d1"
+    },
+    {
+      "completion_sequence": 3,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fapplication%2Fworkspace_folders.go&limit=20&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 23788,
+      "elapsed_ms": 8.537,
+      "trace_id": "c6270761d07955136b5732cab4988818"
+    },
+    {
+      "completion_sequence": 4,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=17ca466ce0140fc95ae155623497e5c11b00de519977364c3b6ffdd675d2b215&direction=in&limit=100&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 46,
+      "elapsed_ms": 16.688,
+      "trace_id": "d098c41f26df9bfb8bdb616d7875c6d0"
+    },
+    {
+      "completion_sequence": 5,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/files?q=workspace&limit=40&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 5547,
+      "elapsed_ms": 58.735,
+      "trace_id": "9ea57fa7e730d994f7b2f3853fefb7b3"
+    },
+    {
+      "completion_sequence": 6,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=7d64cc3388edf101b5ec47c97afd6be0aad33ced6371de00d4f00cff67db01ca&direction=out&limit=100&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 5150,
+      "elapsed_ms": 6.955,
+      "trace_id": "86a3e9c6ad4a7d1b4605e55db46d68c6"
+    },
+    {
+      "completion_sequence": 7,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=4759f37da65a596ae90b4d7ee9fbad884cca2883fe6390399d43132d68aa2c10&direction=in&limit=100&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 513,
+      "elapsed_ms": 6.076,
+      "trace_id": "dbe36adfc6e582bb96c2098bac1f1752"
+    },
+    {
+      "completion_sequence": 8,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=7d64cc3388edf101b5ec47c97afd6be0aad33ced6371de00d4f00cff67db01ca&direction=in&limit=100&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 46,
+      "elapsed_ms": 5.897,
+      "trace_id": "ad3c0213004ca3c90ca9007368458932"
+    },
+    {
+      "completion_sequence": 9,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=4759f37da65a596ae90b4d7ee9fbad884cca2883fe6390399d43132d68aa2c10&direction=out&limit=100&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 3243,
+      "elapsed_ms": 5.861,
+      "trace_id": "e1d8040aeaa05e36fc478ab5e575d202"
+    },
+    {
+      "completion_sequence": 10,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=17ca466ce0140fc95ae155623497e5c11b00de519977364c3b6ffdd675d2b215&direction=out&limit=100&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 3223,
+      "elapsed_ms": 6.462,
+      "trace_id": "bc2bfa9a4bb67e75ab8eb150a85b40aa"
+    },
+    {
+      "completion_sequence": 11,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fdomain%2Fworkspaces.go&limit=40&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 37957,
+      "elapsed_ms": 10.14,
+      "trace_id": "3444b8fe15ce1492abba87485bcfdf71"
+    },
+    {
+      "completion_sequence": 12,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/bc2d241955188c69ad44ae52f26ab8eb3e8039b28f3decacd2f54500062e7fbc",
+      "status": 200,
+      "raw_response_body_bytes": 1607,
+      "elapsed_ms": 8.087,
+      "trace_id": "6bac349a94d023626096e3ad334eeb2d"
+    },
+    {
+      "completion_sequence": 13,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fapplication%2Fworkspace_folders_test.go&limit=20&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 9679,
+      "elapsed_ms": 7.627,
+      "trace_id": "679a7d7d1642973c91fcfac66b2381b1"
+    },
+    {
+      "completion_sequence": 14,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/fa73dccf6c4347f85093992b0cc2ef75fa74c32605e1cbaeaaa24896943eefe5",
+      "status": 200,
+      "raw_response_body_bytes": 2955,
+      "elapsed_ms": 7.376,
+      "trace_id": "fb454bd409aa25e6296912d04c435f38"
+    },
+    {
+      "completion_sequence": 15,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/ad0f0c7a658baf1a964c090eac9650c3022b437cd79d5c5f847ef982ff97da30",
+      "status": 200,
+      "raw_response_body_bytes": 2467,
+      "elapsed_ms": 5.628,
+      "trace_id": "01ea3aed9e5f8f2f09c63e5eef80baa4"
+    },
+    {
+      "completion_sequence": 16,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?q=ManagerConfig&kind=struct&limit=10&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 8418,
+      "elapsed_ms": 17.522,
+      "trace_id": "7a9b9d7244f5e5f63e74ef41121c2c85"
+    },
+    {
+      "completion_sequence": 17,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/0dbb93e1e0d9c098c57c2fe33a3de6f2604dc27cdb134daecac4fb2e38505474",
+      "status": 200,
+      "raw_response_body_bytes": 3631,
+      "elapsed_ms": 5.274,
+      "trace_id": "8d085081a7e29f93cbd93fd655e5610a"
+    },
+    {
+      "completion_sequence": 18,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/b953c30ba1fc2a56801fd9f74f795f6039f03369c894f1cc5c96dcc04a7fec3c",
+      "status": 200,
+      "raw_response_body_bytes": 871,
+      "elapsed_ms": 7.747,
+      "trace_id": "6ceb4002a1ed5f8e12e003340c48ca4a"
+    },
+    {
+      "completion_sequence": 19,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/details",
+      "status": 200,
+      "raw_response_body_bytes": 93473,
+      "elapsed_ms": 8.161,
+      "trace_id": "5a21dfba6e4cfb058b27ccc3e7e4cc4f"
+    },
+    {
+      "completion_sequence": 20,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=ad0f0c7a658baf1a964c090eac9650c3022b437cd79d5c5f847ef982ff97da30&direction=out&limit=100&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 4404,
+      "elapsed_ms": 6.805,
+      "trace_id": "d9aa3d10ddef7548f773071d3366e12b"
+    },
+    {
+      "completion_sequence": 21,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/d21032b09cbbb3e715c9598beade67bafc6e8380543b399068672142784303a3",
+      "status": 200,
+      "raw_response_body_bytes": 925,
+      "elapsed_ms": 5.032,
+      "trace_id": "ff3dc1da0ed001505023574d2009105a"
+    },
+    {
+      "completion_sequence": 22,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Ftransport%2Fhttp%2Fworkspaces.go&limit=20&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 21999,
+      "elapsed_ms": 7.317,
+      "trace_id": "30f49ee54ad1ff928374bccc5fef9261"
+    },
+    {
+      "completion_sequence": 23,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/df0e730ea8fa82a4d30cdb587df88e9677c68cc9336a4e4857570650366631a2",
+      "status": 200,
+      "raw_response_body_bytes": 2089,
+      "elapsed_ms": 9.308,
+      "trace_id": "54116c1e701ed57877436b9a67ea2a21"
+    },
+    {
+      "completion_sequence": 24,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=b33706e3eef3c8e3dad25471c02c474688304d36af93faae9eacfd51dd5a5b47&direction=out&limit=50&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 4582,
+      "elapsed_ms": 8.923,
+      "trace_id": "eaa02c1382f0673ebb21ed361428d55c"
+    },
+    {
+      "completion_sequence": 25,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=e50875ac6c5bdec77ac88a5ca3cadc8e98552675b13b764a40d07267f25fb927&direction=out&limit=50&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 3668,
+      "elapsed_ms": 7.465,
+      "trace_id": "fcb4d7ede0f9dba842f62cd3d3f9553d"
+    },
+    {
+      "completion_sequence": 26,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/a45e29eebeaed5f81b9c46bc82ced530244c7eafaf8b540b6ff2aab94c233d05",
+      "status": 200,
+      "raw_response_body_bytes": 1201,
+      "elapsed_ms": 5.275,
+      "trace_id": "b3db57968fc48d70917849f8a6ea8438"
+    },
+    {
+      "completion_sequence": 27,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/fb8908be485d6deabd7f89abd896bbf9cd8ac8fe847695d5a14fe12599b9a01d",
+      "status": 200,
+      "raw_response_body_bytes": 2479,
+      "elapsed_ms": 61.753,
+      "trace_id": "d34b3e1808250a553808e4b0ac2caee2"
+    },
+    {
+      "completion_sequence": 28,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/aa0f9a2cd0caa90690c6e93905cf943430fddddaedec405b6783831ad82a9ee9",
+      "status": 200,
+      "raw_response_body_bytes": 1609,
+      "elapsed_ms": 7,
+      "trace_id": "f5d33a29a813e12ff9fbd96e287a702e"
+    },
+    {
+      "completion_sequence": 29,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=bba44b7a469a31bf6b538f13c85d5794ed988b2e59b81f4779cd95c5352df730&direction=out&limit=50&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 956,
+      "elapsed_ms": 6.18,
+      "trace_id": "53006117ab4cf03568d7451255edbba9"
+    },
+    {
+      "completion_sequence": 30,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Ftransport%2Fhttp%2Fworkspaces_integration_test.go&kind=function&limit=20&offset=0",
+      "status": 200,
+      "raw_response_body_bytes": 16576,
+      "elapsed_ms": 5.824,
+      "trace_id": "9fd5c08b88656ba01104b4b1906baba5"
+    },
+    {
+      "completion_sequence": 31,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/857c1013361eb9a469b964747084ceda3a89aaea591f64dc599648f33f5b1d39",
+      "status": 200,
+      "raw_response_body_bytes": 1516,
+      "elapsed_ms": 7.019,
+      "trace_id": "c546b966afa39361a78c406b8c78b1e9"
+    }
+  ]
+}

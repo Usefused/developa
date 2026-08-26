@@ -1,0 +1,160 @@
+{
+  "test": "Blind API-only file context, trial 1",
+  "file": "internal/application/workspace_folders.go",
+  "source_sha256": "47f90e47f09358bc9a609a93196342f9382c417926bf03e53275cce0cdfea0a3",
+  "source_lines": 168,
+  "source_bytes": 4855,
+  "method": "Freeze these source-based criteria before the subagent receives its task; 1 point complete, 0.5 materially correct but incomplete, 0 absent/wrong. No score for speculation. Related-file facts are separately labeled.",
+  "criteria": [
+    [
+      "B01",
+      "File role/state",
+      "Application WorkspaceService implements allowlisted filesystem browsing plus registration orchestration; state group *Workspaces, defaults ManagerConfig, roots []domain.FolderRoot.",
+      "17-21"
+    ],
+    [
+      "B02",
+      "Declaration coverage",
+      "Identify and explain all 10 named functions/methods: NewWorkspaceService, FolderRoots, root, validFolderPath, Folders, readFolderPage, skipFolderEntries, AddWorkspace, gitRegistrationError, selectedPath. Anonymous deferred closure is distinct, not a second named method.",
+      "23-168"
+    ],
+    [
+      "B03",
+      "Root construction",
+      "Canonicalize configured paths, verify os.OpenRoot access then close; IDs lowercase SHA256 of canonical root, basename display name and canonical path; errors abort constructor. canonicalWorkspacePath uses Abs/EvalSymlinks in workspaces.go.",
+      "23-38"
+    ],
+    [
+      "B04",
+      "Root API",
+      "FolderRoots returns a defensive slice copy; root does exact ID lookup and otherwise ErrFolderForbidden.",
+      "40-51"
+    ],
+    [
+      "B05",
+      "Relative path validation",
+      "Nonempty, <=4096 bytes, no NUL, filepath.IsLocal; '.' is allowed, not a general ban on all internal '..' segments or all symlinks.",
+      "53-55"
+    ],
+    [
+      "B06",
+      "Browse arguments",
+      "Folders accepts context, root ID, relative path, offset and returns FolderPage/error; reject offsets <0 or >100000 and invalid path before lookup.",
+      "57-64"
+    ],
+    [
+      "B07",
+      "Filesystem confinement",
+      "Folders opens an os.Root, then root-relative file handle, closes both with defers. Open failures mapped to ErrFolderForbidden. Root confinement includes symlink components.",
+      "65-77"
+    ],
+    [
+      "B08",
+      "Page mechanics",
+      "Page path cleaned and slash-normalized; initializes nonnil items; skip offset raw entries and ReadDir(100) in native order, not 100 visible folders.",
+      "79-87"
+    ],
+    [
+      "B09",
+      "Page filtering",
+      "Returns directories except .git; regular files excluded, symlink entries not followed/listed as directories. Other dot-directories are not universally hidden.",
+      "88-92"
+    ],
+    [
+      "B10",
+      "Next offset",
+      "Only len(raw entries)==100 sets next_offset=offset+100; an empty visible page can still have a next page, exact multiple can require an extra empty page.",
+      "93-97"
+    ],
+    [
+      "B11",
+      "Skipping/cancellation",
+      "Skips entries with min(offset,100), checks cancellation between chunks, EOF is normal, other read errors become ErrFolderForbidden; no unbounded allocation.",
+      "100-115"
+    ],
+    [
+      "B12",
+      "Browse final errors",
+      "ReadDir EOF tolerated, non-EOF error sanitized, final page returns ctx.Err (may include constructed items and cancellation). This is not a directory snapshot/stable cursor.",
+      "79-115"
+    ],
+    [
+      "B13",
+      "Registration input",
+      "selectedPath checks relative folder plus name <=200 bytes/no NUL, allowed root lookup. Raw name length tested before TrimSpace.",
+      "151-158"
+    ],
+    [
+      "B14",
+      "Selected-path confinement",
+      "Join root and requested path, EvalSymlinks, filepath.Rel and IsLocal reject escapes; failures sanitized. This path check is distinct from os.Root used in browsing, not a proof against every filesystem race.",
+      "159-168"
+    ],
+    [
+      "B15",
+      "Git validation",
+      "AddWorkspace calls source.Open with default Options before group.Add. Dependency requires exact working-tree root; no git init/clone/fetch is performed.",
+      "128-134 + internal/source/git/open.go:32-65"
+    ],
+    [
+      "B16",
+      "Manager configuration",
+      "Copy defaults and override RepositoryPath and trimmed RepositoryName; invoke group.Add, propagate error; preserve other manager settings.",
+      "135-140"
+    ],
+    [
+      "B17",
+      "Registration result/errors",
+      "Return manager.Repository plus AlreadyAdded=reused; gitRegistrationError preserves context cancellation/deadline, otherwise ErrNotGitRepository (doesn't expose raw git error).",
+      "141-149"
+    ],
+    [
+      "B18",
+      "Telemetry",
+      "workspace.add span; execution.started; deferred completion or telemetry.Fail(workspace_registration_failed) based on named error; span.End. Direct source/name not emitted as trace attributes here.",
+      "117-127"
+    ],
+    [
+      "B19",
+      "Responsibility boundary",
+      "No direct SQL/LLM/index parsing in this file. Workspace persistence/tracker behavior delegated to group.Add; registration succeeds before background indexing completes.",
+      "117-142 + workspaces_persistence.go"
+    ],
+    [
+      "B20",
+      "Add dependency ordering",
+      "Workspaces.Add locks, handles closed, duplicate path idempotently, enforces32, requires WorkspaceStore, creates manager and persists before appending/starting; first manager becomes default; failed persistence closes it.",
+      "internal/application/workspaces_persistence.go:73-109"
+    ],
+    [
+      "B21",
+      "Durability boundary",
+      "persistAddedWorkspace revalidates actual Git root and delegates durable registration with operator workspace.add execution; avoid claiming target file itself owns transaction or persistence internals.",
+      "internal/application/workspaces_persistence.go:118-126"
+    ],
+    [
+      "B22",
+      "Consumers/DTOs",
+      "managedExplorerServer constructs service and passes as WorkspaceManagement; HTTP roots/folders/add call it through interface (static call resolution may not prove concrete target); domain FolderRoot,FolderPage,AddWorkspaceRequest,AddedWorkspace shapes.",
+      "cmd/server/workspace_runtime.go; internal/transport/http/workspaces.go; internal/domain/workspaces.go"
+    ],
+    [
+      "B23",
+      "HTTP result mapping",
+      "Related transport: authenticated root/folder/add endpoints; foreign-origin registration rejected; add 201 new/200 duplicate, folder forbidden403, nonGit422,limit409; not logic directly owned by target.",
+      "internal/transport/http/workspaces.go"
+    ],
+    [
+      "B24",
+      "Test evidence and limitations",
+      "Existing tests cover escapes/symlink/missing/nonGit(no initialization),105dir pagination/.git hiding,bad offset/unknown root/cancellation,unconfigured manager persistence. If unavailable from API, state unavailable rather than claim executed tests.",
+      "internal/application/workspace_folders_test.go"
+    ]
+  ],
+  "unscored_risk_notes": [
+    "Constructor doesn't deduplicate roots or enforce max configured count itself.",
+    "Registration selectedPath is string-based; don't claim all TOCTOU races eliminated. persistAddedWorkspace only compares actual root strings.",
+    "Filesystem offsets are O(offset) per browse, no sorting or stable directory snapshot.",
+    "No tests are executed in the blind retrieval experiment; existence and execution must be distinguished."
+  ]
+}

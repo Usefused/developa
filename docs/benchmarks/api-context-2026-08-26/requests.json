@@ -1,0 +1,233 @@
+{
+  "origin": "http://127.0.0.1:18089",
+  "repository_id": "cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732",
+  "snapshot_id": "70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82",
+  "metrics": {
+    "calls": 26,
+    "successfulKnown": 24,
+    "knownBytes": 1056093,
+    "knownElapsedMs": 256.2,
+    "inspectedJSONChars": 146954,
+    "sourceCharsIncludingDuplicates": 33185,
+    "sourceSymbolsIncludingDuplicates": 99,
+    "sourceFiles": 13
+  },
+  "accounting_notes": [
+    "Known totals exclude attempt 2's lost metrics; no estimate substituted.",
+    "Elapsed durations measure client HTTP request/read duration and are summed, not overall wall time.",
+    "Concurrent batches are ordered by planned request index, not completion timestamp.",
+    "Inspected-size metrics count projected JSON characters and source excerpt instances, including duplicates."
+  ],
+  "requests": [
+    {
+      "attempt": 1,
+      "method": "GET",
+      "route": "/api/openapi.json",
+      "status": null,
+      "bytes": 0,
+      "elapsed_ms": 6.32,
+      "note": "Un-escalated attempt: no HTTP response, exception detail not retained; subsequent escalated reads succeeded."
+    },
+    {
+      "attempt": 2,
+      "method": "GET",
+      "route": "/api/openapi.json",
+      "status": "unknown",
+      "bytes": null,
+      "elapsed_ms": null,
+      "note": "Escalated command returned output beginning with a warning; wrapper JSON parsing failed before storing the response. Request outcome not retained."
+    },
+    {
+      "attempt": 3,
+      "method": "GET",
+      "route": "/api/openapi.json",
+      "status": 200,
+      "bytes": 394247,
+      "elapsed_ms": 7.44
+    },
+    {
+      "attempt": 4,
+      "method": "GET",
+      "route": "/api/openapi.json",
+      "status": 200,
+      "bytes": 394247,
+      "elapsed_ms": 6.76
+    },
+    {
+      "attempt": 5,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/file?path=internal%2Fapplication%2Fworkspace_folders.go",
+      "status": 200,
+      "bytes": 1485,
+      "elapsed_ms": 5.59
+    },
+    {
+      "attempt": 6,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fapplication%2Fworkspace_folders.go&limit=100&offset=0",
+      "status": 200,
+      "bytes": 23789,
+      "elapsed_ms": 11.36
+    },
+    {
+      "attempt": 7,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/details",
+      "status": 200,
+      "bytes": 93473,
+      "elapsed_ms": 10.55
+    },
+    {
+      "attempt": 8,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=7d64cc3388edf101b5ec47c97afd6be0aad33ced6371de00d4f00cff67db01ca&direction=out&limit=100&offset=0",
+      "status": 200,
+      "bytes": 5150,
+      "elapsed_ms": 7.59
+    },
+    {
+      "attempt": 9,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=4759f37da65a596ae90b4d7ee9fbad884cca2883fe6390399d43132d68aa2c10&direction=in&limit=100&offset=0",
+      "status": 200,
+      "bytes": 513,
+      "elapsed_ms": 17.35
+    },
+    {
+      "attempt": 10,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/files?q=workspace&limit=100&offset=0",
+      "status": 200,
+      "bytes": 5548,
+      "elapsed_ms": 12.2
+    },
+    {
+      "attempt": 11,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?q=canonicalWorkspacePath&limit=10&offset=0",
+      "status": 200,
+      "bytes": 1651,
+      "elapsed_ms": 39.26
+    },
+    {
+      "attempt": 12,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fapplication%2Fworkspace_folders_test.go&limit=100&offset=0",
+      "status": 200,
+      "bytes": 9680,
+      "elapsed_ms": 5.01
+    },
+    {
+      "attempt": 13,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fdomain%2Fworkspaces.go&limit=100&offset=0",
+      "status": 200,
+      "bytes": 37958,
+      "elapsed_ms": 5.91
+    },
+    {
+      "attempt": 14,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Ftransport%2Fhttp%2Fworkspaces.go&limit=100&offset=0",
+      "status": 200,
+      "bytes": 22000,
+      "elapsed_ms": 13.52
+    },
+    {
+      "attempt": 15,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/ad0f0c7a658baf1a964c090eac9650c3022b437cd79d5c5f847ef982ff97da30",
+      "status": 200,
+      "bytes": 2467,
+      "elapsed_ms": 6.84
+    },
+    {
+      "attempt": 16,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/0dbb93e1e0d9c098c57c2fe33a3de6f2604dc27cdb134daecac4fb2e38505474",
+      "status": 200,
+      "bytes": 3631,
+      "elapsed_ms": 6.97
+    },
+    {
+      "attempt": 17,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols/fa73dccf6c4347f85093992b0cc2ef75fa74c32605e1cbaeaaa24896943eefe5",
+      "status": 200,
+      "bytes": 2955,
+      "elapsed_ms": 8.28
+    },
+    {
+      "attempt": 18,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fapplication%2Fworkspaces_persistence.go&limit=100&offset=0",
+      "status": 200,
+      "bytes": 14734,
+      "elapsed_ms": 5.52
+    },
+    {
+      "attempt": 19,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=17ca466ce0140fc95ae155623497e5c11b00de519977364c3b6ffdd675d2b215&direction=out&limit=100&offset=0",
+      "status": 200,
+      "bytes": 3223,
+      "elapsed_ms": 6.21
+    },
+    {
+      "attempt": 20,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/calls?symbol_id=b33706e3eef3c8e3dad25471c02c474688304d36af93faae9eacfd51dd5a5b47&direction=out&limit=100&offset=0",
+      "status": 200,
+      "bytes": 4583,
+      "elapsed_ms": 6.21
+    },
+    {
+      "attempt": 21,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fstore%2Fpostgres%2Fworkspaces.go&q=SaveWorkspaces&limit=10&offset=0",
+      "status": 200,
+      "bytes": 2248,
+      "elapsed_ms": 5.36
+    },
+    {
+      "attempt": 22,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?q=newScanRequest&limit=10&offset=0",
+      "status": 200,
+      "bytes": 2163,
+      "elapsed_ms": 13.03
+    },
+    {
+      "attempt": 23,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Ftransport%2Fhttp%2Fworkspaces_integration_test.go&limit=100&offset=0",
+      "status": 200,
+      "bytes": 22434,
+      "elapsed_ms": 7.01
+    },
+    {
+      "attempt": 24,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?q=NewManager&kind=function&limit=10&offset=0",
+      "status": 200,
+      "bytes": 3040,
+      "elapsed_ms": 25.16
+    },
+    {
+      "attempt": 25,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fstore%2Fpostgres%2Fworkspaces.go&q=saveWorkspaceRecords&limit=10&offset=0",
+      "status": 200,
+      "bytes": 2890,
+      "elapsed_ms": 5.5
+    },
+    {
+      "attempt": 26,
+      "method": "GET",
+      "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82/symbols?file=internal%2Fapplication%2Fmanager.go&q=initialize&limit=10&offset=0",
+      "status": 200,
+      "bytes": 1984,
+      "elapsed_ms": 11.25
+    }
+  ]
+}

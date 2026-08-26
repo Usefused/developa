@@ -1,0 +1,548 @@
+[
+  {
+    "method": "GET",
+    "route": "/api/openapi.json",
+    "response_bytes": 0,
+    "elapsed_ms": 9.798,
+    "failure": "URLError: <urlopen error [Errno 1] Operation not permitted>"
+  },
+  {
+    "method": "GET",
+    "route": "/api/openapi.json",
+    "response_bytes": 429940,
+    "elapsed_ms": 13.415,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/openapi.json",
+    "response_bytes": 429940,
+    "elapsed_ms": 9.449,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories?limit=100&offset=0",
+    "response_bytes": 712,
+    "elapsed_ms": 2.243,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/450a79128f52e6989bcdfd30b0a4afd3bc7ff62d11baa00f2e8b03b726e32df7/features?q=AI-Enabled%20Explorer%20Server&limit=100&offset=0",
+    "response_bytes": 547,
+    "elapsed_ms": 10.922,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/features?q=AI-Enabled%20Explorer%20Server&limit=100&offset=0",
+    "response_bytes": 1752,
+    "elapsed_ms": 1.825,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/features/acaf4314c4b74af2e29e39e5f581260563d0c07661ab72005e4651dbbac91ddf",
+    "response_bytes": 558,
+    "elapsed_ms": 51.667,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/flow?feature_id=acaf4314c4b74af2e29e39e5f581260563d0c07661ab72005e4651dbbac91ddf&depth=12&limit=100",
+    "response_bytes": 69780,
+    "elapsed_ms": 46.486,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols/9629453963a90444d10da4c6957f40ae8cb183d93a9d4fa16750ca592cf8f8eb",
+    "response_bytes": 1738,
+    "elapsed_ms": 2.868,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=mountKnowledge&limit=20&offset=0",
+    "response_bytes": 1711,
+    "elapsed_ms": 57.383,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols/5e1e2a8af68b397be5a064d37acb2ead9e36a6bfe87b5ffda2d13698dde2922a",
+    "response_bytes": 1884,
+    "elapsed_ms": 2.517,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols/fae5a3b806263fc9ecc82bf4f2a687c884b426791061a849db69e76682772933",
+    "response_bytes": 2027,
+    "elapsed_ms": 2.468,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=AnalysisWorker&limit=100&offset=0",
+    "response_bytes": 56219,
+    "elapsed_ms": 22.039,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=Start&file=internal%2Fapplication%2Fanalysisjobs.go&limit=100&offset=0",
+    "response_bytes": 5171,
+    "elapsed_ms": 6.956,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=Queue&file=internal%2Fapplication%2Fanalysisjobs.go&limit=20&offset=0",
+    "response_bytes": 2231,
+    "elapsed_ms": 3.494,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=run&file=internal%2Fapplication%2Fanalysisjobs_run.go&limit=50&offset=0",
+    "response_bytes": 11754,
+    "elapsed_ms": 5.255,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=analyze&file=internal%2Fapplication%2Fanalysisjobs_run.go&limit=50&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 2.828,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=analyze&limit=50&offset=0",
+    "response_bytes": 99468,
+    "elapsed_ms": 21.389,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=generateFeatures&limit=20&offset=0",
+    "response_bytes": 1622,
+    "elapsed_ms": 16.767,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=AutomaticFeatures&limit=50&offset=0",
+    "response_bytes": 7721,
+    "elapsed_ms": 12.833,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=EnsureAnalysis&limit=50&offset=0",
+    "response_bytes": 7439,
+    "elapsed_ms": 14.326,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=analysisEnabled&limit=50&offset=0",
+    "response_bytes": 4721,
+    "elapsed_ms": 16.523,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=connectDatabase&limit=20&offset=0",
+    "response_bytes": 2077,
+    "elapsed_ms": 15.488,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=Discover&file=internal%2Fapplication%2Fintelligence_features.go&limit=50&offset=0",
+    "response_bytes": 7392,
+    "elapsed_ms": 4.965,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=discoverBudgeted&limit=20&offset=0",
+    "response_bytes": 2219,
+    "elapsed_ms": 15.379,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=featureState&file=internal%2Fapplication%2Fintelligence_features_state.go&limit=50&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 5.512,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=finishFeatureRun&limit=20&offset=0",
+    "response_bytes": 1698,
+    "elapsed_ms": 15.639,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=featureState&limit=20&offset=0",
+    "response_bytes": 20281,
+    "elapsed_ms": 25.902,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=answer&file=internal%2Ftransport%2Fhttp%2Fintelligence.go&limit=50&offset=0",
+    "response_bytes": 3261,
+    "elapsed_ms": 16.125,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=Answer&file=internal%2Fapplication%2Fintelligence_answers.go&limit=50&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 2.37,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=Answer&limit=50&offset=0",
+    "response_bytes": 76632,
+    "elapsed_ms": 10.973,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=SaveAnswer&limit=50&offset=0",
+    "response_bytes": 8871,
+    "elapsed_ms": 13.5,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=SaveFeatures&limit=50&offset=0",
+    "response_bytes": 9657,
+    "elapsed_ms": 30.565,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=intelligenceWrite&limit=50&offset=0",
+    "response_bytes": 5182,
+    "elapsed_ms": 6.88,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=authenticate&file=internal%2Ftransport%2Fhttp%2Fexplorer.go&limit=20&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 6.667,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=validMutation&limit=50&offset=0",
+    "response_bytes": 1410,
+    "elapsed_ms": 6.744,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=requireKnowledge&limit=20&offset=0",
+    "response_bytes": 1396,
+    "elapsed_ms": 6.892,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=authenticate&limit=50&offset=0",
+    "response_bytes": 8063,
+    "elapsed_ms": 16.463,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=sameOrigin&limit=50&offset=0",
+    "response_bytes": 6877,
+    "elapsed_ms": 8.325,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=authorized&file=internal%2Ftransport%2Fhttp%2Fauth.go&limit=20&offset=0",
+    "response_bytes": 1962,
+    "elapsed_ms": 2.777,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=traceRequest&limit=20&offset=0",
+    "response_bytes": 1757,
+    "elapsed_ms": 15.36,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=executionTimeout&limit=20&offset=0",
+    "response_bytes": 4501,
+    "elapsed_ms": 17.514,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=recoverRequest&limit=20&offset=0",
+    "response_bytes": 1492,
+    "elapsed_ms": 6.534,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=finishRequest&limit=20&offset=0",
+    "response_bytes": 2065,
+    "elapsed_ms": 13.454,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols/34d6430b7420f015c3524caa3a718048825e117faa7ef162a568f06c7d75a315",
+    "response_bytes": 2251,
+    "elapsed_ms": 2.509,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=begin&file=internal%2Fapplication%2Fintelligence.go&limit=50&offset=0",
+    "response_bytes": 2830,
+    "elapsed_ms": 7.388,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=end&file=internal%2Fapplication%2Fintelligence.go&limit=50&offset=0",
+    "response_bytes": 1883,
+    "elapsed_ms": 3.001,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols/e4617e6d3875d30ce9179c9428f6533191221d49a1a81f5922b1a993c69297aa",
+    "response_bytes": 1460,
+    "elapsed_ms": 2.713,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols/7193c636a093b4e32cb2e002fd55a62013c5d93ecfe7c49fea54d6615337ac11",
+    "response_bytes": 1611,
+    "elapsed_ms": 1.894,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols/c08575a1760c447421db86930e35edf24fcbe00b6823da2b86d6ffb762071886",
+    "response_bytes": 1311,
+    "elapsed_ms": 1.681,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=traceExecution&limit=20&offset=0",
+    "response_bytes": 1730,
+    "elapsed_ms": 17.536,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=appendAudit&limit=20&offset=0",
+    "response_bytes": 2847,
+    "elapsed_ms": 6.725,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=RecordExecution&file=internal%2Fstore%2Fpostgres%2Fintelligence_write.go&limit=20&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 4.236,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=RecordExecution&limit=20&offset=0",
+    "response_bytes": 14365,
+    "elapsed_ms": 12.873,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=startExplorer&limit=20&offset=0",
+    "response_bytes": 2201,
+    "elapsed_ms": 8.376,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=NewManager&limit=20&offset=0",
+    "response_bytes": 3044,
+    "elapsed_ms": 7.346,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=Start&file=internal%2Fapplication%2Fmanager.go&limit=20&offset=0",
+    "response_bytes": 7434,
+    "elapsed_ms": 5.647,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=run&file=internal%2Fapplication%2Fmanager.go&limit=50&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 1.923,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=initialize&file=internal%2Fapplication%2Fmanager.go&limit=20&offset=0",
+    "response_bytes": 1948,
+    "elapsed_ms": 5.236,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=run&limit=100&offset=0",
+    "response_bytes": 203265,
+    "elapsed_ms": 15.555,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/files?q=manager&limit=50&offset=0",
+    "response_bytes": 2529,
+    "elapsed_ms": 25.619,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=PollInterval&file=internal%2Fapplication%2Fmanager_run.go&limit=50&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 3.451,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=run&file=internal%2Fapplication%2Fmanager_execute.go&limit=50&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 4.906,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=run&file=internal%2Fapplication%2Fmanager_queue.go&limit=50&offset=0",
+    "response_bytes": 2005,
+    "elapsed_ms": 5.828,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=answerStream&limit=20&offset=0",
+    "response_bytes": 16592,
+    "elapsed_ms": 14.602,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=streamAnswer&file=internal%2Ftransport%2Fhttp%2Fevents.go&limit=20&offset=0",
+    "response_bytes": 1580,
+    "elapsed_ms": 4.071,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=inferenceCache&file=internal%2Fapplication%2Fintelligence_cache.go&limit=20&offset=0",
+    "response_bytes": 5684,
+    "elapsed_ms": 9.523,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=save&file=internal%2Fapplication%2Fintelligence_model_response.go&limit=50&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 2.158,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/files?q=intelligence_cache&limit=20&offset=0",
+    "response_bytes": 1117,
+    "elapsed_ms": 7.537,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=save&file=internal%2Fapplication%2Fintelligence_cache.go&limit=50&offset=0",
+    "response_bytes": 1898,
+    "elapsed_ms": 6.934,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=CacheAnalysis&file=internal%2Fstore%2Fpostgres%2Fintelligence_cache.go&limit=20&offset=0",
+    "response_bytes": 45,
+    "elapsed_ms": 3.337,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=CacheAnalysis&limit=20&offset=0",
+    "response_bytes": 10533,
+    "elapsed_ms": 15.283,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/capabilities",
+    "response_bytes": 230,
+    "elapsed_ms": 2.506,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/analysis-job",
+    "response_bytes": 526,
+    "elapsed_ms": 9.499,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=capabilities&file=internal%2Ftransport%2Fhttp%2Fintelligence.go&limit=20&offset=0",
+    "response_bytes": 2522,
+    "elapsed_ms": 8.867,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=validateFeatures&file=internal%2Fapplication%2Fintelligence_features.go&limit=20&offset=0",
+    "response_bytes": 2885,
+    "elapsed_ms": 8.704,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=canonicalEvidence&limit=20&offset=0",
+    "response_bytes": 3671,
+    "elapsed_ms": 11.681,
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "route": "/api/repositories/cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732/snapshots/9f4c35dd2def37ee721a7e0b95fa3ab4aec1bc635cc64fbd35b0acbc6bea194f/symbols?q=boundedEvidence&limit=20&offset=0",
+    "response_bytes": 4502,
+    "elapsed_ms": 7.111,
+    "status": 200
+  }
+]

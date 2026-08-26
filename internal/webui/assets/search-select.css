@@ -1,0 +1,20 @@
+.search-select{position:relative;min-width:0;width:100%;font-size:12px;letter-spacing:normal}
+.search-select-trigger{display:flex;align-items:center;gap:12px;width:100%;min-width:0;text-align:left;padding:9px 11px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:7px;font-size:12px;font-weight:400}
+.search-select-value{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-select-value.placeholder{color:var(--faint)}
+.search-select-chevron{display:block;flex:none;width:16px;height:16px;color:var(--muted);pointer-events:none}
+.search-select-trigger[aria-expanded=true]{border-color:var(--accent)}
+.search-select-search{position:relative;flex:none;width:100%;background:var(--surface);color:var(--muted)}
+.search-select-icon{display:block;position:absolute;left:11px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search-select-search input{display:block;box-sizing:border-box;width:100%;min-width:0;margin:0;padding:10px 12px 10px 38px;font-size:12px;border:0;border-bottom:1px solid var(--line);border-radius:0}
+.search-select-search input:focus-visible{outline-offset:-2px}
+.search-select-popup{position:absolute;left:0;right:0;top:calc(100% + 5px);z-index:30;display:flex;flex-direction:column;min-width:0;max-height:320px;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 32px #14241924;padding:0}
+.search-select-options{min-height:0;max-height:235px;overflow:auto;overscroll-behavior:contain;padding:5px}
+.search-select-option{padding:9px 10px;border-radius:5px;color:var(--ink);cursor:pointer;font-weight:400;line-height:1.5;overflow-wrap:anywhere;white-space:normal}
+.search-select-option:hover,.search-select-option.active{background:var(--soft);color:var(--accent)}
+.search-select-option[aria-selected=true]{font-weight:650}
+.search-select-status{flex:none;font-size:10px!important;line-height:1.6!important;color:var(--muted);margin:7px 10px!important}
+.search-select-popup>.text-button{align-self:flex-start;flex:none;margin:5px 10px 9px;font-size:11px;max-width:calc(100% - 20px);white-space:normal}
+.search-select-popup>[aria-disabled=true]{opacity:.55;cursor:wait}
+.search-bar>.search-select{width:170px;flex:none}
+@media(max-width:560px){.search-bar>.search-select{width:auto;flex:1}.search-select-search input{font-size:16px}.search-select-popup{max-height:280px}}

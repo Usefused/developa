@@ -1,0 +1,240 @@
+{
+  "target": "internal/application/workspace_folders.go",
+  "repository_id": "cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732",
+  "snapshot_id": "e3861b1c739b7e83f448dee146af2a8dc539d1dd729ab6bb09468b1083114e4e",
+  "index_version": "4",
+  "original_rubric": [
+    {
+      "id": "B01",
+      "area": "File role/state",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B02",
+      "area": "Declaration coverage",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B03",
+      "area": "Root construction",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B04",
+      "area": "Root API",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B05",
+      "area": "Relative path validation",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B06",
+      "area": "Browse arguments",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B07",
+      "area": "Filesystem confinement",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B08",
+      "area": "Page mechanics",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B09",
+      "area": "Page filtering",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B10",
+      "area": "Next offset",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B11",
+      "area": "Skipping/cancellation",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B12",
+      "area": "Browse final errors",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B13",
+      "area": "Registration input",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B14",
+      "area": "Selected-path confinement",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B15",
+      "area": "Git validation",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B16",
+      "area": "Manager configuration",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B17",
+      "area": "Registration result/errors",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B18",
+      "area": "Telemetry",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B19",
+      "area": "Responsibility boundary",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B20",
+      "area": "Add dependency ordering",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B21",
+      "area": "Durability boundary",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B22",
+      "area": "Consumers/DTOs",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B23",
+      "area": "HTTP result mapping",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    },
+    {
+      "id": "B24",
+      "area": "Test evidence and limitations",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered in the independent report."
+    }
+  ],
+  "additional_acceptance": [
+    {
+      "id": "N01",
+      "area": "Navigable call references",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Used call-site and target references with paths/spans; preserved unresolved interface classification."
+    },
+    {
+      "id": "N02",
+      "area": "Interface candidates and wiring",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Used interface-method candidate pages, preserved conditional evidence, and independently inspected constructor/assignment wiring for WorkspaceManagement and WorkspaceStore."
+    },
+    {
+      "id": "N03",
+      "area": "Concrete database transaction",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Recovered transaction begin/commit, advisory capacity lock, set-based upsert, audit/outbox in the same transaction, and the earlier EnsureRepository side effect outside that transaction."
+    },
+    {
+      "id": "N04",
+      "area": "API body/location coverage",
+      "points": 1,
+      "maximum": 1,
+      "assessment": "Reported API inspection and completeness for every target executable body; supplied file, physical spans and full target IDs. No target was truncated, so the new source-chunk route was not needed."
+    },
+    {
+      "id": "N05",
+      "area": "Supporting guard verification",
+      "points": 0.5,
+      "maximum": 1,
+      "assessment": "Correctly recovered body decoding and validation rules but did not inspect jsonContentType. It said workspaceBody requires JSON without recording that an absent Content-Type is accepted. It no longer made trial 2\u2019s false test-quality claim."
+    }
+  ],
+  "original_total": 24,
+  "original_maximum": 24,
+  "additional_total": 4.5,
+  "additional_maximum": 5,
+  "combined_total": 28.5,
+  "combined_maximum": 29,
+  "metrics": {
+    "attempts": 89,
+    "successes": 87,
+    "no_response": 1,
+    "not_found": 1,
+    "response_bytes": 490891,
+    "summed_http_ms": 851.714,
+    "openapi_requests": 0
+  },
+  "accuracy_notes": [
+    {
+      "severity": "minor",
+      "finding": "The report repeatedly cited internal/persistence/postgres/... and once internal/application/workspace_persistence.go; the API references use internal/store/postgres/... and internal/application/workspaces_persistence.go. Symbol IDs, lines and bodies were otherwise the intended declarations."
+    },
+    {
+      "severity": "omission",
+      "finding": "The reusable jsonContentType helper was not requested, so absent Content-Type acceptance was not recovered."
+    }
+  ],
+  "isolation": "Instruction-based API-only isolation, supported by the ledger and agent statement; not an independent OS-level checkout removal.",
+  "inference_requests": 0
+}

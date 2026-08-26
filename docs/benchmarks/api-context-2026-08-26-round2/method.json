@@ -1,0 +1,18 @@
+{
+  "trial": "Fresh API-only context retrieval with preloaded contract",
+  "target": "internal/application/workspace_folders.go",
+  "repository_id": "cd106ad658f4cd3b9b86829ca9fef7f62d8be9fb75e0f366755d66aafa197732",
+  "snapshot_id": "70201cf592374b624f0ec7609643cc5979a7aa3d81534a277f4349c96408af82",
+  "source_sha256": "47f90e47f09358bc9a609a93196342f9382c417926bf03e53275cce0cdfea0a3",
+  "baseline": "../api-context-2026-08-26/baseline.json",
+  "baseline_sha256": "a039f1f864a0b4f1bf757ae03c16896840af94f17720a8666f19eb077ab89f70",
+  "reference": "api-reference.md",
+  "reference_sha256": "ca1aff2936b4f48ae5bee67aee2c226ce6fe7ce927f7db639e5e1779f25329f2",
+  "preloaded_reference_body_bytes": 3768,
+  "context_isolation": "fork_turns=none; original findings and scoring criteria not supplied",
+  "source_access": "HTTP GET only; direct source/filesystem/Git/database reads forbidden by instructions, not removed by an OS sandbox",
+  "discovery": "API briefing supplied in task; all OpenAPI/spec discovery forbidden",
+  "mutations_and_inference": "Forbidden",
+  "scoring": "Original frozen 24-point rubric; first independent report only",
+  "measurement": "Log each attempt before rendering output; transfer bytes, inspected content, summed HTTP time and wall time separate"
+}

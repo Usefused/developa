@@ -1,0 +1,56 @@
+{
+  "trial1": {
+    "attempts": 26,
+    "confirmed_successes": 24,
+    "known_response_bytes_lower_bound": 1056093,
+    "discovery_attempts": 4,
+    "confirmed_discovery_successes": 2,
+    "known_discovery_bytes_lower_bound": 788494,
+    "context_successes": 22,
+    "context_response_bytes": 267599,
+    "details_response_bytes": 93473,
+    "source_metadata_relationship_bytes": 174126,
+    "checklist_score": 24
+  },
+  "trial2": {
+    "attempts": 31,
+    "confirmed_successes": 30,
+    "response_bytes": 266103,
+    "discovery_attempts": 0,
+    "context_successes": 30,
+    "context_response_bytes": 266103,
+    "details_response_bytes": 93473,
+    "source_metadata_relationship_bytes": 172630,
+    "preloaded_reference_body_bytes": 3768,
+    "checklist_score": 23.5,
+    "supporting_code_incorrect_inferences": 1,
+    "reported_wall_ms": 326345,
+    "summed_http_ms": 347.136
+  },
+  "comparison": {
+    "known_transfer_reduction_bytes": 789990,
+    "known_transfer_reduction_percent": 74.8031,
+    "context_transfer_reduction_bytes": 1496,
+    "context_transfer_reduction_percent": 0.559,
+    "context_successful_request_increase": 8,
+    "interpretation": "Rediscovery removed; context-only bytes essentially unchanged with more smaller calls. Briefing bytes are additional prompt context. Not model token counts or a controlled latency comparison."
+  },
+  "preserved_artifacts": {
+    "agent-report.md": {
+      "bytes": 32145,
+      "sha256": "e068ebb74a2166bcc73fbf64c3fdc77e73b55bb94ac41a23ae0a41bdfbf0c4fa"
+    },
+    "requests.json": {
+      "bytes": 15650,
+      "sha256": "c12ed40cd54789613924486bd963d13b94b8c70c444ae393c6ce0dd15a2b03d4"
+    }
+  },
+  "protocol_audit": {
+    "ledger_all_GET": true,
+    "ledger_all_exact_snapshot": true,
+    "ledger_no_discovery_routes": true,
+    "ledger_totals_recomputed": true,
+    "source_and_baseline_unchanged": true,
+    "direct_file_read_prohibition": "Instruction-based, not capability isolation; compliance statement and ledger are not a complete tool audit."
+  }
+}
