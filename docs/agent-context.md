@@ -18,6 +18,18 @@ Do not substitute a newer snapshot midway through an investigation. If a publica
 
 Read `/details` for source exclusions, diagnostics, call analysis, and completeness limitations. Configuration flags from `/api/repositories/{repository}/capabilities` do not prove that a model is currently available. A missing symbol, empty result page, or unresolved call does not by itself establish that the behavior is absent.
 
+## Read a feature in one bounded call
+
+Search the saved feature index with `/features?q=...`, then request:
+
+```text
+/features/{feature}/context?source_limit=20&depth=6&flow_limit=80
+```
+
+The response keeps four layers explicit: the inferred feature claim, canonical source declarations with captured bodies and physical positions, a resolved static feature flow, and limitations. This GET performs no inference. It uses a constant three set-based SQL reads, so feature evidence count does not create N+1 access. `source_limit` is bounded from 1 through 20, `depth` from 1 through 12, and `flow_limit` from 1 through 100.
+
+Use the source declarations to inspect what the cited functions actually do. Use the nested flow to locate callers, callees, entry evidence, shared dependencies, cycles, unresolved counts, and truncation. Do not treat the feature title or summary as proof, or the flow as runtime ordering. If a retained declaration is truncated, continue through its `/symbols/{symbol}/source` endpoint.
+
 ## Find declarations and inspect their dependencies
 
 Start with bounded `/symbols?q=...`, `/files`, or `/context?q=...` requests. Narrow a symbol search by `kind` or `file` when appropriate. Read `/symbols/{symbol}` for the declaration, signature, documentation, and source preview. Follow result pages with `limit` and `offset`; respect `total` and any explicit truncation fields.

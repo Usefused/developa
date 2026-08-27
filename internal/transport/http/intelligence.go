@@ -1,7 +1,9 @@
 package httptransport
 
 import (
+	"errors"
 	"net/http"
+	"net/url"
 
 	"developa/internal/domain"
 	"github.com/go-chi/chi/v5"
@@ -19,6 +21,7 @@ func (e *Explorer) mountKnowledge(router chi.Router) {
 		api.Get("/context", e.context)
 		api.Get("/features", e.features)
 		api.Get("/features/{feature}", e.feature)
+		api.Get("/features/{feature}/context", e.featureContext)
 		api.Post("/answers", e.answer)
 		api.Post("/answers/stream", e.answerStream)
 		api.Post("/answers/lookup", e.savedAnswer)
@@ -103,6 +106,47 @@ func (e *Explorer) feature(w http.ResponseWriter, r *http.Request) {
 	}
 	feature, err := e.Knowledge.Feature(r.Context(), e.RepositoryID, chi.URLParam(r, "snapshot"), id)
 	respond(w, feature, err)
+}
+
+func (e *Explorer) featureContext(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "feature")
+	options, err := parseFeatureContextOptions(r)
+	if err != nil || !validID(id) {
+		writeStatus(w, http.StatusBadRequest, "invalid_filter")
+		return
+	}
+	if e.FeatureContexts == nil {
+		writeError(w, domain.ErrNotConfigured)
+		return
+	}
+	bundle, err := e.FeatureContexts.FeatureContext(r.Context(), chi.URLParam(r, "snapshot"), id, options)
+	respond(w, bundle, err)
+}
+
+func parseFeatureContextOptions(r *http.Request) (domain.FeatureContextOptions, error) {
+	query := r.URL.Query()
+	if !onlyQueryKeys(query, "source_limit", "depth", "flow_limit") {
+		return domain.FeatureContextOptions{}, domain.ErrInvalidInput
+	}
+	var options domain.FeatureContextOptions
+	var sourceErr, depthErr, flowErr error
+	options.SourceLimit, sourceErr = boundedInteger(query.Get("source_limit"), 20, 1, 20)
+	options.Depth, depthErr = boundedInteger(query.Get("depth"), 6, 1, 12)
+	options.FlowLimit, flowErr = boundedInteger(query.Get("flow_limit"), 80, 1, 100)
+	return options, errors.Join(sourceErr, depthErr, flowErr)
+}
+
+func onlyQueryKeys(query url.Values, allowed ...string) bool {
+	known := make(map[string]bool, len(allowed))
+	for _, key := range allowed {
+		known[key] = true
+	}
+	for key, values := range query {
+		if !known[key] || len(values) != 1 || values[0] == "" {
+			return false
+		}
+	}
+	return true
 }
 
 func (e *Explorer) generateFeatures(w http.ResponseWriter, r *http.Request) {

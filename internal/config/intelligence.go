@@ -28,8 +28,11 @@ func loadIntelligence(lookup lookupEnv, cfg *Config) error {
 func loadOllamaModels(lookup lookupEnv, cfg *Config) error {
 	cfg.OllamaModel = value(lookup, "OLLAMA_MODEL", "")
 	cfg.OllamaAnalysisModel = value(lookup, "OLLAMA_ANALYSIS_MODEL", cfg.OllamaModel)
+	cfg.OllamaFeatureModel = value(lookup, "OLLAMA_FEATURE_MODEL", cfg.OllamaAnalysisModel)
+	cfg.OllamaReviewModel = value(lookup, "OLLAMA_REVIEW_MODEL", cfg.OllamaAnalysisModel)
 	cfg.OllamaAnswerModel = value(lookup, "OLLAMA_ANSWER_MODEL", cfg.OllamaModel)
-	models := map[string]string{"OLLAMA_MODEL": cfg.OllamaModel, "OLLAMA_ANALYSIS_MODEL": cfg.OllamaAnalysisModel, "OLLAMA_ANSWER_MODEL": cfg.OllamaAnswerModel}
+	models := map[string]string{"OLLAMA_MODEL": cfg.OllamaModel, "OLLAMA_ANALYSIS_MODEL": cfg.OllamaAnalysisModel, "OLLAMA_FEATURE_MODEL": cfg.OllamaFeatureModel,
+		"OLLAMA_REVIEW_MODEL": cfg.OllamaReviewModel, "OLLAMA_ANSWER_MODEL": cfg.OllamaAnswerModel}
 	for name, model := range models {
 		if strings.ContainsRune(model, 0) || len(model) > 128 {
 			return fmt.Errorf("%s must be a valid model name of at most 128 bytes", name)

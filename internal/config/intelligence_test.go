@@ -101,14 +101,25 @@ func TestBackgroundIndexConfiguration(t *testing.T) {
 }
 
 func TestPurposeSpecificModelsOverrideSharedFallback(t *testing.T) {
-	settings := map[string]string{"DATABASE_URL": "postgres://localhost/db", "OLLAMA_MODEL": "shared", "OLLAMA_ANALYSIS_MODEL": "small-analysis", "OLLAMA_ANSWER_MODEL": "answer-model"}
+	settings := map[string]string{"DATABASE_URL": "postgres://localhost/db", "OLLAMA_MODEL": "shared", "OLLAMA_ANALYSIS_MODEL": "small-analysis", "OLLAMA_FEATURE_MODEL": "feature-model", "OLLAMA_REVIEW_MODEL": "review-model", "OLLAMA_ANSWER_MODEL": "answer-model"}
 	cfg, err := load(environment(settings))
-	if err != nil || cfg.OllamaAnalysisModel != "small-analysis" || cfg.OllamaAnswerModel != "answer-model" {
+	if err != nil || cfg.OllamaFeatureModel != "feature-model" || cfg.OllamaReviewModel != "review-model" || cfg.OllamaAnswerModel != "answer-model" {
 		t.Fatal("task-specific models were not selected")
 	}
-	delete(settings, "OLLAMA_ANALYSIS_MODEL")
-	cfg, err = load(environment(settings))
-	if err != nil || cfg.OllamaAnalysisModel != "shared" || cfg.OllamaAnswerModel != "answer-model" {
+}
+
+func TestFeatureAndReviewModelsFallBackThroughLegacyAnalysisRole(t *testing.T) {
+	settings := map[string]string{"DATABASE_URL": "postgres://localhost/db", "OLLAMA_MODEL": "shared", "OLLAMA_ANALYSIS_MODEL": "small-analysis", "OLLAMA_ANSWER_MODEL": "answer-model"}
+	cfg, err := load(environment(settings))
+	if err != nil || cfg.OllamaFeatureModel != "small-analysis" || cfg.OllamaReviewModel != "small-analysis" {
+		t.Fatal("legacy analysis model must remain the feature and review fallback")
+	}
+}
+
+func TestPurposeModelsFallBackToSharedModel(t *testing.T) {
+	settings := map[string]string{"DATABASE_URL": "postgres://localhost/db", "OLLAMA_MODEL": "shared", "OLLAMA_ANSWER_MODEL": "answer-model"}
+	cfg, err := load(environment(settings))
+	if err != nil || cfg.OllamaAnalysisModel != "shared" || cfg.OllamaFeatureModel != "shared" || cfg.OllamaReviewModel != "shared" || cfg.OllamaAnswerModel != "answer-model" {
 		t.Fatal("legacy model must be a fallback, not override task routing")
 	}
 }
@@ -131,8 +142,8 @@ func TestAutomaticFeaturesRequireSeparateOptIn(t *testing.T) {
 }
 
 func TestIndependentModelRoleCanBeConfiguredWithoutFallback(t *testing.T) {
-	cfg, err := load(environment(map[string]string{"DATABASE_URL": "postgres://localhost/db", "OLLAMA_ANALYSIS_MODEL": "small-analysis"}))
-	if err != nil || cfg.OllamaAnalysisModel != "small-analysis" || cfg.OllamaAnswerModel != "" {
+	cfg, err := load(environment(map[string]string{"DATABASE_URL": "postgres://localhost/db", "OLLAMA_FEATURE_MODEL": "strong-feature"}))
+	if err != nil || cfg.OllamaFeatureModel != "strong-feature" || cfg.OllamaReviewModel != "" || cfg.OllamaAnswerModel != "" {
 		t.Fatal("one model role must not implicitly enable the other")
 	}
 }

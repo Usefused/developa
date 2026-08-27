@@ -7,6 +7,7 @@ import {Shell} from '../components/shell.jsx';
 import {Access} from '../components/access.jsx';
 import {Settings} from '../components/settings.jsx';
 import {ProjectHeading} from '../components/project-heading.jsx';
+import {AskAIProvider} from '../components/intelligence/ask-ai.jsx';
 import {ErrorNotice,EmptyState} from '../components/common.jsx';
 
 export default function WorkspaceRoute() { return <SessionProvider><Workspace/></SessionProvider>; }
@@ -28,13 +29,13 @@ function ConnectedWorkspace({shared}) {
   const project = useProject();
   const selection = useSnapshot(project.data);
   const value = {...shared,project:project.data,snapshot:selection.snapshot,refreshProject:project.refresh,scanQueued:project.scanQueued,scanning:project.scanning};
-  return <WorkspaceContext.Provider value={value}><Shell {...shared} project={project.data} snapshot={selection.snapshot}>
+  return <WorkspaceContext.Provider value={value}><AskAIProvider><Shell {...shared} project={project.data} snapshot={selection.snapshot}>
     <ErrorNotice error={project.error || selection.error}/>
     {project.data && <section id="workspace">{project.data.repository?.id && <ProjectHeading/>}
       {selection.snapshot ? <Outlet/> : <WorkspaceWaiting project={project.data}/>}
       <footer className="workspace-footer"><span>Facts from source, not guesses.</span><span>Snapshot-pinned browsing</span></footer>
     </section>}
-  </Shell></WorkspaceContext.Provider>;
+  </Shell></AskAIProvider></WorkspaceContext.Provider>;
 }
 
 function WorkspaceWaiting({project}) {

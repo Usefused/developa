@@ -126,6 +126,7 @@ export class API {
   chain(snapshot, id, filters, signal) { return this.get(this.path(snapshot,`symbols/${encodeURIComponent(id)}/chain?${query(filters)}`),signal); }
   features(snapshot, filters, signal) { return this.get(this.path(snapshot,`features?${query(filters)}`),signal); }
   feature(snapshot, id, signal) { return this.get(this.path(snapshot,`features/${encodeURIComponent(id)}`),signal); }
+  featureContext(snapshot, id, options, signal) { return this.get(this.path(snapshot,`features/${encodeURIComponent(id)}/context?${query(options)}`),signal); }
   analysisJob(snapshot, signal) { return this.get(this.path(snapshot,'analysis-job'),signal); }
   discover(snapshot, signal) { return this.request(this.path(snapshot,'features/generate'),{method:'POST',signal}); }
   answer(snapshot, request, signal) { return this.request(this.path(snapshot,'answers'),{method:'POST',body:JSON.stringify(request),signal}); }

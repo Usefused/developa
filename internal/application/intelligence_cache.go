@@ -11,7 +11,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-const featureTask = "Identify concrete capabilities evidenced by this batch. Return zero to eight concise features, each citing supporting symbol IDs. DATA:\n"
+const featureTask = `Identify product capabilities evidenced by this code batch. A capability is behavior that a user, operator, API client, or coding agent can rely on; it is not merely a function name or an implementation detail. Consolidate related declarations into the smallest useful set of capabilities and cite every supporting symbol needed for the claim. Summaries must explain what the capability enables, the implementation path visible in the evidence, and material boundaries or failure behavior. Return zero features when the batch contains only generic helpers or insufficient evidence. Never promote names or comments over contradictory implementation. DATA:
+`
 
 type modelResolver interface {
 	ResolveModel(context.Context) (string, error)
@@ -30,7 +31,7 @@ type modelResponse struct {
 }
 
 func (s *IntelligenceService) featureBatchData(ctx context.Context, state *featureState, facts json.RawMessage) (modelResponse, error) {
-	batch, err := s.inferenceCache(ctx, "features-v1", featureTask, featureSchema, facts)
+	batch, err := s.inferenceCache(ctx, "features-v2", featureTask, featureSchema, facts)
 	if err != nil {
 		return batch, err
 	}

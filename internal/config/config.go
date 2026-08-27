@@ -38,6 +38,8 @@ type Config struct {
 	OllamaURL              string
 	OllamaModel            string
 	OllamaAnalysisModel    string
+	OllamaFeatureModel     string
+	OllamaReviewModel      string
 	OllamaAnswerModel      string
 	OllamaCloud            bool
 	OllamaAPIKey           string `json:"-"`

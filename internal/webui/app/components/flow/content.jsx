@@ -2,7 +2,7 @@ import {lazy,Suspense} from 'react';
 import {flowTitle} from '../../../flow-source/model.js';
 import {usePageNavigation} from '../../hooks/use-workspace.jsx';
 import {EmptyState} from '../common.jsx';
-import {Explanation} from '../intelligence/explanation.jsx';
+import {AskAIButton} from '../intelligence/ask-ai-button.jsx';
 
 const Diagram = lazy(()=>import('../../../flow-source/entry.js').then(module=>({default:module.FlowDiagram})));
 
@@ -13,7 +13,7 @@ export function FlowContent({flow,feature}) {
     <div className="flow-summary"><span className="detail-tag">{flow.mode === 'feature' ? 'INFERRED FEATURE · STATIC CALLS' : 'STATIC CALLS · NO AI'}</span><span>{flow.nodes.length} declarations · {flow.edges.length} resolved call sites · snapshot {flow.snapshot_id.slice(0,8)}</span>
       {flow.truncated && <p className="flow-warning">Partial view: a traversal or size limit was reached. Increase depth or trace from a function.</p>}</div>
     {flow.nodes.length ? <Suspense fallback={<p role="status">Loading flow renderer…</p>}><Diagram key={JSON.stringify(flow.options)} flow={flow} actions={actions}/></Suspense> : <EmptyState title="No flow evidence found">Open a function from Code blocks to trace it.</EmptyState>}
-    <FlowLimitations flow={flow}/><Explanation target={{type:'flow',options:flow.options}}/>
+    <FlowLimitations flow={flow}/><AskAIButton target={{type:'flow',options:flow.options,title:feature?.title || flowTitle(flow)}}/>
   </>;
 }
 

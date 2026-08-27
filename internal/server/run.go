@@ -79,7 +79,7 @@ func connectDatabase(ctx context.Context, cfg config.Config) (*postgres.Store, e
 	store, err := postgres.Open(ctx, postgres.Config{
 		URL: cfg.DatabaseURL, MaxConns: cfg.DatabaseMaxConns,
 		MinConns: cfg.DatabaseMinConns, ConnectTimeout: cfg.DatabaseConnectTimeout,
-		AnalysisEnabled: cfg.AIIndexEnabled && cfg.AIAutoFeatures && cfg.OllamaAnalysisModel != "",
+		AnalysisEnabled: cfg.AIIndexEnabled && cfg.AIAutoFeatures && cfg.OllamaFeatureModel != "",
 	})
 	if err != nil {
 		telemetry.Fail(span, "database_unavailable")

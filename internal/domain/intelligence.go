@@ -94,6 +94,32 @@ type FeaturePage struct {
 	Offset        int         `json:"offset"`
 }
 
+// FeatureContextOptions bounds the source and call-graph portions of an
+// agent-ready feature read independently. A smaller source limit does not
+// silently shrink the graph, and vice versa.
+type FeatureContextOptions struct {
+	SourceLimit int `json:"source_limit"`
+	Depth       int `json:"depth"`
+	FlowLimit   int `json:"flow_limit"`
+}
+
+// FeatureContextBundle keeps the inferred claim separate from canonical
+// source records and static call evidence so consumers can preserve their
+// different confidence levels.
+type FeatureContextBundle struct {
+	RepositoryID string                `json:"repository_id"`
+	SnapshotID   string                `json:"snapshot_id"`
+	Options      FeatureContextOptions `json:"options"`
+	Feature      Feature               `json:"feature"`
+	Source       ContextPack           `json:"source"`
+	Flow         CodeFlow              `json:"flow"`
+	Limitations  []string              `json:"limitations"`
+}
+
+type FeatureContextService interface {
+	FeatureContext(context.Context, string, string, FeatureContextOptions) (FeatureContextBundle, error)
+}
+
 type AnswerRequest struct {
 	Question  string       `json:"question"`
 	SymbolID  string       `json:"symbol_id,omitempty"`

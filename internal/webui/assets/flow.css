@@ -64,7 +64,5 @@
 .flow-outline li{padding:7px 0;overflow-wrap:anywhere}
 .flow-outline li>span{font-size:10px;display:block}
 .flow-limitations li{margin-bottom:6px}
-.flow-view>.explanation-panel{padding:18px;border:1px solid var(--line);background:var(--surface);border-radius:10px}
-.flow-view>.explanation-panel .explanation-result{max-height:500px;overflow:auto}
 @media(prefers-reduced-motion:reduce){.flow-canvas .react-flow__node-function,.flow-canvas .react-flow__edge{transition:none}}
 @media(max-width:700px){.flow-toolbar{gap:10px}.flow-navigator{padding:10px;flex-wrap:wrap}.flow-picker{flex-basis:100%;max-width:none}.flow-navigator>span{display:none}.flow-canvas{height:520px}.flow-minimap{display:none}.flow-depth{font-size:10px}.flow-modes button{padding:6px 10px}.flow-card{box-shadow:none}.flow-feature-picker{max-width:none;flex-basis:100%}}

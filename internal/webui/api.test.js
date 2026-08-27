@@ -76,6 +76,15 @@ test('reading saved callee reviews is a scoped GET without model execution',asyn
   assert.equal(call.options.body,undefined);
 });
 
+test('feature context is one repository and snapshot scoped GET with explicit bounds',async()=>{
+  let call;
+  const api = new API(async(path,options)=>{call={path,options};return {ok:true,json:async()=>({feature:{id:'feature'}})};}).forRepository('repository');
+  await api.featureContext('snapshot','feature',{source_limit:20,depth:6,flow_limit:80});
+  assert.equal(call.path,'/api/repositories/repository/snapshots/snapshot/features/feature/context?source_limit=20&depth=6&flow_limit=80');
+  assert.equal(call.options.method,undefined);
+  assert.equal(call.options.body,undefined);
+});
+
 test('saved explanation lookup keeps its question in the body and uses the selected repository',async()=>{
   let call;
   const api = new API(async(path,options)=>{call={path,options};return {ok:true,json:async()=>({answer:null})};});

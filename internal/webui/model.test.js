@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {chainLevels} from './assets/chains.js';
-import {generationLabel,modelDisclosure,jobActive,analysisPolicy} from './assets/intelligence.js';
-import {explanationRequest} from './assets/explanation.js';
+import {generationLabel,jobActive} from './assets/intelligence.js';
 import {editorHref,editorLocation,roomGroups,parameterText,query,pageLabel,projectRefreshInterval,snapshotPin} from './assets/model.js';
 import {goSourceLines} from './code-source/go.js';
 import {reviewRequest,reviewable,reviewRange} from './assets/reviews.js';
@@ -140,37 +139,6 @@ test('feature action resumes incomplete coverage rather than implying a full rer
   assert.equal(generationLabel(null,{status:'failed'}),'Retry analysis');
   assert.equal(jobActive({status:'queued'}),true);
   assert.equal(jobActive({status:'completed'}),false);
-});
-
-test('inference disclosure distinguishes disabled, local, and explicit cloud modes',()=>{
-  assert.match(modelDisclosure({ollama_configured:false}),/Set OLLAMA_ANALYSIS_MODEL/);
-  assert.match(modelDisclosure({ollama_configured:true,ollama_cloud:false}),/local Ollama/);
-  assert.match(modelDisclosure({ollama_configured:true,ollama_cloud:true}),/sends selected source excerpts to ollama.com/);
-});
-
-test('explanations scope the request to one declaration or the selected feature evidence',()=>{
-  const symbol = explanationRequest({type:'symbol',id:'function-A'});
-  const feature = explanationRequest({type:'feature',id:'feature-B'});
-  assert.equal(symbol.symbol_id,'function-A');
-  assert.equal(symbol.feature_id,undefined);
-  assert.equal(feature.feature_id,'feature-B');
-  assert.equal(feature.symbol_id,undefined);
-  assert.match(feature.question,/unsupported parts/);
-});
-
-test('flow explanations send the displayed traversal selector through the answer API',()=>{
-  const options = {symbol_id:'function-A',depth:8,limit:40};
-  const request = explanationRequest({type:'flow',id:'selected-flow',options});
-  assert.deepEqual(request.flow,options);
-  assert.equal(request.symbol_id,undefined);
-  assert.equal(request.feature_id,undefined);
-  assert.match(request.question,/static call flow/);
-  assert.match(request.question,/do not invent execution ordering/);
-});
-
-test('analysis policy distinguishes explicit requests and optional automation',()=>{
-  assert.match(analysisPolicy({}),/when you request it/);
-  assert.match(analysisPolicy({automatic_features:true}),/once per clean commit/);
 });
 
 test('routine UI refresh stays at two minutes independently of engine scans',()=>{

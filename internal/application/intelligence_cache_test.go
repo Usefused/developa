@@ -124,7 +124,7 @@ func TestFeatureCacheInvalidatesSourceModelPolicyAndRepositoryChanges(t *testing
 
 func TestFeatureCacheKeyIncludesExactFactsAndSchemaScope(t *testing.T) {
 	facts := json.RawMessage(`[{"id":"one","source":"first"}]`)
-	key := inferenceCacheKey("repo", "model", "policy", "features-v1", featureTask, featureSchema, facts)
+	key := inferenceCacheKey("repo", "model", "policy", "features-v2", featureTask, featureSchema, facts)
 	cases := []struct {
 		name          string
 		schema, facts json.RawMessage
@@ -134,7 +134,7 @@ func TestFeatureCacheKeyIncludesExactFactsAndSchemaScope(t *testing.T) {
 		{"output contract", json.RawMessage(`{"type":"object"}`), facts},
 	}
 	for _, tc := range cases {
-		if key == inferenceCacheKey("repo", "model", "policy", "features-v1", featureTask, tc.schema, tc.facts) {
+		if key == inferenceCacheKey("repo", "model", "policy", "features-v2", featureTask, tc.schema, tc.facts) {
 			t.Fatalf("changed %s shared a cache key", tc.name)
 		}
 	}

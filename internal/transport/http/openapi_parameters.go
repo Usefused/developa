@@ -59,6 +59,9 @@ func sourceParameters() []apiSchema {
 func flowParameters() []apiSchema {
 	return []apiSchema{idParameter("symbol_id"), idParameter("feature_id"), integerParameter("depth", 6, 1, 12), integerParameter("limit", 80, 1, 100)}
 }
+func featureContextParameters() []apiSchema {
+	return []apiSchema{pathParameter("feature"), integerParameter("source_limit", 20, 1, 20), integerParameter("depth", 6, 1, 12), integerParameter("flow_limit", 80, 1, 100)}
+}
 func reviewParameters() []apiSchema {
 	return []apiSchema{idParameter("symbol_id"), idParameter("callee_of"), integerParameter("limit", 4, 1, 8), integerParameter("offset", 0, 0, 100000)}
 }

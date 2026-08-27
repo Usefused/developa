@@ -1,0 +1,1 @@
+import{w as o,p as t,z as e,A as s}from"./chunk-62JRHF6Z-BWL0w8Bf.js";import{i as a}from"./routes-UcyOAXX4.js";const n=o(function(){return t.jsx(e,{replace:!0,to:a(s().search)})});export{n as default};

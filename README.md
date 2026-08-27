@@ -119,17 +119,18 @@ See [agent context retrieval](docs/agent-context.md), [flow API](docs/flow-api.m
 
 ## Ollama
 
-Working-tree indexing makes no model calls. Comments and documentation supply the default function summary. Configure separate models for background feature analysis and interactive answers:
+Working-tree indexing makes no model calls. Comments and documentation supply the default function summary. Configure models by purpose so feature discovery can use stronger code reasoning without applying that cost to every review:
 
 ```sh
 export OLLAMA_URL='http://127.0.0.1:11434'
-export OLLAMA_ANALYSIS_MODEL='your-smaller-model:tag'
+export OLLAMA_FEATURE_MODEL='your-strong-coding-model:tag'
+export OLLAMA_REVIEW_MODEL='your-smaller-review-model:tag'
 export OLLAMA_ANSWER_MODEL='your-answer-model:tag'
 export AI_TIMEOUT='120s'
 denverr serve
 ```
 
-Each role falls back to `OLLAMA_MODEL` when its dedicated setting is empty. An unconfigured role disables only that inference path. Local mode verifies installed model metadata, rejects cloud-backed aliases and public addresses, disables proxy redirects, and pins the selected weights digest.
+`OLLAMA_FEATURE_MODEL` and `OLLAMA_REVIEW_MODEL` fall back through the legacy `OLLAMA_ANALYSIS_MODEL`, then `OLLAMA_MODEL`. `OLLAMA_ANSWER_MODEL` falls back directly to `OLLAMA_MODEL`. An unconfigured role disables only that inference path. Local mode verifies installed model metadata, rejects cloud-backed aliases and public addresses, disables proxy redirects, and pins the selected weights digest.
 
 Ollama Cloud is an explicit opt-in that sends selected source excerpts and questions to Ollama:
 
@@ -137,7 +138,8 @@ Ollama Cloud is an explicit opt-in that sends selected source excerpts and quest
 export OLLAMA_CLOUD=true
 export OLLAMA_BASE_URL='https://ollama.com/v1/'
 export OLLAMA_API_KEY='loaded-from-a-secret-manager'
-export OLLAMA_ANALYSIS_MODEL='gpt-oss:20b'
+export OLLAMA_FEATURE_MODEL='kimi-k2.7-code'
+export OLLAMA_REVIEW_MODEL='gpt-oss:20b'
 export OLLAMA_ANSWER_MODEL='deepseek-v4-flash:0731'
 denverr serve
 ```

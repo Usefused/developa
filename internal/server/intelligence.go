@@ -15,16 +15,20 @@ func repositoryExplorer(store *postgres.Store, manager *application.Manager, cfg
 	if err != nil {
 		return nil, nil, err
 	}
-	analysis, err := intelligenceService(store, repo, cfg, cfg.OllamaAnalysisModel)
+	features, err := intelligenceService(store, repo, cfg, cfg.OllamaFeatureModel)
 	if err != nil {
 		return nil, nil, err
 	}
-	worker, err := analysisWorker(store, analysis, repo, cfg, admission)
+	reviews, err := intelligenceService(store, repo, cfg, cfg.OllamaReviewModel)
 	if err != nil {
 		return nil, nil, err
 	}
-	reviewer, _ := analysis.(domain.FunctionReviewer)
-	return &httptransport.Explorer{Catalog: store, Tracker: manager, RepositoryID: repo, Token: cfg.APIKey, Knowledge: store,
+	worker, err := analysisWorker(store, features, repo, cfg, admission)
+	if err != nil {
+		return nil, nil, err
+	}
+	reviewer, _ := reviews.(domain.FunctionReviewer)
+	return &httptransport.Explorer{Catalog: store, Tracker: manager, RepositoryID: repo, Token: cfg.APIKey, Knowledge: store, FeatureContexts: application.NewFeatureContexts(store, repo),
 		Intelligence: answers, Reviewer: reviewer, OllamaCloud: cfg.OllamaCloud, Jobs: worker, AutomaticFeatures: cfg.AIAutoFeatures}, worker, nil
 }
 

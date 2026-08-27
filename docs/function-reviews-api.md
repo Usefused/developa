@@ -51,7 +51,7 @@ A POST makes at most **one generation call**. The input budget can reduce the pa
 
 Each short review receives its own signature (including returns), captured implementation, compiled comments, and parameter positions/names/types. It does not fetch neighboring implementations or infer their behavior from names. Missing/truncated evidence is labeled. For a contextual explanation including resolved callers and callees, use the answer endpoint with `symbol_id`.
 
-Reviews use `OLLAMA_ANALYSIS_MODEL`; freeform questions and flow explanations continue to use `OLLAMA_ANSWER_MODEL`. Existing `OLLAMA_TIMEOUT` / `AI_TIMEOUT` deadlines still apply. Batching limits work but cannot guarantee that a slow model never times out.
+Reviews use `OLLAMA_REVIEW_MODEL`, falling back through the legacy `OLLAMA_ANALYSIS_MODEL`; freeform questions and flow explanations use `OLLAMA_ANSWER_MODEL`. Existing `OLLAMA_TIMEOUT` / `AI_TIMEOUT` deadlines still apply. Batching limits work but cannot guarantee that a slow model never times out.
 
 Validated reviews are cached independently per function, keyed by repository, exact bounded evidence, full declaration content hash, supplied parameter metadata, prompt/schema, inference policy, and verified model revision. Shared callees and different batch boundaries reuse results. Source line shifts reuse inference with citations rebound to the requested snapshot. Changed evidence/model revisions invalidate the relevant entries. Unknown model revisions do not use the inference cache. Resolving a model's revision can perform metadata requests even on a cache hit; it sends no source for inference.
 

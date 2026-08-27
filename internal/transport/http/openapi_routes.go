@@ -45,6 +45,7 @@ func snapshotAPIEndpoints() []apiEndpoint {
 		{Method: "GET", Path: "/context", ID: "context", Summary: "Retrieve a bounded lexical source context pack", Parameters: []apiSchema{textParameter("q", 2000), integerParameter("limit", 12, 1, 20)}, Response: domain.ContextPack{}, Description: "Deterministic SQL retrieval; never invokes Ollama. An empty query is allowed."},
 		{Method: "GET", Path: "/features", ID: "features", Summary: "Read cached inferred features", Parameters: pageParameters(24), Response: domain.FeaturePage{}, Description: "No inference. saved_snapshot is a navigation hint to older cached results, not evidence for the requested snapshot. Follow that snapshot explicitly."},
 		{Method: "GET", Path: "/features/{feature}", ID: "feature", Summary: "Read an inferred feature and its source evidence", Parameters: []apiSchema{pathParameter("feature")}, Response: domain.Feature{}},
+		{Method: "GET", Path: "/features/{feature}/context", ID: "featureContext", Summary: "Read agent-ready context for one feature", Parameters: featureContextParameters(), Response: domain.FeatureContextBundle{}, Description: "One bounded composition of the inferred feature claim, canonical source declarations, and its resolved static call flow. Uses three set-based SQL reads regardless of evidence or graph size and never invokes Ollama. Inspect limitations and the nested flow limitations before making completeness or runtime-order claims."},
 	}
 	return append(endpoints, intelligenceAPIEndpoints()...)
 }

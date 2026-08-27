@@ -8,7 +8,7 @@ import {Resource,Button,Section} from '../common.jsx';
 import {Members} from './members.jsx';
 import {EditorActions} from './editor-actions.jsx';
 import {SourceViewer} from './source-viewer.jsx';
-import {Explanation} from '../intelligence/explanation.jsx';
+import {AskAIButton} from '../intelligence/ask-ai-button.jsx';
 import {FunctionReviews,SavedReview} from '../intelligence/function-reviews.jsx';
 
 export function SymbolPanel({id}) {
@@ -24,7 +24,7 @@ function SymbolDetails({item,snapshot,open,go,updated}) {
   return <><span className="section-kicker">INSIDE THE BLOCK</span><h2 className="detail-name">{symbol.name}</h2><p className="detail-location">{item.path}:{symbol.span.start.line}:{symbol.span.start.column}</p>
     <div className="detail-tags">{[kindLabel(symbol.kind),symbol.visibility,'Go'].map(tag=><span className="detail-tag" key={tag}>{tag}</span>)}</div><pre className="signature">{symbol.signature}</pre>
     <Section title="Source summary" className="source-summary-section"><p className="source-summary">{sourceSummary(symbol) || 'No source comments available for this declaration.'}</p>{documentationWarning(symbol) && <p className="muted-note">{documentationWarning(symbol)}</p>}</Section>
-    {item.review && <SavedReview review={item.review}/>}<Explanation target={{type:'symbol',id:symbol.id}}/><Members symbol={symbol} review={item.review} open={open}/>
+    {item.review && <SavedReview review={item.review}/>}<AskAIButton target={{type:'symbol',id:symbol.id,title:symbol.name}}/><Members symbol={symbol} review={item.review} open={open}/>
     {reviewable(symbol) && <FunctionReviews item={item} updated={updated}/>}<EditorActions item={item}/><Relationships item={item} go={go}/>
     {symbol.source && <details className="source-disclosure"><summary>Captured implementation</summary><SourceViewer symbol={symbol} path={item.path}/></details>}
     <div className="detail-foot">SNAPSHOT {shortHash(snapshot.id)} · SOURCE {shortHash(symbol.source_id)}<br/>Physical UTF-8 byte columns · syntax analysis</div>

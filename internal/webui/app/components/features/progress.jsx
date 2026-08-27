@@ -1,4 +1,4 @@
-import {generationLabel,jobActive,analysisPolicy,modelDisclosure} from '../../../assets/intelligence.js';
+import {generationLabel,jobActive} from '../../../assets/intelligence.js';
 import {featurePageChanged} from '../../../assets/feature-state.js';
 import {useSession} from '../../hooks/use-session.jsx';
 import {useWorkspace} from '../../hooks/use-workspace.jsx';
@@ -21,9 +21,8 @@ export function FeatureProgress({page,capabilities,refresh,refreshing}) {
       return result;
     });
   }
-  return <><section className="analysis-overview"><div className="analysis-heading"><h2>Capabilities with evidence</h2><Button className="primary-button" onClick={generate} disabled={queue.pending || !capabilities.analysis_jobs || jobActive(job)}>{queue.pending ? 'Queueing analysis…' : generationLabel(page.run,job)}</Button></div>
-    <p>Model-generated descriptions are inferences. Review the cited implementation before relying on a claim.</p><p className="model-setup">{modelDisclosure(capabilities)}</p>
-    <div className="feature-progress" role="status"><span className="detail-tag">{job?.status || 'not_queued'}</span><p>{analysisPolicy(capabilities)}</p><JobStats job={job}/></div>
+  return <><section className="analysis-overview"><div className="analysis-heading"><div><span className="section-kicker">FEATURE INDEX</span><h2>Capabilities with evidence</h2></div><Button className="primary-button" onClick={generate} disabled={queue.pending || !capabilities.analysis_jobs || jobActive(job)}>{queue.pending ? 'Queueing analysis…' : generationLabel(page.run,job)}</Button></div>
+    <div className="feature-progress" role="status">{job?.id && <span className="detail-tag">{job.status}</span>}<JobStats job={job}/></div>
     <RunSummary run={page.run}/><ErrorNotice error={queue.error || error}/></section>
     <div className="feature-refresh"><p className="muted-note">{featurePageChanged(page,job) ? 'New results are saved. Refresh when you are ready to load them.' : 'Showing saved results. Live progress does not move or replace these cards.'}</p><Button disabled={refreshing} onClick={refresh}>Refresh saved features</Button></div>
   </>;

@@ -7,8 +7,31 @@ import (
 	"strings"
 	"testing"
 
+	"developa/internal/application"
 	"developa/internal/domain"
 )
+
+func TestIntegrationFeatureContextBundleHasConstantQueryBudget(t *testing.T) {
+	store, counter := catalogFixture(t)
+	report := catalogReport(t, 100, "feature-context-bundle")
+	snapshot := saveReport(t, store, "repo", report)
+	for _, count := range []int{1, 10, 16} {
+		feature := featureFixture(1, report.Index.Files[0].Symbols[0].ID)[0]
+		feature.Evidence = nil
+		for _, file := range report.Index.Files[:count] {
+			feature.Evidence = append(feature.Evidence, domain.Citation{SymbolID: file.Symbols[0].ID})
+		}
+		saveFeatureFixture(t, store, snapshot, fmt.Sprintf("bundle-run-%d", count), []domain.Feature{feature})
+		counter.Store(0)
+		bundle, err := application.NewFeatureContexts(store, "repo").FeatureContext(context.Background(), snapshot.ID, feature.ID, domain.FeatureContextOptions{SourceLimit: 5})
+		if err != nil || counter.Load() != 3 {
+			t.Fatalf("feature bundle query budget changed with %d evidence records: queries=%d err=%v", count, counter.Load(), err)
+		}
+		if bundle.Source.Total != count || len(bundle.Source.Items) != min(5, count) || bundle.Flow.Options.FeatureID != feature.ID {
+			t.Fatal("feature bundle lost canonical evidence or feature flow scope")
+		}
+	}
+}
 
 func TestIntegrationFeatureContextCanonicalAndConstantQueryBudget(t *testing.T) {
 	store, counter := catalogFixture(t)

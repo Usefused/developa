@@ -17,6 +17,7 @@ type Explorer struct {
 	RepositoryID        string
 	Token               string
 	Knowledge           domain.IntelligenceStore
+	FeatureContexts     domain.FeatureContextService
 	Intelligence        domain.Intelligence
 	Reviewer            domain.FunctionReviewer
 	Jobs                domain.AnalysisQueue

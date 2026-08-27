@@ -404,4 +404,4 @@ This is one agent-facing MCP tool invocation, but it deliberately produces sever
 
 Dynamic looping does not remove the MCP 1 MiB execution-result limit. Cap symbols, call pages and source chunks; return explicit omitted IDs and truncation state. A typical feature should fit in one invocation. The agent can make a deliberate continuation call for a very large feature rather than receiving silently incomplete context.
 
-If the desired interface is instead one literal `call("code.feature_context")` with no TypeScript orchestration, then a server-side Denverr `featureContext` physical endpoint is still required because the declarative Unified binding graph itself has no loop field in fused-cli 0.17.1.
+Denverr now exposes the physical `GET /features/{feature}/context` endpoint. A Unified Operation can bind `code.feature_context` directly to that endpoint when the default bounded source and flow payload is sufficient. Keep the orchestration above only when the Unified Operation must fetch larger source continuations or apply a different result-size policy.

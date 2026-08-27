@@ -79,6 +79,6 @@ func workspaceCommandOverrides(databaseURL string) map[string]string {
 	return map[string]string{
 		"DATABASE_URL": databaseURL, "WORKSPACE_ROOTS": "", "REPOSITORIES": "", "REPOSITORY_PATH": "", "REPOSITORY_NAME": "",
 		"DENVERR_API_TOKEN": "", "OLLAMA_CLOUD": "false", "OLLAMA_URL": "", "OLLAMA_BASE_URL": "", "OLLAMA_API_KEY": "",
-		"OLLAMA_MODEL": "", "OLLAMA_ANALYSIS_MODEL": "", "OLLAMA_ANSWER_MODEL": "", "AI_INDEX_ENABLED": "false", "AI_AUTO_FEATURES": "false",
+		"OLLAMA_MODEL": "", "OLLAMA_ANALYSIS_MODEL": "", "OLLAMA_FEATURE_MODEL": "", "OLLAMA_REVIEW_MODEL": "", "OLLAMA_ANSWER_MODEL": "", "AI_INDEX_ENABLED": "false", "AI_AUTO_FEATURES": "false",
 	}
 }

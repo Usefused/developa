@@ -18,7 +18,8 @@ import HomeRoute from './app/routes/home.jsx';
 import {SourceViewer} from './app/components/details/source-viewer.jsx';
 import {Workspace} from './app/routes/workspace.jsx';
 import './session.test.jsx';
-import {Explanation} from './app/components/intelligence/explanation.jsx';
+import {AskAIButton} from './app/components/intelligence/ask-ai-button.jsx';
+import {AskAIProvider,conversationQuestion} from './app/components/intelligence/ask-ai.jsx';
 import {FunctionReviews} from './app/components/intelligence/function-reviews.jsx';
 import {EditorLink} from './app/components/editor-link.jsx';
 import {EditorActions} from './app/components/details/editor-actions.jsx';
@@ -39,15 +40,16 @@ function environment(t) {
 }
 
 function fixtureAPI() {
-  const state = {reads:0,subscriptions:0,aborts:0,posts:0};
+  const state = {reads:0,contextReads:0,flowReads:0,subscriptions:0,aborts:0,posts:0};
   const api = {
     features:async()=>{state.reads++;return saved;},
     savedAnswer:async()=>({answer:null}),
     capabilities:async()=>({analysis_jobs:true}),
     details:async()=>({snapshot,changes:[]}),
     files:async()=>({items:[],offset:0,limit:24,total:0}),
-    flow:async(_id,options)=>({snapshot_id:snapshot.id,options,mode:'feature',nodes:[],edges:[],limitations:[]}),
+    flow:async(_id,options)=>{state.flowReads++;return {snapshot_id:snapshot.id,options,mode:'feature',nodes:[],edges:[],limitations:[]};},
     feature:async(_id,id)=>({id,title:`Feature ${id}`,summary:'Saved evidence',evidence:[]}),
+    featureContext:async(_id,id)=>{state.contextReads++;const symbol={id:'symbol-one',name:'LoadWorkspace',kind:'function',signature:'func LoadWorkspace() error',documentation:{summary:'Loads a saved workspace and validates its repository.'},span:{start:{line:14,column:1}}};return {repository_id:'repo',snapshot_id:snapshot.id,options:{source_limit:20,depth:6,flow_limit:80},feature:{id,title:'Saved feature',summary:'Already persisted',evidence:[]},source:{total:1,truncated:false,items:[{path:'workspace.go',symbol}]},flow:{snapshot_id:snapshot.id,nodes:[{path:'workspace.go',symbol,seed:true,incoming_count:0,outgoing_count:1,unresolved_count:0,description:'Loads a saved workspace and validates its repository.'}],edges:[],limitations:[],truncated:false},limitations:[]};},
     discover:async()=>{state.posts++;throw new Error('fixture unavailable');},
     analysisStream:(_id,receive,signal)=>{
       state.subscriptions++;state.receive = receive;
@@ -167,6 +169,20 @@ test('React feature SSE preserves cards and only explicit refresh reloads saved 
   await click(button('Refresh saved features'),dom);
   assert.equal(state.reads,2);
   assert.equal(document.querySelector('.feature-card'),card);
+});
+
+test('selecting a feature opens its agent-ready implementation context before the graph',async t=>{
+  const {root,dom} = environment(t);
+  const {api,state} = fixtureAPI();
+  const router = testRouter(api);
+  t.after(()=>router.dispose());
+  await act(async()=>root.render(<RouterProvider router={router}/>));
+  await click(document.querySelector('.feature-card'),dom);
+  assert.equal(state.contextReads,1);
+  assert.equal(state.flowReads,0);
+  assert.match(document.querySelector('.feature-workspace').textContent,/How the code supports this feature/);
+  assert.match(document.querySelector('.feature-support-card').textContent,/Loads a saved workspace and validates its repository/);
+  assert.match(router.state.location.search,/feature=feature/);
 });
 
 test('routed navigation aborts SSE and back navigation uses saved cache without inference',async t=>{
@@ -374,59 +390,72 @@ test('legacy links pin the default repository and manual scans use the selected 
 
 function explanationView(api, cache, id='function-one') {
   return <SessionContext.Provider value={{api,cache}}><WorkspaceContext.Provider value={{snapshot,preferences:{root:'',editor:'vscode'}}}>
-    <Explanation target={{type:'symbol',id}}/>
+    <AskAIProvider><AskAIButton target={{type:'symbol',id,title:id}}/></AskAIProvider>
   </WorkspaceContext.Provider></SessionContext.Provider>;
 }
 
-test('explanation starts with only a button and restores saved content without inference',async t=>{
+test('Ask AI opens contextual chat and invokes the model only after a question',async t=>{
   const {root,dom} = environment(t);
-  let stored = null, generations = 0;
+  let generations = 0, request;
   const api = {
-    capabilities:async()=>({answers:true,ollama_cloud:true}),
-    savedAnswer:async()=>({answer:stored}),
-    answerStream:async()=>{generations++;stored={id:'answer',snapshot_id:snapshot.id,text:'Explains this function.',model:'fixture',evidence:[]};return stored;},
+    answerStream:async(_snapshot,value)=>{generations++;request=value;return {id:'answer',snapshot_id:snapshot.id,text:'Explains this function.',model:'fixture',evidence:[],limitations:[]};},
   };
   await act(async()=>root.render(explanationView(api,new ReadCache())));
-  assert.equal(document.querySelector('[aria-label="AI explanation"] h3').textContent,'AI explanation');
-  assert.equal(button('Explain function behavior').disabled,false);
-  await click(button('Explain function behavior'),dom);
-  assert.match(document.querySelector('.explanation-result').textContent,/Explains this function/);
-  assert.equal(button('Explanation saved').disabled,true);
-  await act(async()=>root.render(null));
-  api.capabilities = async()=>({answers:false});
-  await act(async()=>root.render(explanationView(api,new ReadCache())));
-  assert.match(document.querySelector('.explanation-result').textContent,/Explains this function/);
+  assert.equal(generations,0);
+  await click(button('Ask AI about this function'),dom);
+  assert.ok(document.querySelector('.ask-ai-window'));
+  assert.equal(generations,0);
+  await click(button('Explain this function'),dom);
+  assert.match(document.querySelector('.ask-ai-message.assistant').textContent,/Explains this function/);
+  assert.equal(request.symbol_id,'function-one');
+  assert.match(request.question,/parameters/);
   assert.equal(generations,1);
-  assert.doesNotMatch(document.body.textContent,/Only when requested|Matching saved explanations/);
 });
 
-test('explanation hides background lookup failures until the user requests inference',async t=>{
-  const {root} = environment(t);
+test('Ask AI follow-up context stays within the server UTF-8 byte bound',()=>{
+  const messages = [{role:'assistant',text:'😀'.repeat(1000)},{role:'user',text:'latest question'}];
+  const question = conversationQuestion(messages);
+  assert.ok(new globalThis.TextEncoder().encode(question).length <= 2000);
+  assert.match(question,/latest question$/);
+});
+
+test('Ask AI restores a matching saved contextual answer without new inference',async t=>{
+  const {root,dom} = environment(t);
+  let generations = 0;
+  const answer = {snapshot_id:snapshot.id,text:'Previously saved explanation.',evidence:[],limitations:[],cached:true};
+  const api = {savedAnswer:async()=>({answer}),answerStream:async()=>{generations++;return answer;}};
+  await act(async()=>root.render(explanationView(api,new ReadCache())));
+  await click(button('Ask AI about this function'),dom);
+  assert.match(document.querySelector('.ask-ai-message.assistant').textContent,/Previously saved explanation/);
+  assert.equal(generations,0);
+});
+
+test('Ask AI keeps several contextual popup chats open at once',async t=>{
+  const {root,dom} = environment(t);
+  const api = {answerStream:async()=>({snapshot_id:snapshot.id,text:'answer',evidence:[],limitations:[]})};
+  const view = <SessionContext.Provider value={{api,cache:new ReadCache()}}><WorkspaceContext.Provider value={{snapshot,preferences:{root:'',editor:'vscode'}}}><AskAIProvider>
+    <AskAIButton target={{type:'symbol',id:'function-one',title:'LoadWorkspace'}}/><AskAIButton target={{type:'feature',id:'feature-one',title:'Workspace indexing'}}/>
+  </AskAIProvider></WorkspaceContext.Provider></SessionContext.Provider>;
+  await act(async()=>root.render(view));
+  await click(button('Ask AI about this function'),dom);
+  await click(button('Ask AI about this feature'),dom);
+  assert.equal(document.querySelectorAll('.ask-ai-window').length,2);
+  assert.match(document.body.textContent,/LoadWorkspace/);
+  assert.match(document.body.textContent,/Workspace indexing/);
+});
+
+test('closing an Ask AI popup cancels its in-flight contextual request',async t=>{
+  const {root,dom} = environment(t);
+  let signal;
   const api = {
-    capabilities:async()=>{ throw new Error('capability lookup failed'); },
-    savedAnswer:async()=>{ throw new Error('saved answer lookup failed'); },
+    answerStream:(_snapshot,_request,value)=>new Promise(resolve=>{signal=value;value.addEventListener('abort',resolve,{once:true});}),
   };
   await act(async()=>root.render(explanationView(api,new ReadCache())));
-  assert.ok(button('Explain function behavior'));
-  assert.equal(document.querySelector('.error-banner'),null);
-  assert.doesNotMatch(document.body.textContent,/lookup failed/);
-});
-
-test('switching function aborts saved explanation reads and discards late previous content',async t=>{
-  const {root} = environment(t);
-  const pending = {};
-  const cache = new ReadCache();
-  const api = {
-    capabilities:async()=>({answers:true}),
-    savedAnswer:(_snapshot,request,signal)=>new Promise(resolve=>{pending[request.symbol_id]={signal,resolve};}),
-  };
-  await act(async()=>root.render(explanationView(api,cache,'old')));
-  await act(async()=>root.render(explanationView(api,cache,'new')));
-  assert.equal(pending.old.signal.aborted,true);
-  await act(async()=>pending.new.resolve({answer:null}));
-  await act(async()=>pending.old.resolve({answer:{text:'Wrong function'}}));
-  assert.equal(document.querySelector('.explanation-result'),null);
-  assert.equal(button('Explain function behavior').disabled,false);
+  await click(button('Ask AI about this function'),dom);
+  await click(button('Explain this function'),dom);
+  await click(document.querySelector('[aria-label="Close chat"]'),dom);
+  assert.equal(signal.aborted,true);
+  assert.equal(document.querySelector('.ask-ai-window'),null);
 });
 
 test('function review offers one clearly scoped action without preflight policy copy or empty callee details',async t=>{
